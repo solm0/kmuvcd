@@ -1,8 +1,10 @@
 import React from 'react';
 
 async function fetchData() {
-  const res = await fetch('https://my-strapi-project-j0s0.onrender.com/api/restaurants');
-  
+  const res = await fetch('https://my-strapi-project-j0s0.onrender.com/api/restaurants', {
+    cache: 'no-store', // Prevent caching during development
+  });
+
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -18,16 +20,22 @@ export default async function BoardPage() {
       return <p>No data available or failed to load.</p>;
     }
 
+    interface Post {
+      id?: number;
+      Name?: string;
+      Description?: { children?: { text?: string }[] }[];
+    }
+
     return (
       <div>
         <h1>Restaurant Data</h1>
         <ul>
-          {data.map((post:any) => (
+          {data.map((post: Post) => (
             <li key={post.id}>
               <h2>{post.Name}</h2>
-              {post.Description.map((desc:any, index: number) => (
+              {post.Description?.map((desc, index) => (
                 <div key={index}>
-                  {desc.children.map((child:any, index:number) => (
+                  {desc.children?.map((child, index) => (
                     <p key={index}>{child.text}</p>
                   ))}
                 </div>
