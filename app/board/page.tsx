@@ -12,7 +12,6 @@ async function fetchData() {
 }
 
 export default async function BoardPage() {
-  try {
     const data = await fetchData();
 
     if (!data || data.length === 0) {
@@ -23,12 +22,12 @@ export default async function BoardPage() {
       <div>
         <h1>Restaurant Data</h1>
         <ul>
-          {data.map((post) => (
+          {data.map((post:any) => (
             <li key={post.id}>
               <h2>{post.Name}</h2>
-              {post.Description.map((desc, index) => (
+              {post.Description.map((desc:any, index: number) => (
                 <div key={index}>
-                  {desc.children.map((child, index) => (
+                  {desc.children.map((child:any, index:number) => (
                     <p key={index}>{child.text}</p>
                   ))}
                 </div>
@@ -38,8 +37,4 @@ export default async function BoardPage() {
         </ul>
       </div>
     );
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return <p>Error loading data...</p>;
-  }
 }
