@@ -18,7 +18,7 @@ interface Post {
 }
 
 export default async function Page() {
-    const data = await fetchData<Post>('events');
+    const data = await fetchData<Post>('events?populate=*');
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
