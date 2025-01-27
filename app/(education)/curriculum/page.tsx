@@ -42,7 +42,7 @@ export default async function Page() {
             </div>
             <h1 className='text-2l pb-8'>교과목</h1>
             {data_2.map((post: Post) => (
-                <div key={post.id} className='rounded-lg bg-gray-100 p-8'>
+                <div key={post.id} className='rounded-lg bg-gray-100 p-8 mb-4'>
                     <p>name: {post.name}</p>
                     <p>credits: {post.credits}</p>
                     <p>subject: {post.subject}</p>
