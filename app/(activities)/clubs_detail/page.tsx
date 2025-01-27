@@ -1,33 +1,21 @@
 import { Metadata } from 'next';
+import { fetchData } from '@/app/lib/fetchData';
 
 export const metadata: Metadata = {
     title: '동아리',
 };
 
-async function fetchData() {
-    const res = await fetch('https://my-strapi-project-j0s0.onrender.com/api/clubs', {
-      cache: 'no-store', // Prevent caching during development
-    });
-  
-    if (!res.ok) {
-      throw new Error('Failed to fetch data');
-    }
-  
-    const json = await res.json();
-    return json.data;
+interface Post {
+    id?: number;
+    name?: string;
+    content?: string;
 }
 
 export default async function Page() {
-    const data = await fetchData();
+    const data = await fetchData<Post>('clubs');
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
-    }
-
-    interface Post {
-        id?: number;
-        name?: string;
-        content?: string;
     }
 
     return (

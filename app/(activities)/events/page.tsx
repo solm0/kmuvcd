@@ -1,39 +1,27 @@
 import { Metadata } from 'next';
+import { fetchData } from '@/app/lib/fetchData';
 
 export const metadata: Metadata = {
     title: '이벤트',
 };
 
-async function fetchData() {
-    const res = await fetch('https://my-strapi-project-j0s0.onrender.com/api/events?populate=*', {
-      cache: 'no-store', // Prevent caching during development
-    });
-  
-    if (!res.ok) {
-      throw new Error('Failed to fetch data');
-    }
-  
-    const json = await res.json();
-    return json.data;
+interface Post {
+    id?: number;
+    name?: string;
+    content?: string;
+    link?: string;
+    Event?: {
+        startDate?: string;
+        endDate?: string;
+        location?: string;
+    }[];
 }
 
 export default async function Page() {
-    const data = await fetchData();
+    const data = await fetchData<Post>('events');
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
-    }
-
-    interface Post {
-        id?: number;
-        name?: string;
-        content?: string;
-        link?: string;
-        Event?: {
-            startDate?: string;
-            endDate?: string;
-            location?: string;
-        }[];
     }
 
     return (
