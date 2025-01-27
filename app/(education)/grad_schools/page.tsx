@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 interface Post {
     id?: number;
     name?: string;
-    description?: {children?: { text?: string}[] }[];
+    description?: string;
     content?: string;
     website?: string;
 }
@@ -26,13 +26,7 @@ export default async function Page() {
             {data.map((post: Post) => (
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>
-                    <div>description: 
-                        {post.description?.map((block, idx) => (
-                            <p key={idx}>{block.children?.map((child, idx) => (
-                                <span key={idx}>{child.text}</span>
-                            ))}</p>
-                        ))}
-                    </div>
+                    <p>description: {post.description}</p>
                     <p>content: {post.content}</p>
                     <p>website: <a href={post.website} target="_blank" rel="noopener noreferrer">{post.website}</a></p>
                 </div>
