@@ -11,11 +11,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-          <div className="w-1/2">
+        <div className="flex h-screen flex-col md:flex-row">
+          <div className="w-1/2 overflow-hidden">
             <SideNav />
           </div>
-          <div className="w-1/2 p-12">{children}</div>
+          <div className="w-1/2 p-12 overflow-y-scroll">{children}</div>
       </div>
       </body>
     </html>
