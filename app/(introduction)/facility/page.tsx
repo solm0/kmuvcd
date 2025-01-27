@@ -30,6 +30,7 @@ export default async function Page() {
     return (
         <div>
             <h1 className="text-2xl pb-8">시설 소개</h1>
+            <p>로그인 후 클릭해 상세 페이지로 이동 가능</p>
             {data.map((post: Post) => (
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>

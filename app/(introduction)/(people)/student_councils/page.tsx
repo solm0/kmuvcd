@@ -21,7 +21,7 @@ export default async function Page() {
 
     return (
         <div>
-            <h1 className="text-2xl pb-8">교직원</h1>
+            <h1 className="text-2xl pb-8">학생회</h1>
             {data.map((post: Post) => (
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>
