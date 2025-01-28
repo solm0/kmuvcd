@@ -22,7 +22,7 @@ export default async function Page() {
     return (
         <div>
             <h1 className='text-2xl pb-8'>동아리 소개</h1>
-            <p>'로그인 후 더보기' 버튼, 로그인/회원가입 페이지로 리다이렉트</p>
+            <p>&apos;로그인 후 더보기&apos; 버튼, 로그인/회원가입 페이지로 리다이렉트</p>
             {data.map((post: Post) => (
                 <div key={post.id} className='rounded-lg bg-gray-100 p-8'>
                     <p>name:{post.name}</p>
