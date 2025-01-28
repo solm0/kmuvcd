@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchData } from '@/app/lib/fetchData';
+import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 
 export const metadata: Metadata = {
     title: '시설 소개',
@@ -21,7 +21,7 @@ interface Post {
 }
 
 export default async function Page() {
-    const data = await fetchData<Post>('facility-overviews?populate=photo');
+    const data = await fetchCMSData<Post>('facility-overviews?populate=photo') as Post[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchSgData } from '@/app/lib/fetchSgData';
+import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 
 export const metadata: Metadata = {
     title: '복/부전공',
@@ -12,7 +12,7 @@ interface Post {
 }
 
 export default async function Page() {
-    const data = await fetchSgData<Post>('double-major-and-minor');
+    const data = await fetchCMSData<Post>('double-major-and-minor') as Post;
 
     if (!data) {
         return <p>No data available or failed to load.</p>;

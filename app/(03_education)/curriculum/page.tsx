@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
-import { fetchSgData } from '@/app/lib/fetchSgData';
-import { fetchData } from '@/app/lib/fetchData';
+import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 
 export const metadata: Metadata = {
     title: '교육과정',
@@ -20,19 +19,16 @@ interface Post {
 }
 
 export default async function Page() {
-    const data_1 = await fetchSgData<Post>('curriculum');
+    const data_1 = await fetchCMSData<Post>('curriculum') as Post;
+    const data_2 = await fetchCMSData<Post[]>('courses') as Post[];
 
     if (!data_1) {
         return <p>No data available or failed to load.</p>;
     }
-
-    const data_2 = await fetchData<Post>('courses');
-
-    if (!data_2) {
+    if (!data_2 || data_2.length === 0) {
         return <p>No data available or failed to load.</p>;
     }
 
-    
     return (
         <div>
             <h1 className='text-2xl pb-8'>교육과정</h1>

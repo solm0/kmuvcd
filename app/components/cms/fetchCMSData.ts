@@ -1,4 +1,4 @@
-export async function fetchData<T>(url: string): Promise<T[]> {
+export async function fetchCMSData<T>(url: string): Promise<T | T[]> {
   const res = await fetch(`https://my-strapi-project-j0s0.onrender.com/api/${url}`, { cache: 'force-cache' });
 
   if (!res.ok) {

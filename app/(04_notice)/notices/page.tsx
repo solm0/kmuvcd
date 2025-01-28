@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchData } from '@/app/lib/fetchData';
+import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import ReactMarkdown from 'react-markdown';
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ interface Post {
 }
 
 export default async function Page() {
-    const data = await fetchData<Post>('notices');
+    const data = await fetchCMSData<Post>('notices') as Post[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;

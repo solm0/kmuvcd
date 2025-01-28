@@ -1,5 +1,5 @@
 import "./globals.css";
-import SideNav from "./ui/sidenav";
+import SideNav from "./components/ui/sidenav";
 
 
 

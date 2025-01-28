@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchData } from '@/app/lib/fetchData';
+import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import React from 'react';
@@ -31,7 +31,7 @@ interface Post {
 }
 
 export default async function Page() {
-    const data = await fetchData<Post>('exhibitions?populate=media_and_text.media');
+    const data = await fetchCMSData<Post>('exhibitions?populate=media_and_text.media') as Post[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
