@@ -1,5 +1,5 @@
 export async function fetchSgData<T>(url: string): Promise<T> {
-  const res = await fetch(`https://my-strapi-project-j0s0.onrender.com/api/${url}`, { cache: 'no-store' });
+  const res = await fetch(`https://my-strapi-project-j0s0.onrender.com/api/${url}`, { cache: 'force-cache' });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');

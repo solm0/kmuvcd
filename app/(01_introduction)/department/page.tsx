@@ -12,11 +12,13 @@ interface Post {
     content?: string;
 }
 
-interface PageProps {
-    data: Post; // Define the type for the props
-}
+export default async function Page() {
+    const data = await fetchSgData<Post>('department-introduction');
 
-export default function Page({ data }: PageProps) {
+    if (!data) {
+        return <p>No data available or failed to load.</p>;
+    }
+
     return (
         <div>
             <h1 className='text-2xl pb-8'>학과 소개</h1>
@@ -30,18 +32,4 @@ export default function Page({ data }: PageProps) {
                 </div>
         </div>
     );
-}
-
-export async function getStaticProps() {
-    const data = await fetchSgData<Post>('department-introduction');
-
-    if (!data) {
-        return <p>No data available or failed to load.</p>;
-    }
-
-    return {
-        props: {
-            data,
-        },
-    }
 }
