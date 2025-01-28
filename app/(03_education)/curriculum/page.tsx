@@ -9,7 +9,6 @@ interface Post {
     id?: number;
     name?: string;
     content?: string;
-    
     credits?: number;
     subject?: string;
     format?: string;
