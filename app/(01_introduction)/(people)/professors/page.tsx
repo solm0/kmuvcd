@@ -33,6 +33,7 @@ export default async function Page() {
     return (
         <div>
             <h1 className='text-2xl pb-8'>교수진</h1>
+            <p>개인 홈페이지 있을 경우 카드 형태로 함께 기재</p>
             {data.map((post: Post) => (
                 <div key={post.id} className='rounded-lg bg-gray-100 p-8 mb-4'>
                     <p>name: {post.name}</p>
