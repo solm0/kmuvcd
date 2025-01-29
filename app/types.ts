@@ -1,7 +1,6 @@
 export interface PostProps {
   id?: number;
   name?: string;
-  description?: string;
   content?: string;
   url?: string;
   education?: string;
@@ -17,10 +16,8 @@ export interface PostProps {
   mandatory?: boolean;
   grade?: number;
   author?: string;
-  photo?: MediaProps;
-  photos?: MediaProps[];
+  thumbnail?: MediaProps;
   Event?: EventProps[];
-  media_and_text?: MediaAndTextProps[];
   website?: WebsiteProps[];
 }
 
@@ -35,13 +32,6 @@ export interface EventProps {
     tag?: string;
   }[];
   poster?: MediaProps[];
-}
-
-export interface MediaAndTextProps {
-  id: number;
-  upper_text?: string;
-  lower_text?: string;
-  media?: MediaProps[];
 }
 
 export interface MediaProps {

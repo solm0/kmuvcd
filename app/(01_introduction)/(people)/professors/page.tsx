@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('professors?populate=photo&populate=website') as PostProps[];
+    const data = await fetchCMSData<PostProps>('professors?populate=thumbnail&populate=website') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -34,9 +34,9 @@ export default async function Page() {
                             ))}
                         </div>
                     )}
-                    {post.photo &&
-                        <div>photo:
-                            <ImageMedia media={post.photo} size='thumbnail' />
+                    {post.thumbnail &&
+                        <div>thumbnail:
+                            <ImageMedia media={post.thumbnail} size='thumbnail' />
                         </div>
                     }
                 </div>

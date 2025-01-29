@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('facility-overviews?populate=photos') as PostProps[];
+    const data = await fetchCMSData<PostProps>('facility-overviews?populate=thumbnail&populate=content') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -21,17 +21,13 @@ export default async function Page() {
             {data.map((post: PostProps) => (
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>
-                    <p>room_number: {post.room_number}</p>
-                    <p>description: {post.description}</p>
-                    <p>content: {post.content}</p>
-                    
-                    {post.photos && post.photos.length > 0 && (
-                        <div>photos:
-                            {post.photos.map((photo) => (
-                                <ImageMedia key={photo.id} media={photo} size='medium'/>
-                            ))}
+                    {post.thumbnail && (
+                        <div>thumbnail:
+                            <ImageMedia media={post.thumbnail} size='thumbnail' />
                         </div>
                     )}
+                    <p>room_number: {post.room_number}</p>
+                    <p>content: {post.content}</p>
                 </div>
             ))}
         </div>

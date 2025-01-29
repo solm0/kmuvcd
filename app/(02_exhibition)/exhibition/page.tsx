@@ -1,14 +1,13 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
-import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
     title: '전시',
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('exhibitions?populate=media_and_text.media') as PostProps[];
+    const data = await fetchCMSData<PostProps>('exhibitions?populate=content') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -21,22 +20,7 @@ export default async function Page() {
             {data.map((post: PostProps) => (
                 <div key={post.id} className='rounded-lg bg-gray-100 p-8'>
                     <p>name: {post.name}</p>
-                    <div>
-                        {post.media_and_text?.map((item) => (
-                            <div key={item.id}>
-                                <MdText markdown={item.upper_text || " "}/>
-                                {item.media?.map((mediaItem) => (
-                                    <img
-                                        key={mediaItem.id}
-                                        src={mediaItem.formats?.large?.url}
-                                        alt={mediaItem.alternativeText || 'Image'}
-                                        className="mt-4"
-                                    />
-                                ))}
-                                <MdText markdown={item.lower_text || " "}/>
-                            </div>
-                        ))}
-                    </div>
+                    
                 </div>
             ))}
         </div>

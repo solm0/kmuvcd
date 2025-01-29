@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('staffs') as PostProps[];
+    const data = await fetchCMSData<PostProps>('staffs?populate=content') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -19,7 +19,6 @@ export default async function Page() {
             {data.map((post: PostProps) => (
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>
-                    <p>description: {post.description}</p>
                     <p>location: {post.location}</p>
                     <p>phone: {post.phone}</p>
                     <p>email: {post.email}</p>

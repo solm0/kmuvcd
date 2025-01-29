@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('student-councils') as PostProps[];
+    const data = await fetchCMSData<PostProps>('student-councils?populate=content') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -20,7 +20,6 @@ export default async function Page() {
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>
                     <p>semester: {post.semester}</p>
-                    <p>description: {post.description}</p>
                 </div>
             ))}
         </div>
