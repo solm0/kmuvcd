@@ -1,18 +1,13 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
+import { PostProps } from '@/app/types';
 
 export const metadata: Metadata = {
     title: '복/부전공',
 };
 
-interface Post {
-    id?: number;
-    name?: string;
-    content?: string;
-}
-
 export default async function Page() {
-    const data = await fetchCMSData<Post>('double-major-and-minor') as Post;
+    const data = await fetchCMSData<PostProps>('double-major-and-minor') as PostProps;
 
     if (!data) {
         return <p>No data available or failed to load.</p>;

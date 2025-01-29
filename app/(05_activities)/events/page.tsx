@@ -1,24 +1,13 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
+import { PostProps } from '@/app/types';
 
 export const metadata: Metadata = {
     title: '이벤트',
 };
 
-interface Post {
-    id?: number;
-    name?: string;
-    content?: string;
-    link?: string;
-    Event?: {
-        startDate?: string;
-        endDate?: string;
-        location?: string;
-    }[];
-}
-
 export default async function Page() {
-    const data = await fetchCMSData<Post>('events?populate=*') as Post[];
+    const data = await fetchCMSData<PostProps>('events?populate[Event][populate][tags]=true&populate[Event][populate][poster]=true') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -27,14 +16,37 @@ export default async function Page() {
     return (
         <div>
             <h1 className='text-2xl pb-8'>이벤트</h1>
-            {data.map((post: Post) => (
+            {data.map((post: PostProps) => (
                 <div key={post.id} className='rounded-lg bg-gray-100 p-8'>
                     <p>name: {post.name}</p>
-                    <p>startDate: {post.Event?.[0]?.startDate}</p>
-                    <p>endDate: {post.Event?.[0]?.endDate || post.Event?.[0]?.startDate}</p>
-                    <p>location: {post.Event?.[0]?.location}</p>
+                    {post.Event?.map((event) => (
+                        <div key={event.id}>
+                            <p>startDate: {event?.startDate}</p>
+                            <p>endDate: {event?.endDate || event?.startDate}</p>
+                            <p>location: {event?.location}</p>
+                            <div className="flex flex-wrap gap-2 mt-2">tags:
+                                {event?.tags?.map((tag) => (
+                                    <span
+                                        key={tag.id}
+                                        className="bg-blue-300 text-blue-900 px-2 py-1 rounded-md text-sm"
+                                    >
+                                        {tag.tag}
+                                    </span>
+                                ))}
+                            </div>
+                            <div>poster:
+                                {event.poster?.map((poster) => (
+                                    <img
+                                        key={poster.id}
+                                        src={poster.formats?.thumbnail?.url}
+                                        alt={poster.alternativeText || 'Image'}
+                                        className="mt-4"
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    ))}
                     <p>content: {post.content}</p>
-                    <p>link: {post.link}</p>
                 </div>
             ))}
         </div>

@@ -1,19 +1,13 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
+import { PostProps } from '@/app/types';
 
 export const metadata: Metadata = {
     title: '학생회',
 };
 
-interface Post {
-    id?: number;
-    name?: string;
-    semester?: number;
-    description?: string;
-}
-
 export default async function Page() {
-    const data = await fetchCMSData<Post>('student-councils') as Post[];
+    const data = await fetchCMSData<PostProps>('student-councils') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -22,7 +16,7 @@ export default async function Page() {
     return (
         <div>
             <h1 className="text-2xl pb-8">학생회</h1>
-            {data.map((post: Post) => (
+            {data.map((post: PostProps) => (
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>
                     <p>semester: {post.semester}</p>

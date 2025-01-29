@@ -1,19 +1,14 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import ReactMarkdown from 'react-markdown';
+import { PostProps } from '@/app/types';
 
 export const metadata: Metadata = {
     title: '졸업요건',
 };
 
-interface Post {
-    id?: number;
-    name?: string;
-    content?: string;
-}
-
 export default async function Page() {
-    const data = await fetchCMSData<Post>('graduation-requirement') as Post;
+    const data = await fetchCMSData<PostProps>('graduation-requirement') as PostProps;
 
     if (!data) {
         return <p>No data available or failed to load.</p>;

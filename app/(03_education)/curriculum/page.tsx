@@ -1,25 +1,14 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
+import { PostProps } from '@/app/types';
 
 export const metadata: Metadata = {
     title: '교육과정',
 };
 
-interface Post {
-    id?: number;
-    name?: string;
-    content?: string;
-    credits?: number;
-    subject?: string;
-    format?: string;
-    description?: string;
-    mandatory?: boolean;
-    grade?: number;
-}
-
 export default async function Page() {
-    const data_1 = await fetchCMSData<Post>('curriculum') as Post;
-    const data_2 = await fetchCMSData<Post[]>('courses') as Post[];
+    const data_1 = await fetchCMSData<PostProps>('curriculum') as PostProps;
+    const data_2 = await fetchCMSData<PostProps[]>('courses') as PostProps[];
 
     if (!data_1) {
         return <p>No data available or failed to load.</p>;
@@ -37,7 +26,7 @@ export default async function Page() {
                 <p>content:{data_1.content}</p>
             </div>
             <h1 className='text-2l pb-8'>교과목</h1>
-            {data_2.map((post: Post) => (
+            {data_2.map((post: PostProps) => (
                 <div key={post.id} className='rounded-lg bg-gray-100 p-8 mb-4'>
                     <p>name: {post.name}</p>
                     <p>credits: {post.credits}</p>
