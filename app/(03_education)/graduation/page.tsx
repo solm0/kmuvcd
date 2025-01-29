@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('graduation-requirement?populate=content') as PostProps;
+    const data = await fetchCMSData<PostProps>('graduation-requirement') as PostProps;
 
     if (!data) {
         return <p>No data available or failed to load.</p>;

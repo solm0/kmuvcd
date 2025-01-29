@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('facility-overviews?populate=thumbnail&populate=content') as PostProps[];
+    const data = await fetchCMSData<PostProps>('facility-overviews?populate=thumbnail') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
