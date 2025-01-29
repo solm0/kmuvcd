@@ -47,10 +47,26 @@ export interface MediaAndTextProps {
 export interface MediaProps {
   id: number;
   formats: {
-    large?: { url: string };
-    small?: { url: string };
-    medium?: { url: string };
-    thumbnail?: { url: string };
+    large?: {
+      url: string
+      width?: number;
+      height?: number;
+    };
+    small?: {
+      url: string
+      width?: number;
+      height?: number;
+    };
+    medium?: {
+      url: string
+      width?: number;
+      height?: number;
+    };
+    thumbnail?: {
+      url: string
+      width?: number;
+      height?: number;
+    };
   };
   alternativeText?: string;
 }

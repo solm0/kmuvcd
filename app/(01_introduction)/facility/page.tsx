@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
+import { ImageMedia } from '@/app/components/ui/media';
 
 export const metadata: Metadata = {
     title: '시설 소개',
@@ -23,20 +24,14 @@ export default async function Page() {
                     <p>room_number: {post.room_number}</p>
                     <p>description: {post.description}</p>
                     <p>content: {post.content}</p>
-                    <div>photos:
-                        {post.photos && post.photos.length > 0 ? (
-                            post.photos.map((photo) => (
-                                <img
-                                    key={photo.id}
-                                    src={photo.formats?.thumbnail?.url}
-                                    alt={photo.alternativeText || 'Image'}
-                                    className="mt-4"
-                                />
-                            ))
-                        ) : (
-                            <p>No photos available</p>
-                        )}
-                    </div>
+                    
+                    {post.photos && post.photos.length > 0 && (
+                        <div>photos:
+                            {post.photos.map((photo) => (
+                                <ImageMedia key={photo.id} media={photo} size='medium'/>
+                            ))}
+                        </div>
+                    )}
                 </div>
             ))}
         </div>

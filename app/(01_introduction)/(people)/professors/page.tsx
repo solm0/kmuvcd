@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
 import Website from '@/app/components/ui/website';
+import { ImageMedia } from '@/app/components/ui/media';
 
 export const metadata: Metadata = {
     title: '교수진',
@@ -26,22 +27,18 @@ export default async function Page() {
                     <p>location: {post.location}</p>
                     <p>phone: {post.phone}</p>
                     <p>email: {post.email}</p>
-                    <div>website:
-                        {post.website?.map((website) => (
-                            <Website key={website.id} website={website} />
-                        ))}
-                    </div>
-                    <div>photo:
-                        {post.photo ?
-                            <img
-                                key={post.photo?.id}
-                                src={post.photo?.formats?.thumbnail?.url}
-                                alt={post.photo?.alternativeText || 'Image'}
-                                className="mt-4"
-                            />
-                            : ' null'
-                        }
-                    </div>
+                    {post.website && post.website?.length > 0 && (
+                        <div>website:
+                            {post.website?.map((website) => (
+                                <Website key={website.id} website={website} />
+                            ))}
+                        </div>
+                    )}
+                    {post.photo &&
+                        <div>photo:
+                            <ImageMedia media={post.photo} size='thumbnail' />
+                        </div>
+                    }
                 </div>
             ))}
         </div>
