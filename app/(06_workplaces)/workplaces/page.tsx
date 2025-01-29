@@ -2,13 +2,14 @@ import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import ReactMarkdown from 'react-markdown';
 import { PostProps } from '@/app/types';
+import Website from '@/app/components/ui/website';
 
 export const metadata: Metadata = {
     title: '공간',
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('facilities') as PostProps[];
+    const data = await fetchCMSData<PostProps>('facilities?populate=website') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -24,6 +25,11 @@ export default async function Page() {
                         <ReactMarkdown>
                             {post.content}
                         </ReactMarkdown>
+                    </div>
+                    <div>website:
+                        {post.website?.map((website) => (
+                            <Website key={website.id} website={website} />
+                        ))}
                     </div>
                 </div>
             ))}

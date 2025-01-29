@@ -1,13 +1,14 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
+import Website from '@/app/components/ui/website';
 
 export const metadata: Metadata = {
     title: '교수진',
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('professors?populate=photo') as PostProps[];
+    const data = await fetchCMSData<PostProps>('professors?populate=photo&populate=website') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -25,6 +26,11 @@ export default async function Page() {
                     <p>location: {post.location}</p>
                     <p>phone: {post.phone}</p>
                     <p>email: {post.email}</p>
+                    <div>website:
+                        {post.website?.map((website) => (
+                            <Website key={website.id} website={website} />
+                        ))}
+                    </div>
                     <div>photo:
                         {post.photo ?
                             <img

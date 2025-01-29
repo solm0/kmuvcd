@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
+import Website from '@/app/components/ui/website';
 
 export const metadata: Metadata = {
     title: '대학원',
@@ -23,15 +24,7 @@ export default async function Page() {
                     <p>content: {post.content}</p>
                     <div>website:
                         {post.website?.map((website) => (
-                            <a
-                                key={website.id}
-                                href={website.url}
-                                target='_blank'
-                                rel='noopener noreferrer'
-                                className="text-blue-600 underline"
-                            >
-                                {website.name}
-                            </a>
+                            <Website key={website.id} website={website} />
                         ))}
                     </div>
                 </div>
