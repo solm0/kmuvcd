@@ -23,11 +23,13 @@ export default async function Page() {
                     <p>name:{post.name}</p>
                     <p>description: {post.description}</p>
                     <p>content:{post.content}</p>
-                    <div>website:
-                        {post.website?.map((website) => (
-                            <Website key={website.id} website={website} />
-                        ))}
-                    </div>
+                    {post.website && post.website?.length > 0 && (
+                        <div>website:
+                            {post.website?.map((website) => (
+                                <Website key={website.id} website={website} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             ))}
         </div>

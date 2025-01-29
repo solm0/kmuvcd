@@ -1,4 +1,5 @@
 import { EventProps } from "@/app/types";
+import { ImageMedia } from "./media";
 
 export default function Event({ event }: { event: EventProps }) {
   return (
@@ -16,16 +17,13 @@ export default function Event({ event }: { event: EventProps }) {
                 </span>
             ))}
         </div>
-        <div>poster:
-            {event.poster?.map((poster) => (
-                <img
-                    key={poster.id}
-                    src={poster.formats?.thumbnail?.url}
-                    alt={poster.alternativeText || 'Image'}
-                    className="mt-4"
-                />
-            ))}
-        </div>
+        {event.poster && event.poster.length > 0 && (
+            <div>poster:
+                {event.poster?.map((poster) => (
+                    <ImageMedia key={poster.id} media={poster} size='medium' />
+                ))}
+            </div>
+        )}
     </div>
   );
 }

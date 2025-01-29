@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
-import ReactMarkdown from 'react-markdown';
 import { PostProps } from '@/app/types';
 import Website from '@/app/components/ui/website';
+import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
     title: '공간',
@@ -22,15 +22,15 @@ export default async function Page() {
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>title: {post.name}</p>
                     <div>content:
-                        <ReactMarkdown>
-                            {post.content}
-                        </ReactMarkdown>
+                        <MdText markdown={post.content || " "} />
                     </div>
-                    <div>website:
-                        {post.website?.map((website) => (
-                            <Website key={website.id} website={website} />
-                        ))}
-                    </div>
+                    {post.website && post.website?.length > 0 && (
+                        <div>website:
+                            {post.website?.map((website) => (
+                                <Website key={website.id} website={website} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             ))}
         </div>

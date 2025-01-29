@@ -27,11 +27,13 @@ export default async function Page() {
                         ))}
                     </div>
                     <p>content: {post.content}</p>
-                    <div>website:
-                        {post.website?.map((website) => (
-                            <Website key={website.id} website={website} />
-                        ))}
-                    </div>
+                    {post.website && post.website?.length > 0 && (
+                        <div>website:
+                            {post.website?.map((website) => (
+                                <Website key={website.id} website={website} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             ))}
         </div>

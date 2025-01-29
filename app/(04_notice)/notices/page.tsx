@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
-import ReactMarkdown from 'react-markdown';
 import { PostProps } from '@/app/types';
 import Website from '@/app/components/ui/website';
 import Event from '@/app/components/ui/event';
+import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
     title: '공지',
@@ -32,15 +32,15 @@ export default async function Page() {
                         </div>
                     )}
                     <div>content:
-                        <ReactMarkdown>
-                            {post.content}
-                        </ReactMarkdown>
+                        <MdText markdown={post.content || " "} />
                     </div>
-                    <div>website:
-                        {post.website?.map((website) => (
-                            <Website key={website.id} website={website} />
-                        ))}
-                    </div>
+                    {post.website && post.website?.length > 0 && (
+                        <div>website:
+                            {post.website?.map((website) => (
+                                <Website key={website.id} website={website} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             ))}
         </div>

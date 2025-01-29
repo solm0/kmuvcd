@@ -1,9 +1,7 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
-import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
-import React from 'react';
 import { PostProps } from '@/app/types';
+import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
     title: '전시',
@@ -26,9 +24,7 @@ export default async function Page() {
                     <div>
                         {post.media_and_text?.map((item) => (
                             <div key={item.id}>
-                                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                                    {item.upper_text || ''}
-                                </ReactMarkdown>
+                                <MdText markdown={item.upper_text || " "}/>
                                 {item.media?.map((mediaItem) => (
                                     <img
                                         key={mediaItem.id}
@@ -37,9 +33,7 @@ export default async function Page() {
                                         className="mt-4"
                                     />
                                 ))}
-                                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                                    {item.lower_text || ''}
-                                </ReactMarkdown>
+                                <MdText markdown={item.lower_text || " "}/>
                             </div>
                         ))}
                     </div>
