@@ -18,7 +18,7 @@ export default async function Page() {
             <h1 className='text-2xl pb-8'>복/부전공</h1>
                 <div key={data.id} className='rounded-lg bg-gray-100 p-8'>
                     <p>name:{data.name}</p>
-                    <p>content:{data.content}</p>
+
                 </div>
         </div>
     );

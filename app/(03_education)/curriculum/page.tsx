@@ -23,7 +23,7 @@ export default async function Page() {
             <p>커리큘럼 표에 hover, click하면 교과목 상세 페이지(설명, 결과물과 강의평(로그인 유저가 직접 올리기 가능)) 나옴, 이것도 뷰를 여러개 둬서 subject, format, mandatory, grade로 필터링해볼 수 있게 할까..?</p>
             <div key={data_1.id} className='rounded-lg bg-gray-100 p-8'>
                 <p>name:{data_1.name}</p>
-                <p>content:{data_1.content}</p>
+
             </div>
             <h1 className='text-2l pb-8'>교과목</h1>
             {data_2.map((post: PostProps) => (

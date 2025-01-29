@@ -19,7 +19,7 @@ export default async function Page() {
             {data.map((post: PostProps) => (
                 <div key={post.id} className='rounded-lg bg-gray-100 p-8'>
                     <p>name:{post.name}</p>
-                    <p>content:{post.content}</p>
+
                 </div>
             ))}
         </div>

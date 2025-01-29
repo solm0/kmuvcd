@@ -26,7 +26,7 @@ export default async function Page() {
                             <Event key={event.id} event={event} />
                         ))}
                     </div>
-                    <p>content: {post.content}</p>
+
                     {post.website && post.website?.length > 0 && (
                         <div>website:
                             {post.website?.map((website) => (

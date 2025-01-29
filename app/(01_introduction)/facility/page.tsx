@@ -27,7 +27,6 @@ export default async function Page() {
                         </div>
                     )}
                     <p>room_number: {post.room_number}</p>
-                    <p>content: {post.content}</p>
                 </div>
             ))}
         </div>
