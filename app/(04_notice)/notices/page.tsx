@@ -3,13 +3,14 @@ import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import ReactMarkdown from 'react-markdown';
 import { PostProps } from '@/app/types';
 import Website from '@/app/components/ui/website';
+import Event from '@/app/components/ui/event';
 
 export const metadata: Metadata = {
     title: '공지',
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('notices?populate=website') as PostProps[];
+    const data = await fetchCMSData<PostProps>('notices?populate[Event][populate][tags]=true&populate[Event][populate][poster]=true&populate=website') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -23,6 +24,13 @@ export default async function Page() {
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>
                     <p>author: {post.author}</p>
+                    {post.Event && post.Event.length > 0 && (
+                        <div className='rounded-lg bg-gray-200 p-4'>
+                            {post.Event?.map((event) => (
+                                <Event key={event.id} event={event} />
+                            ))}
+                        </div>
+                    )}
                     <div>content:
                         <ReactMarkdown>
                             {post.content}
