@@ -3,6 +3,7 @@ import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
 import Website from '@/app/components/ui/website';
 import Event from '@/app/components/ui/event';
+import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
     title: '이벤트',
@@ -26,7 +27,7 @@ export default async function Page() {
                             <Event key={event.id} event={event} />
                         ))}
                     </div>
-
+                    <MdText markdown={post.text ?? " "} />
                     {post.website && post.website?.length > 0 && (
                         <div>website:
                             {post.website?.map((website) => (

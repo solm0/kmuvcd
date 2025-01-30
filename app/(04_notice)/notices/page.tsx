@@ -3,13 +3,15 @@ import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
 import Website from '@/app/components/ui/website';
 import Event from '@/app/components/ui/event';
+import MdText from '@/app/components/ui/md-text';
+import { ImageMedia } from '@/app/components/ui/media';
 
 export const metadata: Metadata = {
     title: '공지',
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('notices?populate[website]=true&populate[Event][populate][tags]=true&populate[Event][populate][poster]=true') as PostProps[];
+    const data = await fetchCMSData<PostProps>('notices?populate[media]=true&populate[website]=true&populate[Event][populate][tags]=true&populate[Event][populate][poster]=true') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -30,7 +32,12 @@ export default async function Page() {
                             ))}
                         </div>
                     )}
-
+                    <div>media:
+                        {post.media?.map((media) => (
+                            <ImageMedia key={media.id} media={media} size='medium' />
+                        ))}
+                    </div>
+                    <MdText markdown={post.text ?? " "} />
                     {post.website && post.website?.length > 0 && (
                         <div>website:
                             {post.website?.map((website) => (

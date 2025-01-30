@@ -1,7 +1,7 @@
 export interface PostProps {
   id?: number;
   name?: string;
-  content?: string;
+  text?: string;
   url?: string;
   education?: string;
   location?: string;
@@ -17,6 +17,8 @@ export interface PostProps {
   grade?: number;
   author?: string;
   thumbnail?: MediaProps;
+  media?: MediaProps[];
+  photo?: MediaProps[];
   Event?: EventProps[];
   website?: WebsiteProps[];
 }

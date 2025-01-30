@@ -2,13 +2,14 @@ import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
 import { ImageMedia } from '@/app/components/ui/media';
+import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
     title: '시설 소개',
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('facility-overviews?populate=thumbnail') as PostProps[];
+    const data = await fetchCMSData<PostProps>('facility-overviews?populate=thumbnail&populate=photo') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -27,6 +28,12 @@ export default async function Page() {
                         </div>
                     )}
                     <p>room_number: {post.room_number}</p>
+                    <MdText markdown={post.text ?? " "} />
+                    <div>photo:
+                        {post.photo?.map((photo) => (
+                            <ImageMedia key={photo.id} media={photo} size='medium' />
+                        ))}
+                    </div>
                 </div>
             ))}
         </div>

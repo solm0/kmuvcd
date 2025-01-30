@@ -2,7 +2,7 @@
 // import MdText from "./md-text";
 // import { MediaProps } from "@/app/types";
 
-// export default function Content({ content, size = "thumbnail" }: { text: , media: MediaProps }) {
+// export default function Content({ text, size = "thumbnail" }: { text: string, media: MediaProps }) {
 //   return (
 //     <div>
 //       <MdText markdown={}/>

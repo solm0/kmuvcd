@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
+import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
     title: '교직원',
@@ -22,6 +23,7 @@ export default async function Page() {
                     <p>location: {post.location}</p>
                     <p>phone: {post.phone}</p>
                     <p>email: {post.email}</p>
+                    <MdText markdown={post.text ?? " "} />
                 </div>
             ))}
         </div>

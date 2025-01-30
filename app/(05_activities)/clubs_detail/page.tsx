@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
+import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
     title: '동아리',
@@ -19,7 +20,7 @@ export default async function Page() {
             {data.map((post: PostProps) => (
                 <div key={post.id} className='rounded-lg bg-gray-100 p-8'>
                     <p>name:{post.name}</p>
-
+                    <MdText markdown={post.text ?? " "} />
                 </div>
             ))}
         </div>
