@@ -3,13 +3,14 @@ import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
 import Website from '@/app/components/ui/website';
 import MdText from '@/app/components/ui/md-text';
+import { ImageMedia } from '@/app/components/ui/media';
 
 export const metadata: Metadata = {
     title: '동아리',
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('club-overviews?populate=website') as PostProps[];
+    const data = await fetchCMSData<PostProps>('club-overviews?populate=website&populate=thumbnail') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -22,6 +23,9 @@ export default async function Page() {
             {data.map((post: PostProps) => (
                 <div key={post.id} className='rounded-lg bg-gray-100 p-8'>
                     <p>name:{post.name}</p>
+                    {post.thumbnail && (
+                        <ImageMedia media={post.thumbnail} />
+                    )}
                     <MdText markdown={post.text ?? " "} />
                     {post.website && post.website?.length > 0 && (
                         <div>website:
