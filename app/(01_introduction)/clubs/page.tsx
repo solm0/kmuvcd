@@ -6,7 +6,7 @@ import MdText from '@/app/components/ui/md-text';
 import { ImageMedia } from '@/app/components/ui/media';
 
 export const metadata: Metadata = {
-    title: '동아리',
+    title: '동아리 소개',
 };
 
 export default async function Page() {
