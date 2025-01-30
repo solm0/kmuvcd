@@ -1,13 +1,14 @@
 import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
+import Content from '@/app/components/ui/content';
 
 export const metadata: Metadata = {
     title: '전시',
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('exhibitions?populate=content') as PostProps[];
+    const data = await fetchCMSData<PostProps>('exhibitions?populate[content][populate]=*') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;
@@ -20,7 +21,7 @@ export default async function Page() {
             {data.map((post: PostProps) => (
                 <div key={post.id} className='rounded-lg bg-gray-100 p-8'>
                     <p>name: {post.name}</p>
-                    
+                    <Content content={post.content ?? []} />
                 </div>
             ))}
         </div>

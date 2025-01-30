@@ -21,6 +21,14 @@ export interface PostProps {
   photo?: MediaProps[];
   Event?: EventProps[];
   website?: WebsiteProps[];
+  content?: ContentItem[];
+}
+
+export interface ContentItem {
+  __component?: string;
+  id?: number;
+  text?: string;
+  media?: MediaProps;
 }
 
 export interface EventProps {
