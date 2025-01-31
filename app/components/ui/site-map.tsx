@@ -31,7 +31,6 @@ const categories = [
       { name: '학생회', href: '/student_councils'},
       { name: '교직원', href: '/staffs'},
       { name: '시설', href: '/facility'},
-      { name: '동아리', href: '/clubs'}
     ]
   },
   { name: '학사 정보',
@@ -50,10 +49,10 @@ const categories = [
       { name: '공지', href: '/notices'}
     ]
   },
-  { name: '각종 신청/문의',
+  { name: '활동',
     lists: [
       { name: '이벤트', href: '/events'},
-      { name: '시설', href: '/workplaces'},
+      { name: '시설 사용', href: '/workplaces'},
       { name: '동아리/서클', href: '/clubs_detail'}
     ]
   }

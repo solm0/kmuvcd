@@ -5,7 +5,7 @@ import Website from '@/app/components/ui/website';
 import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
-    title: '공간',
+    title: '시설 사용',
 };
 
 export default async function Page() {
