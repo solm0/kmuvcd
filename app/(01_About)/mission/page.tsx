@@ -4,7 +4,7 @@ import { PostProps } from '@/app/types';
 import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
-    title: '학과 소개',
+    title: '목표',
 };
 
 export default async function Page() {

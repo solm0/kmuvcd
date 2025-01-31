@@ -1,7 +1,5 @@
 import "./globals.css";
-import SideNav from "./components/ui/sidenav";
-
-
+import SiteMap from "./components/ui/site-map";
 
 export default function RootLayout({
   children,
@@ -12,10 +10,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="flex h-screen flex-col md:flex-row">
-          <div className="w-1/2 overflow-hidden">
-            <SideNav />
+          <div className="h-fixed md:h-auto w-full md:w-1/2 overflow-hidden">
+            <SiteMap />
           </div>
-          <div className="w-1/2 p-12 overflow-y-scroll">{children}</div>
+          <div className="flex-1 w-full md:w-1/2 p-12 overflow-y-scroll">{children}</div>
       </div>
       </body>
     </html>

@@ -4,7 +4,7 @@ import { PostProps } from '@/app/types';
 import MdText from '@/app/components/ui/md-text';
 
 export const metadata: Metadata = {
-    title: '교육과정',
+    title: '학부 커리큘럼',
 };
 
 export default async function Page() {
@@ -20,8 +20,8 @@ export default async function Page() {
 
     return (
         <div>
-            <h1 className='text-2xl pb-8'>교육과정</h1>
-            <p>커리큘럼 표에 hover, click하면 교과목 상세 페이지(설명, 결과물과 강의평(로그인 유저가 직접 올리기 가능)) 나옴, 이것도 뷰를 여러개 둬서 subject, format, mandatory, grade로 필터링해볼 수 있게 할까..?</p>
+            <h1 className='text-2xl pb-8'>학부 커리큘럼</h1>
+            <p>커리큘럼 표에 hover, click하면 교과목 상세 페이지(설명, 결과물과 강의평(로그인 유저가 직접 올리기 가능)) 나옴, 이것도 뷰를 두개(표 모드, 리스트 모드) 둬서 리스트 모드에서는 subject, format, mandatory, grade로 필터링해볼 수 있게 할까..?</p>
             <div key={data_1.id} className='rounded-lg bg-gray-100 p-8'>
                 <p>name:{data_1.name}</p>
                 <MdText markdown={data_1.text ?? " "} />
