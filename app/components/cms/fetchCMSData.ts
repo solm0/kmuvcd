@@ -1,5 +1,5 @@
 export async function fetchCMSData<T>(url: string): Promise<T | T[]> {
-  const res = await fetch(`https://my-strapi-project-j0s0.onrender.com/api/${url}`, { cache: 'force-cache' });
+  const res = await fetch(`https://kmuvcd-strapi.onrender.com/api/${url}`, { cache: 'force-cache' });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');
