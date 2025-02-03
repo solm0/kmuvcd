@@ -9,7 +9,7 @@ const categories = [
     lists: [
       { name: '홈', href: '/' },
       { name: '내 프로필', href: '/myprofile' },
-      { name: '회원가입', href: '/signin' }
+      { name: '로그인/회원가입', href: '/signin' }
     ]
   },
   { name: '소개',

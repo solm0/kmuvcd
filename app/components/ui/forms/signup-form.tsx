@@ -14,8 +14,6 @@ const INITIAL_STATE = {
 export function SignupForm() {
   const [formState, formAction] = useActionState(registerUserAction, INITIAL_STATE);
 
-  console.log(formState);
-
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -67,6 +65,7 @@ export function SignupForm() {
           className="rounded-lg px-5 py-2"
         />
         <ZodErrors error={formState?.zodErrors?.password} />
+        
         <SubmitButton text="회원가입" loadingText="Loading" />
         <StrapiErrors error={formState?.strapiErrors} />
       </form>

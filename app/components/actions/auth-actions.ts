@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from 'zod';
-import { registerUserService } from '@/app/data/services/auth-service';
+import { registerUserService, loginUserService } from '@/app/data/services/auth-service';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -70,4 +70,74 @@ export async function registerUserAction(
   cookieStore.set("jwt", responseData.jwt, config);
 
   redirect("/myprofile");
+}
+
+const schemaLogin = z.object({
+  identifier: z
+    .string()
+    .min(2, {
+      message: "Identifier must have at least 2 or more characters",
+    })
+    .max(20, {
+      message: "Please enter a valid username or email address",
+    }),
+  password: z
+    .string()
+    .min(8, {
+      message: "Password must have at least 8 or more characters",
+    })
+    .max(100, {
+      message: "Password must be between 6 and 100 characters",
+    }),
+});
+
+export async function loginUserAction(
+  prevState: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+  formData: FormData
+) {
+  const validatedFields = schemaLogin.safeParse({
+    identifier: formData.get("identifier"),
+    password: formData.get("password"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      ...prevState,
+      zodErrors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Login.",
+    };
+  }
+
+  const responseData = await loginUserService(validatedFields.data);
+
+  if (!responseData) {
+    return {
+      ...prevState,
+      strapiErrors: responseData.error,
+      zodErrors: null,
+      message: "Ops! Something went wrong. Please try again.",
+    };
+  }
+
+  if (responseData.error) {
+    return {
+      ...prevState,
+      strapiErrors: responseData.error,
+      zodErrors: null,
+      message: "Failed to Login.",
+    };
+  }
+
+  console.log(responseData, "responseData");
+
+  const cookieStore = await cookies();
+  cookieStore.set("jwt", responseData.jwt, config);
+
+  redirect("/dashboard");
+}
+
+export async function logoutAction() {
+  const cookieStore = await cookies();
+  cookieStore.set("jwt", "", { ...config, maxAge: 0 });
+  redirect("/");
 }

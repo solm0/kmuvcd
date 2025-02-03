@@ -1,8 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { loginUserAction } from "../../actions/auth-actions";
+import { useActionState } from "react";
+import { ZodErrors } from "../../custom/zod-errors";
+import { StrapiErrors } from "../../custom/strapi-errors";
+import { SubmitButton } from "../../custom/submit-button";
+
+const INITIAL_STATE = {
+  zodErrors: null,
+  strapiErrors: null,
+  data: null,
+  message: null,
+};
 
 export function SigninForm() {
+  const [formState, formAction] = useActionState(loginUserAction, INITIAL_STATE);
+
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -15,14 +29,12 @@ export function SigninForm() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    alert(JSON.stringify(values, null, 2))
-  }
-
   return (
     <div className='rounded-lg bg-gray-100 p-8'>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2 items-start">
+      <form
+        className="flex flex-col gap-2 items-start"
+        action={formAction}
+      >
         <label htmlFor="email">이메일</label>
         <input
           type="email"
@@ -32,6 +44,8 @@ export function SigninForm() {
           onChange={handleChange}
           className="rounded-lg px-5 py-2"
         />
+        <ZodErrors error={formState?.zodErrors?.email} />
+
         <label htmlFor="password">비밀번호</label>
         <input
           type="password"
@@ -41,7 +55,10 @@ export function SigninForm() {
           onChange={handleChange}
           className="rounded-lg px-5 py-2"
         />
-        <button type="submit" className="flex px-5 py-2 bg-neutral-950 text-white text-sm rounded-full hover:bg-neutral-700 transition-colors">로그인</button>
+        <ZodErrors error={formState?.zodErrors?.password} />
+
+        <SubmitButton text="로그인" loadingText="Loading" />
+        <StrapiErrors error={formState?.strapiErrors} />
       </form>
     </div>
   );
