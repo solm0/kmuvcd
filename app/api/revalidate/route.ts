@@ -20,6 +20,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ revalidated: true });
   } catch (err) {
+    console.error("Error revalidating:", err);
     return NextResponse.json({ message: "Error revalidating" }, { status: 500 });
   }
 }
