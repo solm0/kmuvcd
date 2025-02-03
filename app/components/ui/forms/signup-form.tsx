@@ -41,6 +41,7 @@ export function SignupForm() {
           value={values.username}
           onChange={handleChange}
           className="rounded-lg px-5 py-2"
+          placeholder="username"
         />
         <ZodErrors error={formState?.zodErrors?.username} />
 
@@ -52,6 +53,7 @@ export function SignupForm() {
           value={values.email}
           onChange={handleChange}
           className="rounded-lg px-5 py-2"
+          placeholder="email"
         />
         <ZodErrors error={formState?.zodErrors?.email} />
 
@@ -63,6 +65,7 @@ export function SignupForm() {
           value={values.password}
           onChange={handleChange}
           className="rounded-lg px-5 py-2"
+          placeholder="password"
         />
         <ZodErrors error={formState?.zodErrors?.password} />
         

@@ -18,7 +18,7 @@ export function SigninForm() {
   const [formState, formAction] = useActionState(loginUserAction, INITIAL_STATE);
 
   const [values, setValues] = useState({
-    email: "",
+    identifier: "",
     password: "",
   })
 
@@ -35,16 +35,17 @@ export function SigninForm() {
         className="flex flex-col gap-2 items-start"
         action={formAction}
       >
-        <label htmlFor="email">이메일</label>
+        <label htmlFor="identifier">이메일</label>
         <input
-          type="email"
-          id="email"
-          name="email"
-          value={values.email}
+          type="text"
+          id="identifier"
+          name="identifier"
+          value={values.identifier}
           onChange={handleChange}
           className="rounded-lg px-5 py-2"
+          placeholder="username or email"
         />
-        <ZodErrors error={formState?.zodErrors?.email} />
+        <ZodErrors error={formState?.zodErrors?.identifier} />
 
         <label htmlFor="password">비밀번호</label>
         <input
@@ -54,6 +55,7 @@ export function SigninForm() {
           value={values.password}
           onChange={handleChange}
           className="rounded-lg px-5 py-2"
+          placeholder="password"
         />
         <ZodErrors error={formState?.zodErrors?.password} />
 
