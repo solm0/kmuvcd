@@ -7,7 +7,7 @@ import { clsx } from 'clsx';
 const categories = [
   { name: '기타',
     lists: [
-      { name: '대시보드', href: '/' },
+      { name: '홈', href: '/' },
       { name: '내 프로필', href: '/myprofile' },
       { name: '회원가입', href: '/signin' }
     ]

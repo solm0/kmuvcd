@@ -5,6 +5,7 @@ import { registerUserAction } from '@/app/components/actions/auth-actions';
 import { useActionState } from "react";
 import { ZodErrors } from "../../custom/zod-errors";
 import { StrapiErrors } from "../../custom/strapi-errors";
+import { SubmitButton } from "../../custom/submit-button";
 
 const INITIAL_STATE = {
   data: null,
@@ -66,7 +67,7 @@ export function SignupForm() {
           className="rounded-lg px-5 py-2"
         />
         <ZodErrors error={formState?.zodErrors?.password} />
-        <button type="submit" className="flex px-5 py-2 bg-neutral-950 text-white text-sm rounded-full hover:bg-neutral-700 transition-colors">회원가입</button>
+        <SubmitButton text="회원가입" loadingText="Loading" />
         <StrapiErrors error={formState?.strapiErrors} />
       </form>
     </div>
