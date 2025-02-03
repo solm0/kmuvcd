@@ -9,7 +9,7 @@ interface LoginUserProps {
   password: string;
 }
 
-const baseUrl = "https://kmuvcd-strapi.onrender.com/";
+const baseUrl = "https://kmuvcd-strapi.onrender.com";
 
 export async function registerUserService(userData: RegisterUserProps) {
   const url = new URL("/api/auth/local/register", baseUrl);
