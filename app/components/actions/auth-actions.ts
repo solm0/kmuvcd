@@ -127,10 +127,11 @@ export async function loginUserAction(
     };
   }
 
-  console.log(responseData, "responseData");
+  // console.log(responseData, "responseData");
 
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
+  cookieStore.set("username", responseData.user.username, config);
 
   redirect("/myprofile");
 }
@@ -138,5 +139,6 @@ export async function loginUserAction(
 export async function logoutAction() {
   const cookieStore = await cookies();
   cookieStore.set("jwt", "", { ...config, maxAge: 0 });
+  cookieStore.set("username", "", { ...config, maxAge: 0 });
   redirect("/");
 }
