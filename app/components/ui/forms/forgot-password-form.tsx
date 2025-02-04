@@ -46,7 +46,7 @@ export function ForgotPasswordForm() {
           />
           <ZodErrors error={formState?.zodErrors?.email} />
 
-          <SubmitButton text="비밀번호 찾기" loadingText="Loading" />
+          <SubmitButton text="비밀번호 재설정 메일 보내기" loadingText="Loading" />
           <StrapiErrors error={formState?.strapiErrors} />
 
         </form>
