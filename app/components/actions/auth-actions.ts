@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from 'zod';
-import { registerUserService, loginUserService } from '@/app/data/services/auth-service';
+import { registerUserService, loginUserService, forgetPasswordUserService } from '@/app/data/services/auth-service';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -141,4 +141,62 @@ export async function logoutAction() {
   cookieStore.set("jwt", "", { ...config, maxAge: 0 });
   cookieStore.set("username", "", { ...config, maxAge: 0 });
   redirect("/");
+}
+
+const schemaForgotPassword = z.object({
+  email: z
+    .string()
+    .min(2, {
+      message: "email must have at least 2 or more characters",
+    })
+    .max(20, {
+      message: "Please enter a valid username or email address",
+    }),
+});
+
+export async function forgetPasswordAction(
+  prevState: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+  formData: FormData
+) {
+  // Access the email field using formData.get and cast to string or undefined
+  const email = formData.get("email") as string | null;
+
+  // Validate the email
+  const validatedFields = schemaForgotPassword.safeParse({
+    email: email || "", // Handle null case by providing default value
+  });
+
+  console.log("Validated Fields:", validatedFields.data); // Debugging
+
+  if (!validatedFields.success) {
+    return {
+      ...prevState,
+      zodErrors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Login.",
+    };
+  }
+
+  const responseData = await forgetPasswordUserService(validatedFields.data);
+
+  if (!responseData) {
+    return {
+      ...prevState,
+      zodErrors: null,
+      message: "Oops! Something went wrong. Please try again.",
+    };
+  }
+
+  if (!responseData.success) { // Check for failure with the success property
+    return {
+      ...prevState,
+      zodErrors: null,
+      message: responseData.message || "Failed to reset password.",
+    };
+  }
+
+  return {
+    ...prevState,
+    zodErrors: null,
+    message: responseData.message || "Password reset email sent successfully!",
+  };
 }
