@@ -42,7 +42,7 @@ export function ForgotPasswordForm() {
             value={values.email}
             onChange={handleChange}
             className="rounded-lg px-5 py-2"
-            placeholder="username or email"
+            placeholder="email"
           />
           <ZodErrors error={formState?.zodErrors?.email} />
 

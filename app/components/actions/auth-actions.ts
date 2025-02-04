@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from 'zod';
-import { registerUserService, loginUserService, forgetPasswordUserService } from '@/app/data/services/auth-service';
+import { registerUserService, loginUserService, forgetPasswordUserService, resetPasswordUserService } from '@/app/data/services/auth-service';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -158,15 +158,11 @@ export async function forgetPasswordAction(
   prevState: any, // eslint-disable-line @typescript-eslint/no-explicit-any
   formData: FormData
 ) {
-  // Access the email field using formData.get and cast to string or undefined
-  const email = formData.get("email") as string | null;
 
   // Validate the email
   const validatedFields = schemaForgotPassword.safeParse({
-    email: email || "", // Handle null case by providing default value
+    email: formData.get("email"),
   });
-
-  console.log("Validated Fields:", validatedFields.data); // Debugging
 
   if (!validatedFields.success) {
     return {
@@ -177,6 +173,70 @@ export async function forgetPasswordAction(
   }
 
   const responseData = await forgetPasswordUserService(validatedFields.data);
+
+  if (!responseData) {
+    return {
+      ...prevState,
+      zodErrors: null,
+      message: "Oops! Something went wrong. Please try again.",
+    };
+  }
+
+  if (!responseData.success) { // Check for failure with the success property
+    return {
+      ...prevState,
+      zodErrors: null,
+      message: responseData.message || "Failed to reset password.",
+    };
+  }
+
+  return {
+    ...prevState,
+    zodErrors: null,
+    message: responseData.message || "Password reset email sent successfully!",
+  };
+}
+
+const schemaResetPassword = z.object({
+  code: z
+    .string(),
+  password: z
+    .string()
+    .min(8, {
+      message: "Password must have at least 8 or more characters",
+    })
+    .max(100, {
+      message: "Password must be between 6 and 100 characters",
+    }),
+  passwordConfirmation: z
+    .string()
+    .min(8, {
+      message: "Password must have at least 8 or more characters",
+    })
+    .max(100, {
+      message: "Password must be between 6 and 100 characters",
+    }),
+});
+
+export async function resetPasswordAction(
+  prevState: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+  formData: FormData
+) {
+  const validatedFields = schemaResetPassword.safeParse({
+    code: formData.get("code"),
+    password: formData.get("password"),
+    passwordConfirmation: formData.get("passwordConfirmation"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      ...prevState,
+      zodErrors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Login.",
+    };
+  }
+
+  const responseData = await resetPasswordUserService(validatedFields.data);
 
   if (!responseData) {
     return {
