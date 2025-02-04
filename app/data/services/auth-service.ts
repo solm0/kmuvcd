@@ -21,6 +21,10 @@ interface ResetPasswordUserProps {
   passwordConfirmation: string;
 }
 
+interface EmailConfirmationUserProps {
+  email: string;
+}
+
 const baseUrl = "https://kmuvcd-strapi.onrender.com";
 
 export async function registerUserService(userData: RegisterUserProps) {
@@ -112,6 +116,36 @@ export async function resetPasswordUserService(userData: ResetPasswordUserProps)
       console.error("Reset Password Axios Error:", error.response?.data || error.message);
     } else if (error instanceof Error) {
       console.error("Reset Password General Error:", error.message);
+    } else {
+      console.error("An unknown error occurred");
+    }
+
+    // Return error message
+    return {
+      success: false,
+      message: 'An error occurred. Please try again.',
+    };
+  }
+}
+
+export async function emailConfirmationUserService(userData: EmailConfirmationUserProps) {
+  const url = "https://kmuvcd-strapi.onrender.com/api/auth/send-email-confirmation";
+
+  try {
+    const response = await axios.post(url, { email: userData.email });
+
+    console.log("Your user received an email:", response.data);
+
+    // Return a success message
+    return {
+      success: true,
+      message: 'Check your email to reset your password.',
+    };
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error("Email Confirmation resend Axios Error:", error.response?.data || error.message);
+    } else if (error instanceof Error) {
+      console.error("Email Confirmation resend General Error:", error.message);
     } else {
       console.error("An unknown error occurred");
     }

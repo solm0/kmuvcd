@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from 'zod';
-import { registerUserService, loginUserService, forgetPasswordUserService, resetPasswordUserService } from '@/app/data/services/auth-service';
+import { registerUserService, loginUserService, forgetPasswordUserService, resetPasswordUserService, emailConfirmationUserService } from '@/app/data/services/auth-service';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -258,5 +258,59 @@ export async function resetPasswordAction(
     ...prevState,
     zodErrors: null,
     message: responseData.message || "Password reset email sent successfully!",
+  };
+}
+
+const schemaEmailConfirmation = z.object({
+  email: z
+    .string()
+    .min(2, {
+      message: "email must have at least 2 or more characters",
+    })
+    .max(20, {
+      message: "Please enter a valid username or email address",
+    }),
+});
+
+export async function emailConfirmationAction(
+  prevState: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+  formData: FormData
+) {
+
+  // Validate the email
+  const validatedFields = schemaEmailConfirmation.safeParse({
+    email: formData.get("email"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      ...prevState,
+      zodErrors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Resend Email Confirmation.",
+    };
+  }
+
+  const responseData = await emailConfirmationUserService(validatedFields.data);
+
+  if (!responseData) {
+    return {
+      ...prevState,
+      zodErrors: null,
+      message: "Oops! Something went wrong. Please try again.",
+    };
+  }
+
+  if (!responseData.success) { // Check for failure with the success property
+    return {
+      ...prevState,
+      zodErrors: null,
+      message: responseData.message || "Failed to resend email confirmation.",
+    };
+  }
+
+  return {
+    ...prevState,
+    zodErrors: null,
+    message: responseData.message || "Email confirmation email sent successfully!",
   };
 }

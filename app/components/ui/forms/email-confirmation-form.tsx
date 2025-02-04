@@ -1,40 +1,55 @@
-'use client';
+'use client'
 
-import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { ZodErrors } from '@/app/components/custom/zod-errors';
+import { emailConfirmationAction } from '@/app/components/actions/auth-actions';
+import { useActionState } from 'react';
+import { StrapiErrors } from '@/app/components/custom/strapi-errors';
+import { SubmitButton } from '@/app/components/custom/submit-button';
 
-export default function EmailConfirmationForm() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+const INITIAL_STATE = {
+  zodErrors: null,
+  strapiErrors: null,
+  data: null,
+  message: null,
+};
 
-  useEffect(() => {
-    const confirmation = searchParams.get('confirmation');
+export function EmailConfirmationForm() {
+  const [formState, formAction] = useActionState(emailConfirmationAction, INITIAL_STATE);
 
-    if (confirmation) {
-      setStatus('success');
+  const [values, setValues] = useState({
+    email: "",
+  })
 
-      setTimeout(() => {
-        router.push('/signin');
-      }, 3000);
-    } else {
-      setStatus('error');
-    }
-  }, [searchParams, router]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    })
+  }
 
-  return (
-    <div className="flex flex-col items-center justify-center h-screen text-center">
-      {status === 'loading' && <p>Processing email confirmation...</p>}
-      {status === 'success' && (
-        <p className="text-green-500">
-          ✅ Your email has been confirmed! Redirecting to login...
-        </p>
-      )}
-      {status === 'error' && (
-        <p className="text-red-500">
-          ❌ Email confirmation failed. Please try again or contact support.
-        </p>
-      )}
-    </div>
-  );
+    return (
+      <div className='rounded-lg bg-gray-100 p-8'>
+        <form
+          className="flex flex-col gap-2 items-start"
+          action={formAction}
+        >
+          <label htmlFor="email">이메일</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            className="rounded-lg px-5 py-2"
+            placeholder="email"
+          />
+          <ZodErrors error={formState?.zodErrors?.email} />
+
+          <SubmitButton text="인증요청 메일 재전송" loadingText="Loading" />
+          <StrapiErrors error={formState?.strapiErrors} />
+
+        </form>
+      </div>
+    );
 }
