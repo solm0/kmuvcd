@@ -6,6 +6,6 @@ export const metadata: Metadata = {
 
 export default async function Page() {
     return (
-        <h1>시각디자인학과의 역사</h1>
+        <h1 className='text-2xl pb-8'>시각디자인학과의 역사</h1>
     );
 }

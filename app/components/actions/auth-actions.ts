@@ -16,9 +16,12 @@ const schemaRegister = z.object({
   username: z.string().min(2).max(100, {
     message: "Username must be between 2 and 100 characters",
   }),
-  email: z.string().email({
-    message: "Please enter a valid email address",
-  }),
+  email: z
+    .string()
+    .email({ message: "Please enter a valid email address" })
+    .refine((email) => email.endsWith("@kookmin.ac.kr"), {
+      message: "Only @kookmin.ac.kr emails are allowed",
+    }),
   password: z.string().min(8).max(100, {
     message: "Password must be between 8 and 100 characters",
   }),
@@ -67,7 +70,7 @@ export async function registerUserAction(
 
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
-
+  
   redirect("/myprofile");
 }
 
