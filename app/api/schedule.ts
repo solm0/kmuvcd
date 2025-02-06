@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const fileContent = fs.readFileSync(eventsFilePath, "utf-8");
       existingEvents = JSON.parse(fileContent);
-    } catch (err) {
+    } catch {
       console.log("No existing events found, starting with an empty array.");
     }
 
