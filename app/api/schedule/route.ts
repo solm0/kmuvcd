@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       message: 'Events received successfully',
       data: events,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to process the request' },
       { status: 500 }
@@ -35,7 +35,7 @@ export async function GET() {
       message: 'Events fetched successfully',
       data: allEvents,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch the events' },
       { status: 500 }
