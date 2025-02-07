@@ -29,7 +29,9 @@ jobs:
       - name: Check for file changes
         id: changed-files
         run: |
-          git diff --quiet || echo "files_changed=true" >> $GITHUB_ENV
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "files_changed=true" >> $GITHUB_ENV
+          fi
   
       - name: Commit and push changes
         if: env.files_changed == 'true'
@@ -37,5 +39,5 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add .
-          git commit -m "Update scraped data"
+          git commit -m "Update scraped data" || exit 0
           git push
