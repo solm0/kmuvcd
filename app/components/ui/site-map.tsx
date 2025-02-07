@@ -62,9 +62,9 @@ export default function SiteMap() {
   const pathname = usePathname();
   
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="flex flex-row flex-wrap items-start space-between gap-4 max-w-[550px]">
       {categories.map((category) => (
-        <ul key={category.name || 'default'}>
+        <ul className="min-w-[100px] flex-1" key={category.name || 'default'}>
           {category.name && <p>{category.name}</p>}
           {category.lists.map((link) => (
             <li key={link.name}>

@@ -15,4 +15,7 @@ export default {
     },
   },
   plugins: [],
+  corePlugins: {
+    container: false, // Disable Tailwind’s default `.container` class
+  }
 } satisfies Config;

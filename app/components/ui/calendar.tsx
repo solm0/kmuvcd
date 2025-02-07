@@ -55,7 +55,8 @@ export default async function CalendarComponent() {
   const events = await getCalendarData();
 
   return (
-    <div>hello this is calendar.tsx
+    <div className="w-full p-12 absolute top-[500px] z-0">
+      <h1 className="text-2xl pb-8">Calendar</h1>
       {events.map((event, index) => (
         <div key={index}>
           <a href={event?.url}>
