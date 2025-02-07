@@ -21,10 +21,10 @@ class EventScraper:
             events = soup.find("table", id="monthTable").find_all("tr")
 
             for event in events:
-                title = event.find("td", class_="cal_desc")
-                date_str = title.find_previous_sibling("td") if title else None
+                name = event.find("td", class_="cal_desc")
+                date_str = name.find_previous_sibling("td") if name else None
 
-                if date_str and title:
+                if date_str and name:
                     pattern = r"(\d{1,2})\.(\d{1,2})\s\(\w\)\s~\s(\d{1,2})\.(\d{1,2})\s\(\w\)"
                     match = re.match(pattern, date_str.text.strip())
 
@@ -41,9 +41,9 @@ class EventScraper:
                         end_date = f"{year_end}-{month_end:02d}-{day_end:02d}"
 
                         event_data = {
-                            "title": title.text.strip(),
-                            "start_date": start_date,
-                            "end_date": end_date,
+                            "name": name.text.strip(),
+                            "startDate": start_date,
+                            "endDate": end_date,
                         }
                         self.all_events.append(event_data)
                     else:
