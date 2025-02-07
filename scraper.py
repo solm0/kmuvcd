@@ -5,6 +5,8 @@ import os
 import json
 from datetime import date
 
+current_year = date.today().strftime("%Y")
+
 class EventScraper:
     def __init__(self, year):
         self.year = year
@@ -26,13 +28,18 @@ class EventScraper:
                     pattern = r"(\d{1,2})\.(\d{1,2})\s\(\w\)\s~\s(\d{1,2})\.(\d{1,2})\s\(\w\)"
                     match = re.match(pattern, date_str.text)
                     if match:
-                        month_start = match.group(1)
-                        day_start = match.group(2)
-                        month_end = match.group(3)
-                        day_end = match.group(4)
+                        month_start = int(match.group(1))
+                        day_start = int(match.group(2))
+                        month_end = int(match.group(3))
+                        day_end = int(match.group(4))
                         
-                        start_date = f"{self.year}-{month_start.zfill(2)}-{day_start.zfill(2)}"
-                        end_date = f"{self.year}-{month_end.zfill(2)}-{day_end.zfill(2)}"
+                        if month_start in [1, 2]:
+                            year = self.year + 1
+                        else:
+                            year = self.year
+                        
+                        start_date = f"{year}-{month_start:02d}-{day_start:02d}"
+                        end_date = f"{year}-{month_end:02d}-{day_end:02d}"
 
                         event_data = {
                             "title": title.text.strip(),
@@ -46,7 +53,10 @@ class EventScraper:
         except Exception as e:
             print(f"An error occurred during parsing: {e}")
 
-    def save_to_json(self, filename="app/data/academic_calendar.json"):
+    def save_to_json(self, filename=None):
+        if filename is None:
+            filename = f"app/data/academic_calendar_{self.year}.json"
+
         os.makedirs(os.path.dirname(filename), exist_ok=True)
 
         try:
@@ -57,8 +67,6 @@ class EventScraper:
             print(f"Error saving JSON: {e}")
 
 # Usage
-current_year = date.today().strftime("%Y")
-
 scraper = EventScraper(current_year)
 scraper.scrape_page()
 scraper.save_to_json()
