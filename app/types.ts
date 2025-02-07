@@ -1,5 +1,6 @@
 export interface PostProps {
   id?: number;
+  documentId?: string;
   name?: string;
   text?: string;
   url?: string;
@@ -33,6 +34,7 @@ export interface ContentItem {
 
 export interface EventProps {
   id?: number;
+  documentId?: string;
   name?: string;
   startDate?: string;
   endDate?: string;
@@ -42,6 +44,7 @@ export interface EventProps {
     tag?: string;
   }[];
   poster?: MediaProps[];
+  url?: string;
 }
 
 export interface MediaProps {
