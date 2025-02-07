@@ -2,7 +2,7 @@ name: Run Scraper Every March
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '48 * * * *' // change it to 17 3 28 2 *
   workflow_dispatch:
 
 jobs:

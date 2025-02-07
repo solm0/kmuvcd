@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import os
 import json
-from datetime import datetime
+from datetime import date
 
 class EventScraper:
     def __init__(self, year):
@@ -57,6 +57,8 @@ class EventScraper:
             print(f"Error saving JSON: {e}")
 
 # Usage
-scraper = EventScraper(2025)
+current_year = date.today().strftime("%Y")
+
+scraper = EventScraper(current_year)
 scraper.scrape_page()
 scraper.save_to_json()
