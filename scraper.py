@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import os
+import json
 from datetime import datetime
 
 class EventScraper:
@@ -44,20 +46,17 @@ class EventScraper:
         except Exception as e:
             print(f"An error occurred during parsing: {e}")
 
-    def get_events(self):
-        return self.all_events
+    def save_to_json(self, filename="app/data/academic_calendar.json"):
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+        try:
+            with open(filename, "w", encoding="utf-8") as f:
+                json.dump(self.all_events, f, ensure_ascii=False, indent=4)
+            print(f"Data saved to {filename}")
+        except Exception as e:
+            print(f"Error saving JSON: {e}")
 
 # Usage
 scraper = EventScraper(2025)
 scraper.scrape_page()
-print(scraper.get_events())
-scraped_data = scraper.get_events()
-
-# Send data to Next.js API
-api_url = "https://kmuvcd.vercel.app/api/schedule"
-response = requests.post(api_url, json=scraped_data)
-
-if response.status_code == 200:
-    print("Data successfully sent to Next.js..000.!")
-else:
-    print(f"Error: {response.status_code}, {response.text}")
+scraper.save_to_json()
