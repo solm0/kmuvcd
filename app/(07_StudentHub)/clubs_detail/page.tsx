@@ -21,7 +21,7 @@ export default async function Page() {
             <h1 className='text-2xl pb-8'>동아리 소개</h1>
             <p>&apos;로그인 후 더보기&apos; 버튼, 로그인/회원가입 페이지로 리다이렉트</p>
             {data.map((post: PostProps) => (
-                <div key={post.id} className='rounded-lg bg-gray-100 p-8'>
+                <div key={post.id} className='rounded-lg bg-gray-100 p-8 mb-4'>
                     <p>name:{post.name}</p>
                     {post.thumbnail && (
                         <ImageMedia media={post.thumbnail} />

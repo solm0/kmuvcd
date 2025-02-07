@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   return (
     <div>
       <h1 className='text-2xl pb-8'>{post.name}</h1>
-      <div className='rounded-lg bg-gray-100 p-4'>
+      <div className='rounded-lg bg-gray-100 p-4 mb-4'>
         {post.Event?.map((event) => (
           <Event key={event.id} event={event} />
         ))}

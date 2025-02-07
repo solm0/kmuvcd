@@ -22,11 +22,6 @@ export default async function Page() {
             {data.map((post: PostProps) => (
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>
-                    {post.thumbnail && (
-                        <div>thumbnail:
-                            <ImageMedia media={post.thumbnail} size='thumbnail' />
-                        </div>
-                    )}
                     <p>room_number: {post.room_number}</p>
                     <MdText markdown={post.text ?? " "} />
                     <div>photo:
