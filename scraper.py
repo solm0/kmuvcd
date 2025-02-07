@@ -5,10 +5,10 @@ import os
 import json
 from datetime import date
 
-current_year = date.today().strftime("%Y")
+current_year = int(date.today().strftime("%Y"))  # Convert to int
 
 class EventScraper:
-    def __init__(self, year):
+    def __init__(self, year: int):  # Ensure year is an integer
         self.year = year
         self.all_events = []
         self.url = f"https://www.kookmin.ac.kr/user/scGuid/scSchedule/index.do?yyyy={self.year}"
@@ -16,7 +16,7 @@ class EventScraper:
     def scrape_page(self):
         try:
             response = requests.get(self.url)
-            response.raise_for_status()  # To check if the request was successful
+            response.raise_for_status()  # Ensure successful request
             soup = BeautifulSoup(response.content, "html.parser")
             events = soup.find("table", id="monthTable").find_all("tr")
 
@@ -26,20 +26,19 @@ class EventScraper:
 
                 if date_str and title:
                     pattern = r"(\d{1,2})\.(\d{1,2})\s\(\w\)\s~\s(\d{1,2})\.(\d{1,2})\s\(\w\)"
-                    match = re.match(pattern, date_str.text)
+                    match = re.match(pattern, date_str.text.strip())
+
                     if match:
                         month_start = int(match.group(1))
                         day_start = int(match.group(2))
                         month_end = int(match.group(3))
                         day_end = int(match.group(4))
-                        
-                        if month_start in [1, 2]:
-                            year = self.year + 1
-                        else:
-                            year = self.year
-                        
-                        start_date = f"{year}-{month_start:02d}-{day_start:02d}"
-                        end_date = f"{year}-{month_end:02d}-{day_end:02d}"
+
+                        year_start = self.year + 1 if month_start in [1, 2] else self.year
+                        year_end = self.year + 1 if month_end in [1, 2] else self.year
+
+                        start_date = f"{year_start}-{month_start:02d}-{day_start:02d}"
+                        end_date = f"{year_end}-{month_end:02d}-{day_end:02d}"
 
                         event_data = {
                             "title": title.text.strip(),
@@ -47,6 +46,8 @@ class EventScraper:
                             "end_date": end_date,
                         }
                         self.all_events.append(event_data)
+                    else:
+                        print(f"Skipping unrecognized date format: {date_str.text.strip()}")
                         
         except requests.RequestException as e:
             print(f"Error during HTTP request: {e}")
