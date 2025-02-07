@@ -1,0 +1,41 @@
+name: Run Scraper Every March
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  scraper:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run script
+        run: python scraper.py
+
+      - name: Check for file changes
+        id: changed-files
+        run: |
+          git diff --quiet || echo "files_changed=true" >> $GITHUB_ENV
+  
+      - name: Commit and push changes
+        if: env.files_changed == 'true'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Update scraped data"
+          git push
