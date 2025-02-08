@@ -62,7 +62,7 @@ class EventScraper:
 
     def save_to_json(self, filename=None):
         if filename is None:
-            filename = f"app/data/academic_calendar_{self.year}.json"
+            filename = f"app/data/academic_calendar/academic_calendar_{self.year}.json"
 
         os.makedirs(os.path.dirname(filename), exist_ok=True)
 
