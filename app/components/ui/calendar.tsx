@@ -1,14 +1,27 @@
-import fs from "fs/promises";
+import fs from "fs";
 import path from "path";
 import { fetchCMSData } from "../cms/fetchCMSData";
 import { PostProps, EventProps } from "@/app/types";
 
-async function getCalendarData() {
-  const current_year = new Date().getFullYear();
+export function getAcademicCalendarData() {
+  const folderPath = 'app/data/academic_calendar';
+  const files = fs.readdirSync(folderPath);
+  const jsonFiles = files.filter(file => file.endsWith('.json'));
 
-  // Fetch academic data from the local file
-  const academicDataPath = path.join(process.cwd(), `/app/data/academic_calendar_${current_year}.json`);
-  const academicData = JSON.parse(await fs.readFile(academicDataPath, "utf-8"));
+  const mergedData = jsonFiles.flatMap(file => {
+    const filePath = path.join(folderPath, file);
+    const content = fs.readFileSync(filePath, 'utf8');
+    return JSON.parse(content);
+  });
+
+  return mergedData;
+}
+
+async function getCalendarData() {
+  const academicData = getAcademicCalendarData();
+
+  console.log('this is a merged academicData:', academicData);
+
   const academicCalendar: EventProps[] = academicData?.map((event: EventProps) => ({
     name: event?.name ?? 'Unknown Event',
     startDate: event?.startDate ?? 'Unknown Start Date',

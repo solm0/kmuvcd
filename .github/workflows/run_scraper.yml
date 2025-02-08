@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: '48 3 * * *' # change it to 17 3 28 2 *
   workflow_dispatch:
+    inputs:
+      year:
+        description: 'Enter the year to scrape events for (e.g., 2025)'
+        required: false
 
 jobs:
   scraper:
@@ -24,7 +28,12 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run script
-        run: python scraper.py
+        run: |
+          if [ -z "${{ github.event.inputs.year }}" ]; then
+            python scraper.py  # Use current year if no input is provided
+          else
+            python scraper.py ${{ github.event.inputs.year }}  # Use provided year
+          fi
 
       - name: Check for file changes
         id: changed-files
@@ -32,7 +41,7 @@ jobs:
           if [[ -n $(git status --porcelain) ]]; then
             echo "files_changed=true" >> $GITHUB_ENV
           fi
-  
+
       - name: Commit and push changes
         if: env.files_changed == 'true'
         run: |

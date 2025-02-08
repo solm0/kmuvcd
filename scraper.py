@@ -4,12 +4,18 @@ import re
 import os
 import json
 from datetime import date
+import argparse
 
-current_year = int(date.today().strftime("%Y"))  # Convert to int
+def validate_year(year):
+    """Ensure the year is a four-digit number."""
+    if not isinstance(year, int) or year < 1000 or year > 9999:
+        raise ValueError(f"Invalid year: {year}. Please enter a four-digit year (e.g., 2024).")
 
 class EventScraper:
-    def __init__(self, year: int):  # Ensure year is an integer
-        self.year = year
+    def __init__(self, year: int = None):
+        """Allow manually setting a year, default to the current year if None."""
+        self.year = year if year is not None else int(date.today().strftime("%Y"))
+        validate_year(self.year)  # Validate the provided or default year
         self.all_events = []
         self.url = f"https://www.kookmin.ac.kr/user/scGuid/scSchedule/index.do?yyyy={self.year}"
 
@@ -67,7 +73,18 @@ class EventScraper:
         except Exception as e:
             print(f"Error saving JSON: {e}")
 
-# Usage
-scraper = EventScraper(current_year)
-scraper.scrape_page()
-scraper.save_to_json()
+def main():
+    # Argument parsing
+    parser = argparse.ArgumentParser(description="Scrape events for a specific year.")
+    parser.add_argument(
+        "year", type=int, nargs="?", default=None, help="Year to scrape events for"
+    )
+    args = parser.parse_args()
+
+    # Use the provided year or the current year if no argument is given
+    scraper = EventScraper(year=args.year)
+    scraper.scrape_page()
+    scraper.save_to_json()
+
+if __name__ == "__main__":
+    main()
