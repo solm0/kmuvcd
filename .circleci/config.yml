@@ -18,7 +18,7 @@ workflows:
   scheduled_wakeup:
     triggers:
       - schedule:
-          cron: "2/5 * * * *"
+          cron: "2, 17, 32, 47 * * * *"
           filters:
             branches:
               only: main
