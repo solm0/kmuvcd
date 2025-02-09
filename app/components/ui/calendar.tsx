@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fetchCMSData } from "../cms/fetchCMSData";
-import { PostProps, EventProps } from "@/app/types";
+import { PostProps, CalendarProps } from "@/app/types";
 
 export function getAcademicCalendarData() {
   const folderPath = 'app/data/academic_calendar';
@@ -20,31 +20,31 @@ export function getAcademicCalendarData() {
 async function getCalendarData() {
   const academicData = getAcademicCalendarData();
 
-  console.log('this is a merged academicData:', academicData);
+  // console.log('this is a merged academicData:', academicData);
 
-  const academicCalendar: EventProps[] = academicData?.map((event: EventProps) => ({
+  const academicCalendar: CalendarProps[] = academicData?.map((event: CalendarProps) => ({
     name: event?.name ?? 'Unknown Event',
     startDate: event?.startDate ?? 'Unknown Start Date',
     endDate: event?.endDate ?? event?.startDate ?? 'Unknown End Date',
     tags: [{ tag: '학사일정' }],
   }))
 
-  interface EventCalendarProps {
+  interface CalendarDataProps {
     documentId?: string;
-    Event?: EventProps[];
+    Calendar?: CalendarProps[];
   }
   
   // Fetch event data from Strapi
-  const eventData = await fetchCMSData<PostProps>('events?populate[Event][populate][tags]=true&populate[Event][populate][poster]=true&populate[website]=true') as PostProps[];
+  const eventData = await fetchCMSData<PostProps>('events?populate[calendars][populate][0]=tags') as PostProps[];
   const eventCalendars = eventData?.map((data: PostProps) => ({
     documentId: data?.documentId,
-    Event: data?.Event,
+    Calendar: data?.calendars,
   }));
 
   // console.log(eventCalendars);
 
-  const eventCalendar = eventCalendars?.map((calendar: EventCalendarProps) => 
-    calendar.Event?.map((data) => ({
+  const eventCalendar = eventCalendars?.map((calendar: CalendarDataProps) => 
+    calendar.Calendar?.map((data) => ({
       url: `https://kmuvcd.vercel.app/events/${calendar.documentId}`,
       name: data?.name ?? 'Unknown Event',
       startDate: data?.startDate ?? 'Unknown Start Date',

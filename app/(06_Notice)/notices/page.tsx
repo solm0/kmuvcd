@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
 import Website from '@/app/components/ui/website';
-import Event from '@/app/components/ui/event';
+import Calendar from '@/app/components/ui/calendar-entry';
 import MdText from '@/app/components/ui/md-text';
 import { ImageMedia } from '@/app/components/ui/media';
 
@@ -25,10 +25,10 @@ export default async function Page() {
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>
                     <p>author: {post.author}</p>
-                    {post.Event && post.Event.length > 0 && (
+                    {post.calendars && post.calendars?.length > 0 && (
                         <div className='rounded-lg bg-gray-200 p-4'>
-                            {post.Event?.map((event) => (
-                                <Event key={event.id} event={event} />
+                            {post.calendars?.map((event) => (
+                                <Calendar key={event.id} calendar={event} />
                             ))}
                         </div>
                     )}

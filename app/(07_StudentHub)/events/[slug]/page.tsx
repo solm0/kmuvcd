@@ -1,9 +1,9 @@
 
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
+import Calendar from '@/app/components/ui/calendar-entry';
+import { ImageMedia } from '@/app/components/ui/media';
 import Website from '@/app/components/ui/website';
-import Event from '@/app/components/ui/event';
-import MdText from '@/app/components/ui/md-text';
 
 export async function generateStaticParams() {
   const posts = await fetchCMSData('events');
@@ -23,24 +23,29 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params;
 
   // Use the `slug` as you normally would
-  const post = await fetchCMSData<PostProps>(`events/${slug}?populate[Event][populate][tags]=true&populate[Event][populate][poster]=true&populate[website]=true`) as PostProps;
+  const post = await fetchCMSData<PostProps>(`events/${slug}?populate[calendars][populate][0]=tags&populate[website]=true&populate[poster]=true`) as PostProps;
 
   return (
     <div>
       <h1 className='text-2xl pb-8'>{post.name}</h1>
-      <div className='rounded-lg bg-gray-100 p-4 mb-4'>
-        {post.Event?.map((event) => (
-          <Event key={event.id} event={event} />
-        ))}
+      <div key={post.id} className='rounded-lg bg-gray-100 p-8 mb-4'>
+          <div className='rounded-lg bg-gray-200 p-4'>
+              {post.calendars?.map((calendar) => (
+                  <Calendar key={calendar.id} calendar={calendar} />
+              ))}
+          </div>
+          <p>text: {post.text}</p>
+          {post.poster && 
+              <div>poster:
+                  <ImageMedia key={post.poster.id} media={post.poster} size='small' />
+              </div>
+          }
+          <div>website:
+              {post.website?.map((website) => (
+                  <Website key={website.id} website={website} />
+              ))}
+          </div>
       </div>
-      <MdText markdown={post.text ?? " "} />
-      {post.website && post.website?.length > 0 && (
-        <div>website:
-          {post.website?.map((website) => (
-            <Website key={website.id} website={website} />
-          ))}
-        </div>
-      )}
     </div>
   );
 }

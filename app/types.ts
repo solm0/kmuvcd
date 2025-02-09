@@ -17,10 +17,11 @@ export interface PostProps {
   mandatory?: boolean;
   grade?: number;
   author?: string;
+  poster?: MediaProps;
   thumbnail?: MediaProps;
   media?: MediaProps[];
   photo?: MediaProps[];
-  Event?: EventProps[];
+  calendars?: CalendarProps[];
   website?: WebsiteProps[];
   content?: ContentItem[];
 }
@@ -32,7 +33,7 @@ export interface ContentItem {
   media?: MediaProps;
 }
 
-export interface EventProps {
+export interface CalendarProps {
   id?: number;
   documentId?: string;
   name?: string;
@@ -43,7 +44,6 @@ export interface EventProps {
     id?: number;
     tag?: string;
   }[];
-  poster?: MediaProps[];
   url?: string;
 }
 
