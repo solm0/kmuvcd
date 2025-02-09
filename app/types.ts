@@ -45,6 +45,9 @@ export interface CalendarProps {
     tag?: string;
   }[];
   url?: string;
+  detail?: {
+    documentId?: string;
+  }
 }
 
 export interface MediaProps {
