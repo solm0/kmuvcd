@@ -1,6 +1,8 @@
 // import fs from "fs";
 // import path from "path";
 import { CalendarProps } from "@/app/types";
+import Calendar from "./calendar-entry";
+import Link from "next/link";
 
 // export function getAcademicCalendarData() {
 //   const folderPath = 'app/data/academic_calendar';
@@ -66,23 +68,13 @@ export default async function CalendarComponent() {
       <h1 className="text-2xl pb-8">Calendar</h1>
       {events.map((event: CalendarProps, index) => (
         <div key={index}>
-          <a href={event?.url}>
-            <div className='rounded-lg bg-gray-100 p-8 mb-4 hover:bg-gray-200'>
-              <p>{event?.name}</p>
-              <p>{event?.startDate} - {event?.endDate}</p>
-              <p>{event?.location}</p>
-              <div className="flex flex-wrap gap-2 mt-2">
-                  {event?.tags?.map((tag, index: number) => (
-                      <span
-                          key={index}
-                          className="bg-red-300 text-red-900 px-2 py-1 rounded-md text-sm"
-                      >
-                          {tag.tag}
-                      </span>
-                  ))}
+          {event?.url &&
+            <Link href={event?.url}>
+              <div className='rounded-lg bg-gray-100 p-4 hover:bg-gray-200'>
+                <Calendar key={event.id} calendar={event} />
               </div>
-            </div>
-          </a>
+            </Link>
+          }
         </div>
       ))}
     </div>
