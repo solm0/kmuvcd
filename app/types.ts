@@ -48,6 +48,7 @@ export interface CalendarProps {
   detail?: {
     documentId?: string;
   }
+  publishedAt: string | null;
 }
 
 export interface MediaProps {

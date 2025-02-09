@@ -17,7 +17,7 @@ export async function GET() {
   }
 
   try {
-    const res = await fetch("https://kmuvcd-strapi.onrender.com/api/users/me", {
+    const res = await fetch("https://kmuvcd-strapi.onrender.com/api/users/me?populate[calendars][populate][0]=detail&populate[calendars][populate][1]=tags&populate[role]=true", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

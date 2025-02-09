@@ -70,9 +70,7 @@ export default async function CalendarComponent() {
         <div key={index}>
           {event?.url &&
             <Link href={event?.url}>
-              <div className='rounded-lg bg-gray-100 p-4 hover:bg-gray-200'>
-                <Calendar key={event.id} calendar={event} />
-              </div>
+              <Calendar key={event.id} calendar={event} />
             </Link>
           }
         </div>

@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     <div>
       <h1 className='text-2xl pb-8'>{post.name}</h1>
       <div key={post.id} className='rounded-lg bg-gray-100 p-8 mb-4'>
-          <div className='rounded-lg bg-gray-200 p-4'>
+          <div>
               {post.calendars?.map((calendar) => (
                   <Calendar key={calendar.id} calendar={calendar} />
               ))}

@@ -20,11 +20,9 @@ export default async function Page() {
             <h1 className='text-2xl pb-8'>이벤트</h1>
             {data.map((post: PostProps) => (
                 <Link key={post.id} href={`https://kmuvcd.vercel.app/events/${post.documentId}`}>
-                    <div className='rounded-lg bg-gray-100 p-4 hover:bg-gray-200'>
-                        {post.calendars?.map((calendar) => (
-                            <Calendar key={calendar.id} calendar={calendar} />
-                        ))}
-                    </div>
+                    {post.calendars?.map((calendar) => (
+                        <Calendar key={calendar.id} calendar={calendar} />
+                    ))}
                 </Link>
             ))}
         </>
