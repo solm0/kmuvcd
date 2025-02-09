@@ -5,6 +5,7 @@ import os
 import json
 from datetime import date
 import argparse
+import sys
 
 def validate_year(year):
     """Ensure the year is a four-digit number."""
@@ -21,8 +22,10 @@ class EventScraper:
 
     def scrape_page(self):
         try:
+            print(f"Attempting to scrape data for the year {self.year} from {self.url}")
             response = requests.get(self.url)
             response.raise_for_status()  # Ensure successful request
+            
             soup = BeautifulSoup(response.content, "html.parser")
             events = soup.find("table", id="monthTable").find_all("tr")
 
@@ -57,8 +60,10 @@ class EventScraper:
                         
         except requests.RequestException as e:
             print(f"Error during HTTP request: {e}")
+            sys.exit(1)
         except Exception as e:
             print(f"An error occurred during parsing: {e}")
+            sys.exit(1)
 
     def save_to_json(self, filename=None):
         if filename is None:
