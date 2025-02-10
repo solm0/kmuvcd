@@ -2,6 +2,7 @@ export async function addBookmark(userId: string, calendarId: string) {
   try {
     const res = await fetch(`https://kmuvcd-strapi.onrender.com/api/calendars/${calendarId}`, {
       method: "PUT",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",  // Make sure to set the correct content-type
       },
@@ -32,6 +33,7 @@ export async function removeBookmark(userId: string, calendarId: string) {
   try {
     const res = await fetch(`https://kmuvcd-strapi.onrender.com/api/calendars/${calendarId}?populate=*`, {
       method: "PUT",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",  // Make sure to set the correct content-type
       },
