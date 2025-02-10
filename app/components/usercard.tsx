@@ -25,7 +25,22 @@ export default function UserCard() {
     async function fetchUser() {
       try {
         const res = await fetch("/api/auth/me");
-        const data = await res.json();
+
+        if (!res.ok) {
+          console.warn(`User not logged in: ${res.status} ${res.statusText}`);
+          setUserData(null); // Clear user data if unauthorized
+          return;
+        }
+
+        const text = await res.text();
+
+        if (!text) {
+          console.warn("Empty response from API");
+          setUserData(null);
+          return;
+        }
+
+        const data = JSON.parse(text);
         setUserData(data.data || null);
       } catch (error) {
         console.error("Failed to fetch user:", error);

@@ -18,7 +18,6 @@ import Link from "next/link";
 //   return mergedData;
 // }
 
-
 async function getCalendarData() {
   // const academicData = getAcademicCalendarData();
 
@@ -41,6 +40,7 @@ async function getCalendarData() {
   
   const eventCalendar = eventData?.data.map((data: CalendarProps) => ({
     url: `https://kmuvcd.vercel.app/events/${data?.detail?.documentId}`,
+    documentId: data?.documentId,
     name: data?.name ?? 'Unknown Event',
     startDate: data?.startDate ?? 'Unknown Start Date',
     endDate: data?.endDate ?? data?.startDate ?? 'Unknown End Date',
@@ -66,11 +66,11 @@ export default async function CalendarComponent() {
   return (
     <div className="w-full p-12 absolute top-[500px] z-0">
       <h1 className="text-2xl pb-8">Calendar</h1>
-      {events.map((event: CalendarProps, index) => (
+      {events.map((calendar: CalendarProps, index) => (
         <div key={index}>
-          {event?.url &&
-            <Link href={event?.url}>
-              <Calendar key={event.id} calendar={event} />
+          {calendar?.url &&
+            <Link key={calendar.id} href={calendar?.url}>
+              <Calendar calendar={calendar} />
             </Link>
           }
         </div>
