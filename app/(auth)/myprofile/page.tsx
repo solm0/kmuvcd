@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { LogoutButton } from '@/app/components/custom/logout-button';
-import UserCard from '@/app/components/usercard';
+import UserCard from '@/app/components/ui/usercard';
 
 export const metadata: Metadata = {
     title: '내 프로필',
