@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { CalendarProps } from "@/app/types";
+import { BookmarkIcon as BookmarkOutlineIcon } from "@heroicons/react/24/outline";
+import { BookmarkIcon as BookmarkSolidIcon } from "@heroicons/react/24/solid";
 
 interface UserDataProps {
   id: number;
@@ -49,7 +51,11 @@ export default function BookmarkButton ({ calendarId }: { calendarId: string}) {
 
   return (
     <div>
-      {isBookmarked ? <p>Bookmarked</p> : <p>is not Bookmarked</p>}
+      {isBookmarked ? 
+        <BookmarkSolidIcon className="w-6 h-6 text-gray-400 hover:text-gray-500" />
+      : 
+        <BookmarkOutlineIcon className="w-6 h-6 text-gray-500 hover:text-gray-600" />
+      }
     </div>
   )
 }
