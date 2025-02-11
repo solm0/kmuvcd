@@ -3,6 +3,7 @@
 import { CalendarProps } from "@/app/types";
 import Calendar from "./calendar-entry";
 import Link from "next/link";
+import { getAuthToken } from "@/app/data/services/get-token";
 
 // export function getAcademicCalendarData() {
 //   const folderPath = 'app/data/academic_calendar';
@@ -62,6 +63,7 @@ async function getCalendarData() {
 
 export default async function CalendarComponent() {
   const events = await getCalendarData();
+  const token = await getAuthToken();
 
   return (
     <div className="w-full p-12 absolute top-[500px] z-0">
@@ -70,7 +72,7 @@ export default async function CalendarComponent() {
         <div key={index}>
           {calendar?.url &&
             <Link key={calendar.id} href={calendar?.url}>
-              <Calendar calendar={calendar} />
+              <Calendar calendar={calendar} token={token ?? undefined} />
             </Link>
           }
         </div>

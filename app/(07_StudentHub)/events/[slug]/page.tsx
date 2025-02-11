@@ -1,9 +1,9 @@
-
 import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
 import { PostProps } from '@/app/types';
 import Calendar from '@/app/components/ui/calendar-entry';
 import { ImageMedia } from '@/app/components/ui/media';
 import Website from '@/app/components/ui/website';
+import { getAuthToken } from '@/app/data/services/get-token';
 
 export async function generateStaticParams() {
   const posts = await fetchCMSData('events');
@@ -25,13 +25,15 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   // Use the `slug` as you normally would
   const post = await fetchCMSData<PostProps>(`events/${slug}?populate[calendars][populate][0]=tags&populate[website]=true&populate[poster]=true`) as PostProps;
 
+  const token = await getAuthToken();
+
   return (
     <div>
       <h1 className='text-2xl pb-8'>{post.name}</h1>
       <div key={post.id} className='rounded-lg bg-gray-100 p-8 mb-4'>
           <div>
               {post.calendars?.map((calendar) => (
-                  <Calendar key={calendar.id} calendar={calendar} />
+                  <Calendar key={calendar.id} calendar={calendar} token={token ?? undefined} />
               ))}
           </div>
           <p>text: {post.text}</p>

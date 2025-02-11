@@ -17,7 +17,7 @@ interface UserDataProps {
   calendars?: CalendarProps[];
 }
 
-export default function Calendar({ calendar }: { calendar: CalendarProps }) {
+export default function Calendar({ calendar, token }: { calendar: CalendarProps; token?: string }) {
   const [userData, setUserData] = useState<UserDataProps | null>(null);
 
   useEffect(() => {
@@ -66,8 +66,8 @@ export default function Calendar({ calendar }: { calendar: CalendarProps }) {
               </span>
           ))}
         </div>
-        {isUser && calendar?.documentId ?
-          <BookmarkButton calendarId={calendar?.documentId} />
+        {isUser && calendar?.documentId && token ?
+          <BookmarkButton calendarId={calendar?.documentId} token={token} />
           : <div>theres no logined user</div>
         }
     </div>

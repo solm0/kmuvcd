@@ -1,7 +1,5 @@
-import { getAuthToken } from "@/app/data/services/get-token-client";
 
-export async function addBookmark(userId: string, calendarId: string) {
-  const token = await getAuthToken();
+export async function addBookmark(userId: string, calendarId: string, token:string) {
 
   try {
     const res = await fetch(`https://kmuvcd-strapi.onrender.com/api/calendars/${calendarId}`, {
@@ -34,8 +32,7 @@ export async function addBookmark(userId: string, calendarId: string) {
 
 }
 
-export async function removeBookmark(userId: string, calendarId: string) {
-  const token = await getAuthToken();
+export async function removeBookmark(userId: string, calendarId: string, token:string) {
 
   try {
     const res = await fetch(`https://kmuvcd-strapi.onrender.com/api/calendars/${calendarId}?populate=*`, {

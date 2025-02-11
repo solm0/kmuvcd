@@ -12,7 +12,7 @@ interface UserDataProps {
   calendars?: CalendarProps[];
 }
 
-export default function BookmarkButton ({ calendarId }: { calendarId: string}) {
+export default function BookmarkButton ({ calendarId, token }: { calendarId: string; token: string} ) {
   const [userData, setUserData] = useState<UserDataProps | null>(null);
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -58,8 +58,21 @@ export default function BookmarkButton ({ calendarId }: { calendarId: string}) {
   const handleAddBookmark = async () => {
     if (userData?.id && calendarId) {
       try {
-        const result = await addBookmark(userData?.documentId, calendarId);
+        const result = await addBookmark(userData?.documentId, calendarId, token);
         console.log("Bookmark added:", result);
+
+        setIsBookmarked(true);
+        setUserData((prev) =>
+          prev
+            ? {
+                ...prev,
+                calendars: [
+                  ...(prev.calendars || []),
+                  { documentId: calendarId, publishedAt: "" } as CalendarProps, // Ensure it matches CalendarProps
+                ],
+              }
+            : prev
+        );
       } catch (error) {
         console.log("Error adding bookmark:", error);
       }
@@ -69,8 +82,18 @@ export default function BookmarkButton ({ calendarId }: { calendarId: string}) {
   const handleRemoveBookmark = async () => {
     if (userData?.id && calendarId) {
       try {
-        const result = await removeBookmark(userData?.documentId, calendarId);
+        const result = await removeBookmark(userData?.documentId, calendarId, token);
         console.log("Bookmark deleted:", result);
+
+        setIsBookmarked(false);
+        setUserData((prev) =>
+          prev
+            ? {
+                ...prev,
+                calendars: prev.calendars?.filter((calendar) => calendar.documentId !== calendarId) || [],
+              }
+            : prev
+        );
       } catch (error) {
         console.log("Error delettttting bookmark:", error);
       }
