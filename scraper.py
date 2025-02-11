@@ -2,17 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import os
-import json
 from datetime import date
 import argparse
 import sys
 
 api_token = os.getenv("SCRAPER_STRAPI_API_TOKEN")
 
-if api_token:
-    print(f"API Token loaded: {api_token[:4]}********")
-else:
-    print("No API token found!")
+if not api_token:
+    print("No API token found! Please set SCRAPER_STRAPI_API_TOKEN.")
+    sys.exit(1)
 
 def validate_year(year):
     """Ensure the year is a four-digit number."""
@@ -72,18 +70,33 @@ class EventScraper:
             print(f"An error occurred during parsing: {e}")
             sys.exit(1)
 
-    def save_to_json(self, filename=None):
-        if filename is None:
-            filename = f"app/data/academic_calendar/academic_calendar_{self.year}.json"
+    def post_to_strapi(self):
+        api_url = "https://kmuvcd-strapi.onrender.com/api/calendars"
 
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        headers = {
+            "Authorization": f"Bearer {api_token}",
+            "Content-Type": "application/json"
+        }
 
-        try:
-            with open(filename, "w", encoding="utf-8") as f:
-                json.dump(self.all_events, f, ensure_ascii=False, indent=4)
-            print(f"Data saved to {filename}")
-        except Exception as e:
-            print(f"Error saving JSON: {e}")
+        # post 양식에 맞춰 기존 데이터를 수정해야 함.
+        for event in self.all_events:
+            data = { 
+                "data": {
+                    "name": event["name"],
+                    "startDate": event["startDate"],
+                    "endDate": event["endDate"],
+                    "tags": {
+                        "connect": ['vl0xeseio4i439p1gmps7618']
+                    }
+                }
+            }
+
+            try:
+                response = requests.post(api_url, json=data, headers=headers)
+                response.raise_for_status()  # This will raise an HTTPError for bad responses
+                print(f"Event '{event['name']}' successfully posted to Strapi.")
+            except requests.RequestException as e:
+                print(f"Error posting event '{event['name']}': {str(e)}")
 
 def main():
     # Argument parsing
@@ -96,7 +109,7 @@ def main():
     # Use the provided year or the current year if no argument is given
     scraper = EventScraper(year=args.year)
     scraper.scrape_page()
-    scraper.save_to_json()
+    scraper.post_to_strapi()
 
 if __name__ == "__main__":
     main()
