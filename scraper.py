@@ -7,6 +7,13 @@ from datetime import date
 import argparse
 import sys
 
+api_token = os.getenv("SCRAPER_STRAPI_API_TOKEN")
+
+if api_token:
+    print(f"API Token loaded: {api_token[:4]}********")
+else:
+    print("No API token found!")
+
 def validate_year(year):
     """Ensure the year is a four-digit number."""
     if not isinstance(year, int) or year < 1000 or year > 9999:
