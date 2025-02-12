@@ -1,11 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { ZodErrors } from '@/app/components/custom/zod-errors';
-import { resetPasswordAction } from '@/app/components/actions/auth-actions';
+import { ZodErrors } from '@/app/ui/auth/zod-errors';
+import { resetPasswordAction } from '@/app/lib/actions/auth-actions';
 import { useActionState } from 'react';
-import { StrapiErrors } from '@/app/components/custom/strapi-errors';
-import { SubmitButton } from '@/app/components/custom/submit-button';
+import { StrapiErrors } from '@/app/ui/auth/strapi-errors';
+import { SubmitButton } from '@/app/ui/auth/submit-button';
 
 const INITIAL_STATE = {
   zodErrors: null,

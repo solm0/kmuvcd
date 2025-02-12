@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { CalendarProps } from '@/app/types';
-import Calendar from './calendar-entry';
+import { CalendarProps } from '@/app/lib/definitions';
+import Calendar from '../calendar-entry';
 // import Link from 'next/link';
 
 interface UserDataProps {

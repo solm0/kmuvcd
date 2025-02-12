@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ForgotPasswordForm } from '@/app/components/ui/forms/forgot-password-form';
+import { ForgotPasswordForm } from '@/app/ui/auth/forms/forgot-password-form';
 
 export const metadata: Metadata = {
     title: '비밀번호 재설정 메일 보내기',

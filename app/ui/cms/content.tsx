@@ -1,6 +1,6 @@
 import { ImageMedia } from "./media";
 import MdText from "./md-text";
-import { ContentItem } from "@/app/types";
+import { ContentItem } from "@/app/lib/definitions";
 
 export default function Content({ content }: { content: ContentItem[] }) {
   return (

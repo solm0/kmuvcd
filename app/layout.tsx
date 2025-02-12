@@ -1,6 +1,6 @@
 import "./globals.css";
-import SiteMap from "./components/ui/site-map";
-import CalendarComponent from "./components/ui/calendar";
+import SiteMap from "./ui/site-map";
+import CalendarComponent from "./ui/calendar";
 
 export default function RootLayout({
   children,

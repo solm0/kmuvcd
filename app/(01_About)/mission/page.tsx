@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
-import { PostProps } from '@/app/types';
-import MdText from '@/app/components/ui/md-text';
+import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { PostProps } from '@/app/lib/definitions';
+import MdText from '@/app/ui/cms/md-text';
 
 export const metadata: Metadata = {
     title: '목표',

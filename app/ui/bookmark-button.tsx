@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { CalendarProps } from "@/app/types";
+import { CalendarProps } from "@/app/lib/definitions";
 import { BookmarkIcon as BookmarkOutlineIcon } from "@heroicons/react/24/outline";
 import { BookmarkIcon as BookmarkSolidIcon } from "@heroicons/react/24/solid";
-import { addBookmark, removeBookmark } from "../utility/updateBookmark";
+import { addBookmark, removeBookmark } from "../lib/updateBookmark";
 
 interface UserDataProps {
   id: number;

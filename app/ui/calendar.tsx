@@ -1,7 +1,7 @@
-import { CalendarProps } from "@/app/types";
+import { CalendarProps } from "@/app/lib/definitions";
 import Calendar from "./calendar-entry";
 import Link from "next/link";
-import { getAuthToken } from "@/app/data/services/get-token";
+import { getAuthToken } from "@/app/lib/services/get-token";
 
 async function getCalendarData() {
 

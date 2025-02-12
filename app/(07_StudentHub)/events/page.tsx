@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
-import { PostProps } from '@/app/types';
-import Calendar from '@/app/components/ui/calendar-entry';
+import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { PostProps } from '@/app/lib/definitions';
+import Calendar from '@/app/ui/calendar-entry';
 import Link from 'next/link';
-import { getAuthToken } from '@/app/data/services/get-token';
+import { getAuthToken } from '@/app/lib/services/get-token';
 
 export const metadata: Metadata = {
     title: '이벤트',

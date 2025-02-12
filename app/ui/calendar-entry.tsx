@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { CalendarProps } from "@/app/types";
+import { CalendarProps } from "@/app/lib/definitions";
 import BookmarkButton from "./bookmark-button";
 
 interface UserDataProps {

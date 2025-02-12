@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
-import { PostProps } from '@/app/types';
-import Content from '@/app/components/ui/content';
+import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { PostProps } from '@/app/lib/definitions';
+import Content from '@/app/ui/cms/content';
 
 export const metadata: Metadata = {
     title: '전시',

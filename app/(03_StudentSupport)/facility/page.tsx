@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
-import { PostProps } from '@/app/types';
-import { ImageMedia } from '@/app/components/ui/media';
-import MdText from '@/app/components/ui/md-text';
+import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { PostProps } from '@/app/lib/definitions';
+import { ImageMedia } from '@/app/ui/cms/media';
+import MdText from '@/app/ui/cms/md-text';
 
 export const metadata: Metadata = {
     title: '시설 소개',

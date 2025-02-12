@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { registerUserAction } from '@/app/components/actions/auth-actions';
+import { registerUserAction } from '@/app/lib/actions/auth-actions';
 import { useActionState } from "react";
-import { ZodErrors } from "../../custom/zod-errors";
-import { StrapiErrors } from "../../custom/strapi-errors";
-import { SubmitButton } from "../../custom/submit-button";
+import { ZodErrors } from "../zod-errors";
+import { StrapiErrors } from "../strapi-errors";
+import { SubmitButton } from "../submit-button";
 
 const INITIAL_STATE = {
   data: null,

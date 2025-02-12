@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/components/cms/fetchCMSData';
-import { PostProps } from '@/app/types';
-import Website from '@/app/components/ui/website';
-import MdText from '@/app/components/ui/md-text';
-import { ImageMedia } from '@/app/components/ui/media';
+import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { PostProps } from '@/app/lib/definitions';
+import Website from '@/app/ui/cms/website';
+import MdText from '@/app/ui/cms/md-text';
+import { ImageMedia } from '@/app/ui/cms/media';
 
 export const metadata: Metadata = {
     title: '동아리 소개',

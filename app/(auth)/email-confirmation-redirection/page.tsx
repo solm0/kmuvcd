@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { EmailConfirmationForm } from '@/app/components/ui/forms/email-confirmation-form';
+import { EmailConfirmationForm } from '@/app/ui/auth/forms/email-confirmation-form';
 
 export const metadata: Metadata = {
     title: '이메일 인증 완료',
