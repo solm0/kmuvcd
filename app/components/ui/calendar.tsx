@@ -5,7 +5,7 @@ import { getAuthToken } from "@/app/data/services/get-token";
 
 async function getCalendarData() {
 
-  const res = await fetch('https://kmuvcd-strapi.onrender.com/api/calendars?populate=*');
+  const res = await fetch('https://kmuvcd-strapi.onrender.com/api/calendars?populate=*&pagination[pageSize]=300');
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
@@ -14,7 +14,7 @@ async function getCalendarData() {
   // console.log(data)
   
   const events = data?.data.map((data: CalendarProps) => ({
-    url: `https://kmuvcd.vercel.app/events/${data?.detail?.documentId}`,
+    url: data?.detail ? `https://kmuvcd.vercel.app/events/${data?.detail?.documentId}` : null,
     documentId: data?.documentId,
     name: data?.name ?? 'Unknown Event',
     startDate: data?.startDate ?? 'Unknown Start Date',
@@ -38,10 +38,13 @@ export default async function CalendarComponent() {
       <h1 className="text-2xl pb-8">Calendar</h1>
       {events.map((calendar: CalendarProps, index: number) => (
         <div key={index}>
-          {calendar?.url &&
+          {calendar?.url ? (
             <Link key={calendar.id} href={calendar?.url}>
               <Calendar calendar={calendar} token={token ?? undefined} />
             </Link>
+          ) : (
+            <Calendar calendar={calendar} token={token ?? undefined} />
+          )
           }
         </div>
       ))}

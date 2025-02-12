@@ -52,7 +52,7 @@ export default function Calendar({ calendar, token }: { calendar: CalendarProps;
   const isUser = userData?.id;
 
   return (
-    <div className='rounded-lg bg-gray-100 p-4 hover:bg-gray-200'>
+    <div className='rounded-lg bg-gray-100 p-4 hover:bg-gray-200 mt-4'>
         <p>{calendar?.name}</p>
         <p>{calendar?.startDate} - {calendar?.endDate || calendar?.startDate}</p>
         <p>{calendar?.location}</p>
