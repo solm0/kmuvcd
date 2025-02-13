@@ -34,11 +34,11 @@ export interface ContentItem {
 }
 
 export interface CalendarProps {
-  id?: number;
-  documentId?: string;
-  name?: string;
-  startDate?: string;
-  endDate?: string;
+  id: number;
+  documentId: string;
+  name: string;
+  startDate: string;
+  endDate: string;
   location?: string;
   tags?: {
     id?: number;

@@ -1,14 +1,11 @@
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function fetchUser() {
   const cookieStore = await cookies();
   const token = cookieStore.get("jwt")?.value || null;
 
-  // If no token is found, return 401 Unauthorized
   if (!token) {
-    console.log("No token found, user is not authenticated.");
-    return NextResponse.json({ error: "Unauthorized: No token found" }, { status: 401 });
+    console.log("No token found, user is not authenticatedffff.");
   }
 
   try {
@@ -26,11 +23,18 @@ export async function GET() {
     }
 
     // Parse response data
-    const data = await res.json();
-    return NextResponse.json({ data });
+    const text = await res.text();
+
+    if (!text) {
+      console.warn("Empty response from API");
+      return null;
+    }
+
+    const data = JSON.parse(text);
+
+    return data;
   } catch (error) {
     // Handle fetch or network error
     console.error("Error fetching user data:", error);
-    return NextResponse.json({ error: "Failed to fetch user data" }, { status: 500 });
   }
 }

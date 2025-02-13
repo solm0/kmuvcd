@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CalendarProps } from '@/app/lib/definitions';
 import Calendar from '../calendar-entry';
 // import Link from 'next/link';
 
 interface UserDataProps {
   id: number;
+  documentId: string;
   username: string;
   email: string;
   confirmed: boolean;
@@ -18,36 +19,8 @@ interface UserDataProps {
   calendars?: CalendarProps[];
 }
 
-export default function UserCard({ token }: { token?: string }) {
-  const [userData, setUserData] = useState<UserDataProps | null>(null);
-
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await fetch("/api/auth/me");
-
-        if (!res.ok) {
-          console.warn(`User not logged in: ${res.status} ${res.statusText}`);
-          setUserData(null); // Clear user data if unauthorized
-          return;
-        }
-
-        const text = await res.text();
-
-        if (!text) {
-          console.warn("Empty response from API");
-          setUserData(null);
-          return;
-        }
-
-        const data = JSON.parse(text);
-        setUserData(data.data || null);
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
-      }
-    }
-    fetchUser();
-  }, []);
+export default function UserCard({ token, user }: { token?: string; user:UserDataProps }) {
+  const [userData] = useState<UserDataProps | null>(user);
 
   return (
     <div>
@@ -64,7 +37,7 @@ export default function UserCard({ token }: { token?: string }) {
                 .filter(calendar => calendar.publishedAt !== null) // Filter out calendars with null 'publishedAt'
                 .map((calendar) => (
                   // <Link key={calendar.id} href={`https://kmuvcd.vercel.app/events/${calendar.detail?.documentId}`}>
-                    <Calendar key={calendar.id} calendar={calendar} token={token ?? undefined} />
+                    <Calendar key={calendar.id} calendar={calendar} token={token ?? undefined} user={user} />
                   // </Link>
               ))}
             </div>

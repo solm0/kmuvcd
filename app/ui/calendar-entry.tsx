@@ -1,53 +1,25 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CalendarProps } from "@/app/lib/definitions";
 import BookmarkButton from "./bookmark-button";
 
 interface UserDataProps {
   id: number;
+  documentId: string;
   username: string;
   email: string;
-  confirmed: boolean;
-  blocked: boolean;
-  role: {
-    id: number;
-    name: string;
+  confirmed?: boolean;
+  blocked?: boolean;
+  role?: {
+    id?: number;
+    name?: string;
   };
   calendars?: CalendarProps[];
 }
 
-export default function Calendar({ calendar, token }: { calendar: CalendarProps; token?: string }) {
-  const [userData, setUserData] = useState<UserDataProps | null>(null);
-
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await fetch("/api/auth/me");
-
-        if (!res.ok) {
-          console.warn(`User not logged in: ${res.status} ${res.statusText}`);
-          setUserData(null); // Clear user data if unauthorized
-          return;
-        }
-
-        const text = await res.text();
-
-        if (!text) {
-          console.warn("Empty response from API");
-          setUserData(null);
-          return;
-        }
-
-        const data = JSON.parse(text);
-        setUserData(data.data || null);
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
-      }
-    }
-    fetchUser();
-  }, []);
-
+export default function Calendar({ calendar, token, user }: { calendar: CalendarProps; token?: string; user:UserDataProps; }) {
+  const [userData] = useState<UserDataProps | null>(user);
 
   const isUser = userData?.id;
 
@@ -67,7 +39,7 @@ export default function Calendar({ calendar, token }: { calendar: CalendarProps;
           ))}
         </div>
         {isUser && calendar?.documentId && token ?
-          <BookmarkButton calendarId={calendar?.documentId} token={token} />
+          <BookmarkButton calendarId={calendar?.documentId} token={token} user={user} />
           : <div>theres no logined user</div>
         }
     </div>

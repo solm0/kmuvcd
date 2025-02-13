@@ -4,6 +4,7 @@ import { PostProps } from '@/app/lib/definitions';
 import Calendar from '@/app/ui/calendar-entry';
 import Link from 'next/link';
 import { getAuthToken } from '@/app/lib/services/get-token';
+import { fetchUser } from '@/app/lib/get-auth-me';
 
 export const metadata: Metadata = {
     title: '이벤트',
@@ -17,6 +18,7 @@ export default async function Page() {
     }
 
     const token = await getAuthToken();
+    const user = await fetchUser();
 
     return (
         <>
@@ -24,7 +26,7 @@ export default async function Page() {
             {data.map((post: PostProps) => (
                 <Link key={post.id} href={`https://kmuvcd.vercel.app/events/${post.documentId}`}>
                     {post.calendars?.map((calendar) => (
-                        <Calendar key={calendar.id} calendar={calendar} token={token ?? undefined} />
+                        <Calendar key={calendar.id} calendar={calendar} token={token ?? undefined} user={user} />
                     ))}
                 </Link>
             ))}

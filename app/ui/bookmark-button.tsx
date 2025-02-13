@@ -12,37 +12,9 @@ interface UserDataProps {
   calendars?: CalendarProps[];
 }
 
-export default function BookmarkButton ({ calendarId, token }: { calendarId: string; token: string} ) {
-  const [userData, setUserData] = useState<UserDataProps | null>(null);
+export default function BookmarkButton ({ calendarId, token, user }: { calendarId: string; token: string; user: UserDataProps} ) {
+  const [userData, setUserData] = useState<UserDataProps | null>(user);
   const [isBookmarked, setIsBookmarked] = useState(false);
-
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await fetch("/api/auth/me");
-
-        if (!res.ok) {
-          console.warn(`User not logged in: ${res.status} ${res.statusText}`);
-          setUserData(null); // Clear user data if unauthorized
-          return;
-        }
-
-        const text = await res.text();
-
-        if (!text) {
-          console.warn("Empty response from API");
-          setUserData(null);
-          return;
-        }
-
-        const data = JSON.parse(text);
-        setUserData(data.data || null);
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
-      }
-    }
-    fetchUser();
-  }, []);
 
   useEffect(() => {
     if (userData?.calendars) {
