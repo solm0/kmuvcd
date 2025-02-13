@@ -5,6 +5,8 @@ import Website from '@/app/ui/cms/website';
 import Calendar from '@/app/ui/calendar-entry';
 import MdText from '@/app/ui/cms/md-text';
 import { ImageMedia } from '@/app/ui/cms/media';
+import { getAuthToken } from '@/app/lib/services/get-token';
+import { fetchUser } from '@/app/lib/get-auth-me';
 
 export const metadata: Metadata = {
     title: '공지',
@@ -17,6 +19,9 @@ export default async function Page() {
         return <p>No data available or failed to load.</p>;
     }
 
+    const token = await getAuthToken();
+    const user = await fetchUser();
+
     return (
         <div>
             <h1 className="text-2xl pb-8">공지</h1>
@@ -27,8 +32,8 @@ export default async function Page() {
                     <p>author: {post.author}</p>
                     {post.calendars && post.calendars?.length > 0 && (
                         <div className='rounded-lg bg-gray-200 p-4'>
-                            {post.calendars?.map((event) => (
-                                <Calendar key={event.id} calendar={event} />
+                            {post.calendars?.map((calendar) => (
+                                 <Calendar key={calendar.id} calendar={calendar} token={token ?? undefined} user={user} />
                             ))}
                         </div>
                     )}
