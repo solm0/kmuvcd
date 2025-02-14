@@ -38,8 +38,8 @@ export async function registerUserAction(
   const validatedFields = schemaRegister.safeParse({
     realname: realname,
     username: username,
-    password: formData.get("password"),
     email: affixedEmail,
+    password: formData.get("password"),
   });
 
   if (!validatedFields.success) {
@@ -50,9 +50,6 @@ export async function registerUserAction(
       message: "Missing Fields. Failed to Register.",
     };
   }
-
-  // registerUserService에서 post하기 전에 resend에서 메일 제대로 보냈는지 확인.
-  // bounce면 post하지 말고 메일 고쳐서 다시 회원가입 누르게 해야. 근데 여기서 프론트로 알림을 띄울 수 있나?
 
   const responseData = await registerUserService(validatedFields.data);
 
@@ -79,30 +76,19 @@ export async function registerUserAction(
 }
 
 const schemaLogin = z.object({
-  identifier: z
-    .string()
-    .min(2, {
-      message: "Identifier must have at least 2 or more characters",
-    })
-    .max(20, {
-      message: "Please enter a valid username or email address",
-    }),
-  password: z
-    .string()
-    .min(8, {
-      message: "Password must have at least 8 or more characters",
-    })
-    .max(100, {
-      message: "Password must be between 6 and 100 characters",
-    }),
+  identifier: z.string(),
+  password: z.string(),
 });
 
 export async function loginUserAction(
   prevState: any, // eslint-disable-line @typescript-eslint/no-explicit-any
   formData: FormData
 ) {
+  const email = formData.get("email");
+  const affixedEmail = email && `${email}@kookmin.ac.kr`;
+
   const validatedFields = schemaLogin.safeParse({
-    identifier: formData.get("identifier"),
+    identifier: affixedEmail,
     password: formData.get("password"),
   });
 
@@ -110,6 +96,7 @@ export async function loginUserAction(
     return {
       ...prevState,
       zodErrors: validatedFields.error.flatten().fieldErrors,
+      strapiErrors: null,
       message: "Missing Fields. Failed to Login.",
     };
   }
@@ -134,11 +121,8 @@ export async function loginUserAction(
     };
   }
 
-  // console.log(responseData, "responseData");
-
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
-  cookieStore.set("username", responseData.user.username, config);
 
   redirect("/dashboard");
 }
