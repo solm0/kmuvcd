@@ -17,7 +17,7 @@ export default async function Page() {
     }
 
     const token = await getAuthToken();
-    const user = await getUserMe();
+    const user = await getUserMe(true);
 
     return (
         <>
@@ -29,7 +29,7 @@ export default async function Page() {
                             key={calendar.id}
                             calendar={calendar}
                             token={token ?? undefined}
-                            user={user}
+                            user={user?.data}
                             href={`https://kmuvcd.vercel.app/events/${post.documentId}`}
                         />
                     ))}

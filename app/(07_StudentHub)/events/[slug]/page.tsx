@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const post = await fetchCMSData<PostProps>(`events/${slug}?populate[calendars][populate][0]=tags&populate[website]=true&populate[poster]=true`) as PostProps;
 
   const token = await getAuthToken();
-  const user = await getUserMe();
+  const user = await getUserMe(true);
 
   return (
     <div>
@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                     key={calendar.id}
                     calendar={calendar}
                     token={token ?? undefined}
-                    user={user}
+                    user={user?.data}
                   />
               ))}
           </div>

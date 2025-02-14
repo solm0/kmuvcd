@@ -38,7 +38,7 @@ async function getCalendarData() {
 
 export default async function CalendarComponent() {
   const events = await getCalendarData();
-  const user = await getUserMe();
+  const user = await getUserMe(true);
   const token = await getAuthToken();
 
   return (
@@ -51,7 +51,7 @@ export default async function CalendarComponent() {
                 key={calendar.id}
                 calendar={calendar}
                 token={token ?? undefined}
-                user={user}
+                user={user?.data}
                 href={calendar?.url}
               />
           ) : (
@@ -59,7 +59,7 @@ export default async function CalendarComponent() {
               key={calendar.id}
               calendar={calendar}
               token={token ?? undefined}
-              user={user}
+              user={user?.data}
             />
           )
           }

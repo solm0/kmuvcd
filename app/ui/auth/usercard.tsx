@@ -18,7 +18,7 @@ interface UserDataProps {
   calendars?: CalendarProps[];
 }
 
-export default function UserCard({ token, user }: { token?: string; user:UserDataProps }) {
+export default function UserCard({ token, user }: { token?: string; user: UserDataProps }) {
   const [userData] = useState<UserDataProps | null>(user);
 
   return (
