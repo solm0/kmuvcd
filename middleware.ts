@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getUserMeLoader } from "./app/lib/services/get-user-me-loader";
+import { getUserMeSmall } from "./app/lib/services/get-user-me-small";
 
 // Define an array of protected routes
 const protectedRoutes = [
@@ -14,22 +14,25 @@ function isProtectedRoute(path: string): boolean {
 }
 
 export async function middleware(request: NextRequest) {
-  const user = await getUserMeLoader();
   const currentPath = request.nextUrl.pathname;
 
-  console.log("Request URL:", request.url); 
-  console.log("Current Path: ", currentPath); // Log the current path to ensure it's being matched
-  console.log("User Status: ", user.ok); // Log user status to check authentication status
+  if (isProtectedRoute(currentPath)) {
+    console.time("Middleware Execution Time");
 
-  if (isProtectedRoute(currentPath) && user.ok === false) {
-    console.log("Redirecting to signin..."); // Add logging here
-    return NextResponse.redirect(new URL("/signin", request.url));
+    const user = await getUserMeSmall();
+    console.log("User Status: ", user.ok);
+
+    if (user.ok === false) {
+      console.log("Redirecting to signin...");
+      return NextResponse.redirect(new URL("/signin", request.url));
+    }
+
+    console.timeEnd("Middleware Execution Time");
   }
 
   return NextResponse.next();
 }
 
-// Optionally, you can add a matcher to optimize performance
 export const config = {
   matcher: [
     /*

@@ -3,7 +3,7 @@ import { fetchCMSData } from '@/app/lib/fetchCMSData';
 import { PostProps } from '@/app/lib/definitions';
 import Calendar from '@/app/ui/calendar-entry';
 import { getAuthToken } from '@/app/lib/services/get-token';
-import { fetchUser } from '@/app/lib/get-auth-me';
+import { getUserMe } from '@/app/lib/services/get-user-me';
 
 export const metadata: Metadata = {
     title: '이벤트',
@@ -17,7 +17,7 @@ export default async function Page() {
     }
 
     const token = await getAuthToken();
-    const user = await fetchUser();
+    const user = await getUserMe();
 
     return (
         <>

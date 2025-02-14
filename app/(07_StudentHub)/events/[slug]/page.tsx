@@ -4,7 +4,7 @@ import Calendar from '@/app/ui/calendar-entry';
 import { ImageMedia } from '@/app/ui/cms/media';
 import Website from '@/app/ui/cms/website';
 import { getAuthToken } from '@/app/lib/services/get-token';
-import { fetchUser } from '@/app/lib/get-auth-me';
+import { getUserMe } from '@/app/lib/services/get-user-me';
 
 export async function generateStaticParams() {
   const posts = await fetchCMSData('events');
@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const post = await fetchCMSData<PostProps>(`events/${slug}?populate[calendars][populate][0]=tags&populate[website]=true&populate[poster]=true`) as PostProps;
 
   const token = await getAuthToken();
-  const user = await fetchUser();
+  const user = await getUserMe();
 
   return (
     <div>

@@ -1,7 +1,7 @@
 import { CalendarProps } from "@/app/lib/definitions";
 import Calendar from "./calendar-entry";
 import { getAuthToken } from "@/app/lib/services/get-token";
-import { fetchUser } from "../lib/get-auth-me";
+import { getUserMe } from "../lib/services/get-user-me";
 
 async function getCalendarData() {
 
@@ -38,7 +38,7 @@ async function getCalendarData() {
 
 export default async function CalendarComponent() {
   const events = await getCalendarData();
-  const user = await fetchUser();
+  const user = await getUserMe();
   const token = await getAuthToken();
 
   return (
