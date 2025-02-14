@@ -30,10 +30,11 @@ export default function BookmarkButton ({ calendarId, token, user }: { calendarI
   const handleAddBookmark = async () => {
     if (userData?.id && calendarId) {
       try {
+        setIsBookmarked(true);
+
         const result = await addBookmark(userData?.documentId, calendarId, token);
         console.log("Bookmark added:", result);
 
-        setIsBookmarked(true);
         setUserData((prev) =>
           prev
             ? {
@@ -54,10 +55,11 @@ export default function BookmarkButton ({ calendarId, token, user }: { calendarI
   const handleRemoveBookmark = async () => {
     if (userData?.id && calendarId) {
       try {
+        setIsBookmarked(false);
+        
         const result = await removeBookmark(userData?.documentId, calendarId, token);
         console.log("Bookmark deleted:", result);
 
-        setIsBookmarked(false);
         setUserData((prev) =>
           prev
             ? {
