@@ -1,12 +1,7 @@
-import { cookies } from "next/headers";
+import { getAuthToken } from "./services/get-token";
 
 export async function fetchUser() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("jwt")?.value || null;
-
-  if (!token) {
-    console.log("No token found, user is not authenticatedffff.");
-  }
+  const token = await getAuthToken();
 
   try {
     // Making request to Strapi with Authorization header

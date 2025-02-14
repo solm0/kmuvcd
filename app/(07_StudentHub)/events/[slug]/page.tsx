@@ -35,7 +35,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <div key={post.id} className='rounded-lg bg-gray-100 p-8 mb-4'>
           <div>
               {post.calendars?.map((calendar) => (
-                  <Calendar key={calendar.id} calendar={calendar} token={token ?? undefined} user={user} />
+                  <Calendar
+                    key={calendar.id}
+                    calendar={calendar}
+                    token={token ?? undefined}
+                    user={user}
+                  />
               ))}
           </div>
           <p>text: {post.text}</p>

@@ -1,6 +1,5 @@
 import { CalendarProps } from "@/app/lib/definitions";
 import Calendar from "./calendar-entry";
-import Link from "next/link";
 import { getAuthToken } from "@/app/lib/services/get-token";
 import { fetchUser } from "../lib/get-auth-me";
 
@@ -48,11 +47,20 @@ export default async function CalendarComponent() {
       {events.map((calendar: CalendarProps, index: number) => (
         <div key={index}>
           {calendar?.url ? (
-            <Link key={calendar.id} href={calendar?.url}>
-              <Calendar calendar={calendar} token={token ?? undefined} user={user} />
-            </Link>
+              <Calendar
+                key={calendar.id}
+                calendar={calendar}
+                token={token ?? undefined}
+                user={user}
+                href={calendar?.url}
+              />
           ) : (
-            <Calendar calendar={calendar} token={token ?? undefined} user={user} />
+            <Calendar
+              key={calendar.id}
+              calendar={calendar}
+              token={token ?? undefined}
+              user={user}
+            />
           )
           }
         </div>

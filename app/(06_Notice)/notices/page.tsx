@@ -33,7 +33,12 @@ export default async function Page() {
                     {post.calendars && post.calendars?.length > 0 && (
                         <div className='rounded-lg bg-gray-200 p-4'>
                             {post.calendars?.map((calendar) => (
-                                 <Calendar key={calendar.id} calendar={calendar} token={token ?? undefined} user={user} />
+                                 <Calendar
+                                    key={calendar.id}
+                                    calendar={calendar}
+                                    token={token ?? undefined}
+                                    user={user}
+                                />
                             ))}
                         </div>
                     )}

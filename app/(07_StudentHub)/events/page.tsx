@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/lib/fetchCMSData';
 import { PostProps } from '@/app/lib/definitions';
 import Calendar from '@/app/ui/calendar-entry';
-import Link from 'next/link';
 import { getAuthToken } from '@/app/lib/services/get-token';
 import { fetchUser } from '@/app/lib/get-auth-me';
 
@@ -24,11 +23,17 @@ export default async function Page() {
         <>
             <h1 className='text-2xl pb-8'>이벤트</h1>
             {data.map((post: PostProps) => (
-                <Link key={post.id} href={`https://kmuvcd.vercel.app/events/${post.documentId}`}>
+                <div key={post.id} >
                     {post.calendars?.map((calendar) => (
-                        <Calendar key={calendar.id} calendar={calendar} token={token ?? undefined} user={user} />
+                        <Calendar
+                            key={calendar.id}
+                            calendar={calendar}
+                            token={token ?? undefined}
+                            user={user}
+                            href={`https://kmuvcd.vercel.app/events/${post.documentId}`}
+                        />
                     ))}
-                </Link>
+                </div>
             ))}
         </>
     );
