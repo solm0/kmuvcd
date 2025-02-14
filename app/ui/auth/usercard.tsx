@@ -40,7 +40,7 @@ export default function UserCard({ token, user }: { token?: string; user: UserDa
                       calendar={calendar}
                       token={token ?? undefined}
                       user={user}
-                      href={`https://kmuvcd.vercel.app/events/${calendar.detail?.documentId}`}
+                      href={calendar.detail ? `https://kmuvcd.vercel.app/events/${calendar.detail?.documentId}` : undefined}
                     />
               ))}
             </div>
