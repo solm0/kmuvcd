@@ -7,6 +7,7 @@ import { ZodErrors } from "../zod-errors";
 import { StrapiErrors } from "../strapi-errors";
 import { RegisterButton } from "../register-button";
 import { Check, X, Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
 
 const INITIAL_STATE = {
   data: null,
@@ -65,11 +66,19 @@ export function SignupForm() {
     return "Strong password";
   };
 
+  const [emailIsSent, setEmailIsSent] = useState(false);
+
+  const handleSubmit = () => {
+    setEmailIsSent(true);
+    // console.log("Email is sent:", emailIsSent);
+  }
+
   return (
     <div className='rounded-lg bg-gray-100 p-8'>
       <form
         className="flex flex-col gap-2 items-start"
         action={formAction}
+        onSubmit={handleSubmit}
       >
         <label htmlFor="realname">이름</label>
         <p id="realname-description" className="text-sm text-gray-500">ON국민 포털에 가입된 이름을 입력해주세요</p>
@@ -186,6 +195,23 @@ export function SignupForm() {
         />
         <StrapiErrors error={formState?.strapiErrors} />
       </form>
+
+      {emailIsSent && (
+        <div>
+          <p className="pt-4 text-sm">이메일 인증 요청 메일을 전송했습니다. 메일로 전송된 링크를 클릭해 인증해주세요.</p>
+          <p className="text-sm text-red-700 pt-4">메일을 받지 못했나요?</p>
+          <ul className="list-disc text-sm text-red-700 pl-4">
+            <li>스팸함을 보세요.</li>
+            <li>메일주소를 다시 확인하세요.</li>
+            <li>
+              <Link href="/email-confirmation" className="underline hover:text-red-500">
+                재전송하세요.
+              </Link>
+            </li>
+            <li>관리자에게 문의하세요.</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

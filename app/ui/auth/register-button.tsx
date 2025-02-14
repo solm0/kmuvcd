@@ -12,10 +12,9 @@ function Loader({ text }: { readonly text: string }) {
   );
 }
 
-interface SubmitButtonProps {
+interface RegisterButtonProps {
   text: string;
   loadingText: string;
-  className?: string;
   loading?: boolean;
   strengthPass?: boolean;
 }
@@ -25,7 +24,7 @@ export function RegisterButton({
   loadingText,
   loading,
   strengthPass
-}: Readonly<SubmitButtonProps>) {
+}: Readonly<RegisterButtonProps>) {
   const status = useFormStatus();
   return (
     <button
