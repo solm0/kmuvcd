@@ -7,7 +7,7 @@ import { clsx } from 'clsx';
 const categories = [
   { name: '기타',
     lists: [
-      { name: '랜딩 페이지', href: '/' },
+      { name: '캘린더', href: '/' },
       { name: '대시보드', href: '/dashboard' },
     ]
   },

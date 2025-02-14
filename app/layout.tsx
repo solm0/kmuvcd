@@ -1,6 +1,5 @@
 import "./globals.css";
 import SiteMap from "./ui/site-map";
-import CalendarComponent from "./ui/calendar";
 
 export default function RootLayout({
   children,
@@ -16,7 +15,6 @@ export default function RootLayout({
           </div>
           <div className="flex-1 w-full md:w-1/2 p-12 overflow-y-scroll z-10">{children}</div>
         </div>
-        <CalendarComponent />
       </body>
     </html>
   );

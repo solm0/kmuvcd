@@ -42,7 +42,7 @@ export default async function CalendarComponent() {
   const token = await getAuthToken();
 
   return (
-    <div className="w-full p-12 absolute top-[500px] z-0">
+    <div className="w-full">
       <h1 className="text-2xl pb-8">Calendar</h1>
       {events.map((calendar: CalendarProps, index: number) => (
         <div key={index}>

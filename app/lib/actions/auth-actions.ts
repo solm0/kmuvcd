@@ -51,6 +51,9 @@ export async function registerUserAction(
     };
   }
 
+  // registerUserService에서 post하기 전에 resend에서 메일 제대로 보냈는지 확인.
+  // bounce면 post하지 말고 메일 고쳐서 다시 회원가입 누르게 해야. 근데 여기서 프론트로 알림을 띄울 수 있나?
+
   const responseData = await registerUserService(validatedFields.data);
 
   if (!responseData) {
