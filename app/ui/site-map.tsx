@@ -7,9 +7,8 @@ import { clsx } from 'clsx';
 const categories = [
   { name: '기타',
     lists: [
-      { name: '홈', href: '/' },
-      { name: '내 프로필', href: '/myprofile' },
-      { name: '로그인/회원가입', href: '/signin' }
+      { name: '랜딩 페이지', href: '/' },
+      { name: '대시보드', href: '/dashboard' },
     ]
   },
   { name: '소개',

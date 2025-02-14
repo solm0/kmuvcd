@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { registerUserAction } from '@/app/lib/actions/auth-actions';
 import { useActionState } from "react";
 import { ZodErrors } from "../zod-errors";
 import { StrapiErrors } from "../strapi-errors";
-import { SubmitButton } from "../submit-button";
+import { RegisterButton } from "../register-button";
+import { Check, X, Eye, EyeOff } from "lucide-react";
 
 const INITIAL_STATE = {
   data: null,
@@ -27,6 +28,43 @@ export function SignupForm() {
     })
   }
 
+  const [isVisible, setIsVisible] = useState(false);
+  const toggleVisibility = () => setIsVisible(!isVisible);
+
+  const checkStrength = (pass: string) => {
+    const requirements = [
+      { regex: /.{8,}/, text: "At least 8 characters" },
+      { regex: /[0-9]/, text: "At least 1 number" },
+      { regex: /[a-z, A-Z]/, text: "At least 1 letter" },
+      { regex: /[^A-Za-z0-9]/, text: "At least 1 special character" },
+    ];
+  
+    return requirements.map((req) => ({
+      met: req.regex.test(pass),
+      text: req.text,
+    }));
+  };
+
+  const strength = checkStrength(values.password);
+
+  const strengthScore = useMemo(() => {
+    return strength.filter((req) => req.met).length;
+  }, [strength]);
+
+  const getStrengthColor = (score: number) => {
+    if (score === 0) return "bg-gray-200";
+    if (score <= 2) return "bg-red-500";
+    if (score <= 3) return "bg-amber-500";
+    return "bg-emerald-500";
+  };
+
+  const getStrengthText = (score: number) => {
+    if (score === 0) return "Enter a password";
+    if (score <= 2) return "Weak password";
+    if (score <= 3) return "Medium password";
+    return "Strong password";
+  };
+
   return (
     <div className='rounded-lg bg-gray-100 p-8'>
       <form
@@ -34,42 +72,118 @@ export function SignupForm() {
         action={formAction}
       >
         <label htmlFor="username">이름</label>
+        <p id="username-description" className="text-sm text-gray-500">ON국민 포털에 가입된 이름을 입력해주세요</p>
         <input
           type="text"
           name="username"
           id="username"
+          aria-describedby="username-description"
           value={values.username}
           onChange={handleChange}
           className="rounded-lg px-5 py-2"
           placeholder="username"
+          required
         />
         <ZodErrors error={formState?.zodErrors?.username} />
 
         <label htmlFor="email">이메일</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          value={values.email}
-          onChange={handleChange}
-          className="rounded-lg px-5 py-2"
-          placeholder="email"
-        />
+        <p id="email-description" className="text-sm text-gray-500">국민대학교 메일을 입력해주세요</p>
+        <div className="flex flex-row items-center gap-2">
+          <input
+            type="text"
+            name="email"
+            id="email"
+            aria-describedby="email-description"
+            value={values.email}
+            onChange={handleChange}
+            className="rounded-lg px-5 py-2"
+            placeholder="email"
+            required
+          />
+          <span>@kookmin.ac.kr</span>
+        </div>
         <ZodErrors error={formState?.zodErrors?.email} />
 
         <label htmlFor="password">비밀번호</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={values.password}
-          onChange={handleChange}
-          className="rounded-lg px-5 py-2"
-          placeholder="password"
-        />
+        <div className="flex flex-row items-center gap-2">
+          <input
+            id="password"
+            type={isVisible ? "text" : "password"}
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            className="rounded-lg px-5 py-2"
+            placeholder="password"
+            aria-label="Password"
+            required
+          />
+          <button
+            className="cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus-visible:text-indigo-500 hover:text-gray-500 transition-colors"
+            type="button"
+            onClick={toggleVisibility}
+            aria-label={isVisible ? "Hide password" : "Show password"}
+            aria-pressed={isVisible}
+            aria-controls="password"
+          >
+            {isVisible ? (
+              <EyeOff size={20} aria-hidden="true" />
+            ) : (
+              <Eye size={20} aria-hidden="true" />
+            )}
+          </button>
+        </div>
+        <div
+          className="h-1 w-full bg-gray-200 rounded-full overflow-hidden mb-4"
+          role="progressbar"
+          aria-valuenow={strengthScore}
+          aria-valuemin={0}
+          aria-valuemax={5}
+          aria-label="Password strength"
+        >
+          <div
+            className={`h-full ${getStrengthColor(strengthScore)} transition-all duration-500 ease-out`}
+            style={{ width: `${(strengthScore / 4) * 100}%` }}
+          ></div>
+        </div>
+
+        <p
+        id="password-strength"
+        className="text-sm font-medium text-gray-700 mb-2"
+      >
+        {getStrengthText(strengthScore)}.
+      </p>
+
+      {/* Password requirements list */}
+      <ul className="space-y-1" aria-label="Password requirements">
+        {strength.map((req, index) => (
+          <li key={index} className="flex items-center space-x-2">
+            {req.met ? (
+              <Check
+                size={16}
+                className="text-emerald-500"
+                aria-hidden="true"
+              />
+            ) : (
+              <X size={16} className="text-gray-400" aria-hidden="true" />
+            )}
+            <span
+              className={`text-xs ${req.met ? "text-emerald-600" : "text-gray-500"}`}
+            >
+              {req.text}
+              <span className="sr-only">
+                {req.met ? " - Requirement met" : " - Requirement not met"}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ul>
         <ZodErrors error={formState?.zodErrors?.password} />
         
-        <SubmitButton text="회원가입" loadingText="Loading" />
+        <RegisterButton
+          text="회원가입"
+          loadingText="Loading"
+          strengthPass={strengthScore >= 3}
+        />
         <StrapiErrors error={formState?.strapiErrors} />
       </form>
     </div>

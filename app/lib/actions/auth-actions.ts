@@ -13,18 +13,13 @@ const config = {
 };
 
 const schemaRegister = z.object({
-  username: z.string().min(2).max(100, {
-    message: "Username must be between 2 and 100 characters",
-  }),
-  email: z
-    .string()
-    .email({ message: "Please enter a valid email address" })
-    .refine((email) => email.endsWith("@kookmin.ac.kr"), {
-      message: "Only @kookmin.ac.kr emails are allowed",
-    }),
-  password: z.string().min(8).max(100, {
-    message: "Password must be between 8 and 100 characters",
-  }),
+  username: z.string(),
+  email: z.string(),
+  password: z.string()
+    .min(8)
+    .max(100)
+    .refine((password) => /[0-9]/.test(password))
+    .refine((password) =>/[a-zA-Z]/.test(password)),
 });
 
 export async function registerUserAction(
@@ -33,10 +28,13 @@ export async function registerUserAction(
 ) {
   console.log("Hello From Register User Action");
 
+  const email = formData.get("email");
+  const affixedEmail = email && `${email}@kookmin.ac.kr`;
+
   const validatedFields = schemaRegister.safeParse({
     username: formData.get("username"),
     password: formData.get("password"),
-    email: formData.get("email"),
+    email: affixedEmail,
   });
 
   if (!validatedFields.success) {
@@ -71,7 +69,7 @@ export async function registerUserAction(
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
   
-  redirect("/myprofile");
+  redirect("/dashboard");
 }
 
 const schemaLogin = z.object({
@@ -136,7 +134,7 @@ export async function loginUserAction(
   cookieStore.set("jwt", responseData.jwt, config);
   cookieStore.set("username", responseData.user.username, config);
 
-  redirect("/myprofile");
+  redirect("/dashboard");
 }
 
 export async function logoutAction() {
