@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 interface RegisterUserProps {
+  realname: string;
   username: string;
   password: string;
   email: string;

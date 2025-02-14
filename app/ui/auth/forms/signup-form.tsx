@@ -16,7 +16,7 @@ export function SignupForm() {
   const [formState, formAction] = useActionState(registerUserAction, INITIAL_STATE);
 
   const [values, setValues] = useState({
-    username: "",
+    realname: "",
     email: "",
     password: "",
   })
@@ -71,20 +71,20 @@ export function SignupForm() {
         className="flex flex-col gap-2 items-start"
         action={formAction}
       >
-        <label htmlFor="username">이름</label>
-        <p id="username-description" className="text-sm text-gray-500">ON국민 포털에 가입된 이름을 입력해주세요</p>
+        <label htmlFor="realname">이름</label>
+        <p id="realname-description" className="text-sm text-gray-500">ON국민 포털에 가입된 이름을 입력해주세요</p>
         <input
           type="text"
-          name="username"
-          id="username"
-          aria-describedby="username-description"
-          value={values.username}
+          name="realname"
+          id="realname"
+          aria-describedby="realname-description"
+          value={values.realname}
           onChange={handleChange}
           className="rounded-lg px-5 py-2"
-          placeholder="username"
+          placeholder="realname"
           required
         />
-        <ZodErrors error={formState?.zodErrors?.username} />
+        <ZodErrors error={formState?.zodErrors?.realname} />
 
         <label htmlFor="email">이메일</label>
         <p id="email-description" className="text-sm text-gray-500">국민대학교 메일을 입력해주세요</p>

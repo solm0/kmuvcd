@@ -13,6 +13,7 @@ const config = {
 };
 
 const schemaRegister = z.object({
+  realname: z.string(),
   username: z.string(),
   email: z.string(),
   password: z.string()
@@ -31,8 +32,12 @@ export async function registerUserAction(
   const email = formData.get("email");
   const affixedEmail = email && `${email}@kookmin.ac.kr`;
 
+  const realname = formData.get("realname");
+  const username = `${realname}${email}`;
+
   const validatedFields = schemaRegister.safeParse({
-    username: formData.get("username"),
+    realname: realname,
+    username: username,
     password: formData.get("password"),
     email: affixedEmail,
   });
@@ -68,8 +73,6 @@ export async function registerUserAction(
 
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
-  
-  redirect("/dashboard");
 }
 
 const schemaLogin = z.object({

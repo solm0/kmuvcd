@@ -7,6 +7,7 @@ import Calendar from '../calendar-entry';
 interface UserDataProps {
   id: number;
   documentId: string;
+  realname: string;
   username: string;
   email: string;
   confirmed: boolean;
@@ -25,7 +26,7 @@ export default function UserCard({ token, user }: { token?: string; user: UserDa
     <div>
       {userData ? (
         <>
-          <p>Welcome, {userData.username}!</p>
+          <p>Welcome, {userData.realname}!</p>
           <p>Your email is {userData.email}!</p>
           <p>Your email has been {userData.confirmed ? 'confirmed' : 'not confirmed'}!</p>
           <p>You are {userData.blocked ? 'blocked' : 'not blocked'}!</p>
