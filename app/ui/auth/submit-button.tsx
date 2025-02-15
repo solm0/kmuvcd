@@ -1,4 +1,5 @@
 "use client";
+
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
 
@@ -24,6 +25,7 @@ export function SubmitButton({
   loading,
 }: Readonly<SubmitButtonProps>) {
   const status = useFormStatus();
+  
   return (
     <button
       type="submit"

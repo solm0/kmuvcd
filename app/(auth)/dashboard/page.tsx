@@ -4,6 +4,7 @@ import UserCard from '@/app/ui/auth/usercard';
 import { getAuthToken } from '@/app/lib/services/get-token';
 import { getUserMe } from '@/app/lib/services/get-user-me';
 import { redirect } from 'next/navigation';
+import { logoutAction } from "../../lib/actions/auth-actions";
 
 export const metadata: Metadata = {
     title: '내 프로필',
@@ -22,7 +23,9 @@ export default async function Profile() {
     <div>
       <h1 className='text-2xl pb-8'>내 프로필</h1>
       <UserCard token={token ?? undefined} user={user?.data} />
-      <LogoutButton />
+      <form action={logoutAction}>
+        <LogoutButton />
+      </form>
     </div>
   );
 }
