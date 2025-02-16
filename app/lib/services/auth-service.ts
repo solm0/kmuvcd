@@ -95,18 +95,15 @@ export async function forgotPasswordUserService(userData: ForgotPasswordUserProp
 }
 
 export async function resetPasswordUserService(userData: ResetPasswordUserProps) {
-  const url = "https://kmuvcd-strapi.onrender.com/api/auth/reset-password";
+  const url = `${baseUrl}/api/auth/reset-password`;
 
   try {
-    const response = await axios.post(url, {
+    await axios.post(url, {
       code: userData.code,
       password: userData.password,
       passwordConfirmation: userData.passwordConfirmation,
     });
 
-    console.log("Your user reseted the password", response.data);
-
-    // Return a success message
     return {
       success: true,
       message: 'Your password has been reset.',

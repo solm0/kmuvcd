@@ -187,24 +187,17 @@ export async function forgotPasswordAction(
 }
 
 const schemaResetPassword = z.object({
-  code: z
-    .string(),
-  password: z
-    .string()
-    .min(8, {
-      message: "Password must have at least 8 or more characters",
-    })
-    .max(100, {
-      message: "Password must be between 6 and 100 characters",
-    }),
-  passwordConfirmation: z
-    .string()
-    .min(8, {
-      message: "Password must have at least 8 or more characters",
-    })
-    .max(100, {
-      message: "Password must be between 6 and 100 characters",
-    }),
+  code: z.string(),
+  password: z.string()
+    .min(8)
+    .max(100)
+    .refine((password) => /[0-9]/.test(password))
+    .refine((password) =>/[a-zA-Z]/.test(password)),
+  passwordConfirmation: z.string()
+    .min(8)
+    .max(100)
+    .refine((password) => /[0-9]/.test(password))
+    .refine((password) =>/[a-zA-Z]/.test(password)),
 });
 
 export async function resetPasswordAction(
@@ -235,7 +228,7 @@ export async function resetPasswordAction(
     };
   }
 
-  if (!responseData.success) { // Check for failure with the success property
+  if (!responseData.success) {
     return {
       ...prevState,
       zodErrors: null,

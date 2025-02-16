@@ -155,36 +155,36 @@ export function SignupForm() {
         </div>
 
         <p
-        id="password-strength"
-        className="text-sm font-medium text-gray-700 mb-2"
-      >
-        {getStrengthText(strengthScore)}.
-      </p>
+          id="password-strength"
+          className="text-sm font-medium text-gray-700 mb-2"
+        >
+          {getStrengthText(strengthScore)}.
+        </p>
 
-      {/* Password requirements list */}
-      <ul className="space-y-1" aria-label="Password requirements">
-        {strength.map((req, index) => (
-          <li key={index} className="flex items-center space-x-2">
-            {req.met ? (
-              <Check
-                size={16}
-                className="text-emerald-500"
-                aria-hidden="true"
-              />
-            ) : (
-              <X size={16} className="text-gray-400" aria-hidden="true" />
-            )}
-            <span
-              className={`text-xs ${req.met ? "text-emerald-600" : "text-gray-500"}`}
-            >
-              {req.text}
-              <span className="sr-only">
-                {req.met ? " - Requirement met" : " - Requirement not met"}
+        {/* Password requirements list */}
+        <ul className="space-y-1" aria-label="Password requirements">
+          {strength.map((req, index) => (
+            <li key={index} className="flex items-center space-x-2">
+              {req.met ? (
+                <Check
+                  size={16}
+                  className="text-emerald-500"
+                  aria-hidden="true"
+                />
+              ) : (
+                <X size={16} className="text-gray-400" aria-hidden="true" />
+              )}
+              <span
+                className={`text-xs ${req.met ? "text-emerald-600" : "text-gray-500"}`}
+              >
+                {req.text}
+                <span className="sr-only">
+                  {req.met ? " - Requirement met" : " - Requirement not met"}
+                </span>
               </span>
-            </span>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
         <ZodErrors error={formState?.zodErrors?.password} />
         
         <RegisterButton

@@ -17,24 +17,26 @@ interface RegisterButtonProps {
   loadingText: string;
   loading?: boolean;
   strengthPass?: boolean;
+  passwordConfirmation?: boolean | null;
 }
 
 export function RegisterButton({
   text,
   loadingText,
   loading,
-  strengthPass
+  strengthPass,
+  passwordConfirmation,
 }: Readonly<RegisterButtonProps>) {
   const status = useFormStatus();
   return (
     <button
       type="submit"
       aria-disabled={status.pending || loading}
-      disabled={!strengthPass || status.pending || loading}
+      disabled={!strengthPass || status.pending || !passwordConfirmation || loading}
       className={clsx(
         "flex px-5 py-2 bg-neutral-950 text-white text-sm rounded-full hover:bg-neutral-700 transition-colors",
         {
-          "opacity-50 pointer-events-none": !strengthPass,
+          "opacity-50 pointer-events-none": !strengthPass || (passwordConfirmation === false),
         },
       )}
     >
