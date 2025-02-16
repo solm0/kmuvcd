@@ -98,9 +98,9 @@ export function SignupForm() {
         <p id="email-description" className="text-sm text-gray-500">국민대학교 메일을 입력해주세요</p>
         <div className="flex flex-row items-center gap-2">
           <input
+            id="email"
             type="text"
             name="email"
-            id="email"
             aria-describedby="email-description"
             value={values.email}
             onChange={handleChange}
@@ -203,7 +203,7 @@ export function SignupForm() {
             <li>스팸함을 보세요.</li>
             <li>메일주소를 다시 확인하세요.</li>
             <li>
-              <Link href="/email-confirmation" className="underline hover:text-red-500">
+              <Link href="/email-confirmation-resend" className="underline hover:text-red-500">
                 재전송하세요.
               </Link>
             </li>

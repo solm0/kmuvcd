@@ -244,14 +244,7 @@ export async function resetPasswordAction(
 }
 
 const schemaEmailConfirmation = z.object({
-  email: z
-    .string()
-    .min(2, {
-      message: "email must have at least 2 or more characters",
-    })
-    .max(20, {
-      message: "Please enter a valid username or email address",
-    }),
+  email: z.string()
 });
 
 export async function emailConfirmationAction(
@@ -259,9 +252,11 @@ export async function emailConfirmationAction(
   formData: FormData
 ) {
 
-  // Validate the email
+  const email = formData.get("email");
+  const affixedEmail = email && `${email}@kookmin.ac.kr`;
+
   const validatedFields = schemaEmailConfirmation.safeParse({
-    email: formData.get("email"),
+    email: affixedEmail,
   });
 
   if (!validatedFields.success) {

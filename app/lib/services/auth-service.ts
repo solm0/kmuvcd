@@ -126,14 +126,11 @@ export async function resetPasswordUserService(userData: ResetPasswordUserProps)
 }
 
 export async function emailConfirmationUserService(userData: EmailConfirmationUserProps) {
-  const url = "https://kmuvcd-strapi.onrender.com/api/auth/send-email-confirmation";
+  const url = `${baseUrl}/api/auth/send-email-confirmation`;
 
   try {
-    const response = await axios.post(url, { email: userData.email });
+    await axios.post(url, { email: userData.email });
 
-    console.log("Your user received an email:", response.data);
-
-    // Return a success message
     return {
       success: true,
       message: 'Check your email to reset your password.',
