@@ -51,6 +51,7 @@ export function EmailConfirmationForm() {
               onChange={handleChange}
               className="rounded-lg px-5 py-2"
               placeholder="email"
+              required
             />
             <span>@kookmin.ac.kr</span>
           </div>
