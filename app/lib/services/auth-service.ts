@@ -12,7 +12,7 @@ interface LoginUserProps {
   password: string;
 }
 
-interface ForgetPasswordUserProps {
+interface ForgotPasswordUserProps {
   email: string;
 }
 
@@ -61,24 +61,23 @@ export async function loginUserService(userData: LoginUserProps) {
     return response.json();
   } catch (error) {
     console.error("Login Service Error:", error);
-    throw error;
   }
 }
 
-export async function forgetPasswordUserService(userData: ForgetPasswordUserProps) {
-  const url = "https://kmuvcd-strapi.onrender.com/api/auth/forgot-password";
+export async function forgotPasswordUserService(userData: ForgotPasswordUserProps) {
+  const url = new URL("/api/auth/forgot-password", baseUrl);
 
   try {
-    const response = await axios.post(url, { email: userData.email });
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...userData }),
+    });
 
-    console.log("Your user received an email:", response.data);
-
-    // Return a success message
-    return {
-      success: true,
-      message: 'Check your email to reset your password.',
-    };
-  } catch (error: unknown) {
+    return response.json();
+  } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Forgot Password Axios Error:", error.response?.data || error.message);
     } else if (error instanceof Error) {

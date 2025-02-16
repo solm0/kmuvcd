@@ -70,7 +70,6 @@ export function SignupForm() {
 
   const handleSubmit = () => {
     setEmailIsSent(true);
-    // console.log("Email is sent:", emailIsSent);
   }
 
   return (

@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from 'zod';
-import { registerUserService, loginUserService, forgetPasswordUserService, resetPasswordUserService, emailConfirmationUserService } from '@/app/lib/services/auth-service';
+import { registerUserService, loginUserService, forgotPasswordUserService, resetPasswordUserService, emailConfirmationUserService } from '@/app/lib/services/auth-service';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -135,49 +135,47 @@ export async function logoutAction() {
 }
 
 const schemaForgotPassword = z.object({
-  email: z
-    .string()
-    .min(2, {
-      message: "email must have at least 2 or more characters",
-    })
-    .max(20, {
-      message: "Please enter a valid username or email address",
-    }),
+  email: z.string(),
 });
 
-export async function forgetPasswordAction(
+export async function forgotPasswordAction(
   prevState: any, // eslint-disable-line @typescript-eslint/no-explicit-any
   formData: FormData
 ) {
 
-  // Validate the email
+  const email = formData.get("email");
+  const affixedEmail = email && `${email}@kookmin.ac.kr`;
+
   const validatedFields = schemaForgotPassword.safeParse({
-    email: formData.get("email"),
+    email: affixedEmail,
   });
 
   if (!validatedFields.success) {
     return {
       ...prevState,
       zodErrors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Login.",
+      strapiErrors: null,
+      message: "Missing Fields. Failed to Send Forgot Password Email.",
     };
   }
 
-  const responseData = await forgetPasswordUserService(validatedFields.data);
+  const responseData = await forgotPasswordUserService(validatedFields.data);
 
   if (!responseData) {
     return {
       ...prevState,
+      strapiErrors: responseData.error,
       zodErrors: null,
       message: "Oops! Something went wrong. Please try again.",
     };
   }
 
-  if (!responseData.success) { // Check for failure with the success property
+  if (responseData.error) {
     return {
       ...prevState,
+      strapiErrors: responseData.error,
       zodErrors: null,
-      message: responseData.message || "Failed to reset password.",
+      message: "Failed to Send Forgot Password Email.",
     };
   }
 
