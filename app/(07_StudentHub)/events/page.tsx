@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { getCmsData } from '@/app/lib/get-cms-data';
 import { PostProps } from '@/app/lib/definitions';
 import CalendarEntry from '@/app/ui/calendar-entry';
 import { getAuthToken } from '@/app/lib/services/get-token';
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('events?populate[calendars][populate][0]=tags&populate[website]=true&populate[poster]=true') as PostProps[];
+    const data = await getCmsData<PostProps>('events?populate[calendars][populate][0]=tags&populate[website]=true&populate[poster]=true') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;

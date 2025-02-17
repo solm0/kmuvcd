@@ -1,26 +1,12 @@
 'use client'
 
 import { useState } from "react";
-import { CalendarProps } from "@/app/lib/definitions";
+import { CalendarProps, UserDataProps } from "@/app/lib/definitions";
 import BookmarkButton from "./bookmark-button";
 import Link from "next/link";
 import clsx from "clsx";
 
-interface UserDataProps {
-  id: number;
-  documentId: string;
-  username: string;
-  email: string;
-  confirmed?: boolean;
-  blocked?: boolean;
-  role?: {
-    id?: number;
-    name?: string;
-  };
-  calendars?: CalendarProps[];
-}
-
-export default function CalendarEntry({ data, token, user, href }: { data: CalendarProps; token?: string; user:UserDataProps; href?: string; }) {
+export default function CalendarEntry({ data, token, user, href }: { data: CalendarProps; token?: string; user:UserDataProps; href?: string | null; }) {
   const [userData] = useState<UserDataProps | null>(user);
 
   const isUser = userData?.id;

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { getCmsData } from '@/app/lib/get-cms-data';
 import { PostProps } from '@/app/lib/definitions';
 import Website from '@/app/ui/cms/website';
 import CalendarEntry from '@/app/ui/calendar-entry';
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('notices?populate[media]=true&populate[website]=true&populate[Event][populate][tags]=true&populate[Event][populate][poster]=true') as PostProps[];
+    const data = await getCmsData<PostProps>('notices?populate[media]=true&populate[website]=true&populate[Event][populate][tags]=true&populate[Event][populate][poster]=true') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;

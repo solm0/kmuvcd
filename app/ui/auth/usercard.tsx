@@ -1,23 +1,8 @@
 "use client";
 
 import { useState } from 'react';
-import { CalendarProps } from '@/app/lib/definitions';
+import { UserDataProps } from '@/app/lib/definitions';
 import CalendarEntry from '../calendar-entry';
-
-interface UserDataProps {
-  id: number;
-  documentId: string;
-  realname: string;
-  username: string;
-  email: string;
-  confirmed: boolean;
-  blocked: boolean;
-  role: {
-    id: number;
-    name: string;
-  };
-  calendars?: CalendarProps[];
-}
 
 export default function UserCard({ token, user }: { token?: string; user: UserDataProps }) {
   const [userData] = useState<UserDataProps | null>(user);

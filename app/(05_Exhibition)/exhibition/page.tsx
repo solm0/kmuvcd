@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { getCmsData } from '@/app/lib/get-cms-data';
 import { PostProps } from '@/app/lib/definitions';
 import Content from '@/app/ui/cms/content';
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('exhibitions?populate[content][populate]=*') as PostProps[];
+    const data = await getCmsData<PostProps>('exhibitions?populate[content][populate]=*') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;

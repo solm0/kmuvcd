@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { getCmsData } from '@/app/lib/get-cms-data';
 import { PostProps } from '@/app/lib/definitions';
 import MdText from '@/app/ui/cms/md-text';
 
@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data_1 = await fetchCMSData<PostProps>('curriculum') as PostProps;
-    const data_2 = await fetchCMSData<PostProps[]>('courses?pagination[pageSize]=50') as PostProps[];
+    const data_1 = await getCmsData<PostProps>('curriculum') as PostProps;
+    const data_2 = await getCmsData<PostProps[]>('courses?pagination[pageSize]=50') as PostProps[];
 
     if (!data_1) {
         return <p>No data available or failed to load.</p>;

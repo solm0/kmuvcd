@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { getCmsData } from '@/app/lib/get-cms-data';
 import { PostProps } from '@/app/lib/definitions';
 import Website from '@/app/ui/cms/website';
 import { ImageMedia } from '@/app/ui/cms/media';
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('professors?populate=thumbnail&populate=website') as PostProps[];
+    const data = await getCmsData<PostProps>('professors?populate=thumbnail&populate=website') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;

@@ -1,4 +1,4 @@
-import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { getCmsData } from '@/app/lib/get-cms-data';
 import { PostProps } from '@/app/lib/definitions';
 import CalendarEntry from '@/app/ui/calendar-entry';
 import { ImageMedia } from '@/app/ui/cms/media';
@@ -7,10 +7,10 @@ import { getAuthToken } from '@/app/lib/services/get-token';
 import { getUserMe } from '@/app/lib/services/get-user-me';
 
 export async function generateStaticParams() {
-  const posts = await fetchCMSData('events');
+  const posts = await getCmsData('events');
 
   if (!Array.isArray(posts)) {
-    console.error('fetchCMSData did not return an array:', posts);
+    console.error('getCmsData did not return an array:', posts);
     return [];
   }
 
@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params;
 
   // Use the `slug` as you normally would
-  const post = await fetchCMSData<PostProps>(`events/${slug}?populate[calendars][populate][0]=tags&populate[website]=true&populate[poster]=true`) as PostProps;
+  const post = await getCmsData<PostProps>(`events/${slug}?populate[calendars][populate][0]=tags&populate[website]=true&populate[poster]=true`) as PostProps;
 
   const token = await getAuthToken();
   const user = await getUserMe(true);

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchCMSData } from '@/app/lib/fetchCMSData';
+import { getCmsData } from '@/app/lib/get-cms-data';
 import { PostProps } from '@/app/lib/definitions';
 import { ImageMedia } from '@/app/ui/cms/media';
 import MdText from '@/app/ui/cms/md-text';
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const data = await fetchCMSData<PostProps>('facility-overviews?populate=thumbnail&populate=photo') as PostProps[];
+    const data = await getCmsData<PostProps>('facility-overviews?populate=thumbnail&populate=photo') as PostProps[];
 
     if (!data || data.length === 0) {
         return <p>No data available or failed to load.</p>;

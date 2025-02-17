@@ -83,3 +83,18 @@ export interface WebsiteProps {
   name?: string;
   url?: string;
 }
+
+export interface UserDataProps {
+  id: number;
+  documentId: string;
+  realname: string;
+  username: string;
+  email: string;
+  confirmed: boolean;
+  blocked: boolean;
+  role: {
+    id: number;
+    name: string;
+  };
+  calendars?: CalendarProps[];
+}
