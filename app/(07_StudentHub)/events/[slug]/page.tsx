@@ -1,6 +1,6 @@
 import { fetchCMSData } from '@/app/lib/fetchCMSData';
 import { PostProps } from '@/app/lib/definitions';
-import Calendar from '@/app/ui/calendar-entry';
+import CalendarEntry from '@/app/ui/calendar-entry';
 import { ImageMedia } from '@/app/ui/cms/media';
 import Website from '@/app/ui/cms/website';
 import { getAuthToken } from '@/app/lib/services/get-token';
@@ -35,9 +35,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <div key={post.id} className='rounded-lg bg-gray-100 p-8 mb-4'>
           <div>
               {post.calendars?.map((calendar) => (
-                  <Calendar
+                  <CalendarEntry
                     key={calendar.id}
-                    calendar={calendar}
+                    data={calendar}
                     token={token ?? undefined}
                     user={user?.data}
                   />

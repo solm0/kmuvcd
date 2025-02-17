@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { CalendarProps } from '@/app/lib/definitions';
-import Calendar from '../calendar-entry';
+import CalendarEntry from '../calendar-entry';
 
 interface UserDataProps {
   id: number;
@@ -36,12 +36,12 @@ export default function UserCard({ token, user }: { token?: string; user: UserDa
               {userData.calendars
                 .filter(calendar => calendar.publishedAt !== null) // Filter out calendars with null 'publishedAt'
                 .map((calendar) => (
-                    <Calendar
+                    <CalendarEntry
                       key={calendar.id}
-                      calendar={calendar}
+                      data={calendar}
                       token={token ?? undefined}
                       user={user}
-                      href={calendar.detail ? `https://kmuvcd.vercel.app/events/${calendar.detail?.documentId}` : undefined}
+                      href={calendar.detail ? `/events/${calendar.detail?.documentId}` : undefined}
                     />
               ))}
             </div>

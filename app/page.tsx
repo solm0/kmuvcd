@@ -1,9 +1,9 @@
-import CalendarComponent from "./ui/calendar";
+import Calendar from "./ui/calendar";
 
 export default function Home() {
   return (
     <div>
-      <CalendarComponent />
+      <Calendar />
     </div>
   );
 }

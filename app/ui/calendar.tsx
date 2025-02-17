@@ -1,9 +1,9 @@
 import { CalendarProps } from "@/app/lib/definitions";
-import Calendar from "./calendar-entry";
+import CalendarEntry from "./calendar-entry";
 import { getAuthToken } from "@/app/lib/services/get-token";
 import { getUserMe } from "../lib/services/get-user-me";
 
-async function getCalendarData() {
+async function getCalendarEntries() {
 
   const res = await fetch('https://kmuvcd-strapi.onrender.com/api/calendars?populate=*&pagination[pageSize]=300');
   if (!res.ok) {
@@ -13,51 +13,50 @@ async function getCalendarData() {
   const data = await res.json();
   // console.log(data)
   
-  const events = data?.data.map((data: CalendarProps) => ({
-    url: data?.detail ? `https://kmuvcd.vercel.app/events/${data?.detail?.documentId}` : null,
-    documentId: data?.documentId,
-    name: data?.name ?? 'Unknown Event',
-    startDate: data?.startDate,
-    endDate: data?.endDate ?? data?.startDate,
-    location: data?.location ?? 'Unknown Location',
-    tags: data?.tags?.map(tag => ({
-      tag: tag?.tag ?? 'No Tags',
+  const entries = data?.data.map((entry: CalendarProps) => ({
+    url: entry?.detail ? `/events/${entry?.detail?.documentId}` : null,
+    documentId: entry?.documentId,
+    name: entry?.name ?? 'Unknown Event',
+    startDate: entry?.startDate,
+    endDate: entry?.endDate ?? entry?.startDate,
+    location: entry?.location ?? null,
+    tags: entry?.tags?.map(tag => ({
+      tag: tag?.tag ?? null,
     })),
   }));
 
-  const sortedEvents = events.sort(function(a: CalendarProps, b: CalendarProps) {
+  const sortedEntries = entries.sort(function(a: CalendarProps, b: CalendarProps) {
     return (
       new Date(a.startDate).getTime() - new Date(b.startDate).getTime() ||
       new Date(a.endDate).getTime() - new Date(b.endDate).getTime()
     );
   })
 
-  // console.log(events);
-  return sortedEvents;
+  return sortedEntries;
 }
 
-export default async function CalendarComponent() {
-  const events = await getCalendarData();
+export default async function Calendar() {
+  const calendarEntries = await getCalendarEntries();
   const user = await getUserMe(true);
   const token = await getAuthToken();
 
   return (
     <div className="w-full">
       <h1 className="text-2xl pb-8">Calendar</h1>
-      {events.map((calendar: CalendarProps, index: number) => (
+      {calendarEntries.map((entry: CalendarProps, index: number) => (
         <div key={index}>
-          {calendar?.url ? (
-              <Calendar
-                key={calendar.id}
-                calendar={calendar}
+          {entry?.url ? (
+              <CalendarEntry
+                key={entry.id}
+                data={entry}
                 token={token ?? undefined}
                 user={user?.data}
-                href={calendar?.url}
+                href={entry?.url}
               />
           ) : (
-            <Calendar
-              key={calendar.id}
-              calendar={calendar}
+            <CalendarEntry
+              key={entry.id}
+              data={entry}
               token={token ?? undefined}
               user={user?.data}
             />

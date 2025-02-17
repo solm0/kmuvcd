@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { fetchCMSData } from '@/app/lib/fetchCMSData';
 import { PostProps } from '@/app/lib/definitions';
 import Website from '@/app/ui/cms/website';
-import Calendar from '@/app/ui/calendar-entry';
+import CalendarEntry from '@/app/ui/calendar-entry';
 import MdText from '@/app/ui/cms/md-text';
 import { ImageMedia } from '@/app/ui/cms/media';
 import { getAuthToken } from '@/app/lib/services/get-token';
@@ -33,9 +33,9 @@ export default async function Page() {
                     {post.calendars && post.calendars?.length > 0 && (
                         <div className='rounded-lg bg-gray-200 p-4'>
                             {post.calendars?.map((calendar) => (
-                                 <Calendar
+                                 <CalendarEntry
                                     key={calendar.id}
-                                    calendar={calendar}
+                                    data={calendar}
                                     token={token ?? undefined}
                                     user={user?.data}
                                 />
