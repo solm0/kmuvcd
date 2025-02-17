@@ -5,10 +5,11 @@ import { usePathname } from "next/navigation";
 import { clsx } from 'clsx';
 
 const categories = [
-  { name: '기타',
+  { name: '🏠',
     lists: [
-      { name: '캘린더', href: '/' },
       { name: '대시보드', href: '/dashboard' },
+      { name: '캘린더1', href:'/temp' },
+      { name: '캘린더2', href: '/' },
     ]
   },
   { name: '소개',
