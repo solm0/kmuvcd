@@ -1,9 +1,9 @@
-import Calendar from "./ui/calendar";
+import Calendar2 from "./ui/calendar-2";
 
 export default function Home() {
   return (
     <div>
-      <Calendar />
+      <Calendar2 />
     </div>
   );
 }
