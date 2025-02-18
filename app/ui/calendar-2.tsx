@@ -1,17 +1,21 @@
-import CalendarEntry2 from "./calendar-entry-2";
+import CalendarGrid from "./calendar-grid";
 import { getCalendarEntries } from "../lib/get-calendar-entries";
-// import { getUserMe } from "../lib/services/get-user-me";
-// import { getAuthToken } from "@/app/lib/services/get-token";
+import { getUserMe } from "../lib/services/get-user-me";
+import { getAuthToken } from "@/app/lib/services/get-token";
 
 export default async function Calendar2() {
   const calendarEntries = await getCalendarEntries();
-  // const user = await getUserMe(true);
-  // const token = await getAuthToken();
+  const user = await getUserMe(true);
+  const token = await getAuthToken();
 
   return (
     <div className="w-full">
       <h1 className="text-2xl pb-8">Calendar2</h1>
-      <CalendarEntry2 calendarEntries={calendarEntries} />
+      <CalendarGrid
+        calendarEntries={calendarEntries}
+        token={token ?? undefined}
+        user={user?.data}
+      />
     </div>
   );
 }
