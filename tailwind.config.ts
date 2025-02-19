@@ -2,8 +2,6 @@ import type { Config } from "tailwindcss";
 
 export default {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -12,10 +10,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      width: {
+        '224': '56rem', // 224 * 0.25rem (1rem = 16px)
+      },
     },
   },
   plugins: [],
-  corePlugins: {
-    container: false, // Disable Tailwind’s default `.container` class
-  }
 } satisfies Config;

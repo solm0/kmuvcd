@@ -71,7 +71,7 @@ export default function LeftNavLinks({ children }: { children: React.ReactNode }
         className={clsx(
           "bg-gray-200 h-full w-28 transition-[width, colors] duration-300",
           isOpen ?
-            isContentOpen && hasSubPath ? "w-96"
+            isContentOpen && hasSubPath ? "w-[56rem]"
             : "w-56"
           : "hover:bg-gray-300"
           // {
