@@ -36,67 +36,107 @@ const categories = [
   },
 ]
 
-export default function LeftNavLinks() {
+export default function LeftNavLinks({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isContentOpen, setIsContentOpen] = useState(false);
   
   const pathname = usePathname();
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
+
+    if (hasSubPath) {
+      setIsContentOpen(true);
+    }
+
+    if (isContentOpen) {
+      setIsContentOpen(false);
+    }
   }
+
+  const handleContentOpen = () => {
+    if (pathname && !isContentOpen) {
+      setIsContentOpen(true);
+    }
+  }
+
+  const hasSubPath = pathname !== "/" && pathname.split("/").length > 1;
 
   return (
     <div
-      className={clsx(
-        "bg-gray-200 h-full w-28 transition-[width, colors] duration-300",
-        {
-          "w-56": isOpen,
-        },
-        {
-          "hover:bg-gray-300": !isOpen,
-        }
-      )}
+      className="h-full w-screen flex"
       onClick={isOpen ? undefined : handleOpen}
     >
-      <div className="bg-gray-400 h-12 flex p-4 items-center">
-        {isOpen && (
-          <button onClick={handleOpen} className="ml-auto text-gray-600 hover:text-gray-900 z-80 transition-colors">
-            <X />
-          </button>
+      <div
+        className={clsx(
+          "bg-gray-200 h-full w-28 transition-[width, colors] duration-300",
+          isOpen ?
+            isContentOpen && hasSubPath ? "w-224"
+            : "w-56"
+          : "hover:bg-gray-300"
+          // {
+          //   "w-auto": isContentOpen,
+          // }
         )}
-      </div>
-      {categories.map((category, index) => (
-        <div
-          key={index}
-          className="w-full h-auto border-t border-gray-400 flex flex-col items-start"
-        >
-          <div className="p-4 h-12 flex items-center">
-            {category.name}
-          </div>
+        onClick={isOpen ? undefined : handleOpen}
+      > 
+        <div className="bg-gray-400 w-full h-12 flex p-4 items-center">
           {isOpen && (
-            <div className="ml-28 -mt-12 w-28 h-auto p-0">
-            {category.lists.map((link, index) => (
-              <div
+            <button onClick={handleOpen} className="ml-auto text-gray-600 hover:text-gray-900 z-80 transition-colors">
+              <X />
+            </button>
+          )}
+        </div>
+
+        <div className="flex">
+          <div className={clsx(
+            "w-28", {"w-56": isOpen},
+          )}>
+            {categories.map((category, index) => (
+              <div 
                 key={index}
-                className={clsx(
-                  "w-28 h-12 break-keep hover:bg-blue-500 transition-colors",
-                  {
-                    "bg-blue-500": pathname === link.href,
-                  },
-                )}
+                className="w-full h-auto border-t border-gray-400 flex flex-col items-start"
               >
-                <Link
-                  href={link.href}
-                  className="w-full h-full flex items-center p-4"
-                >
-                  {link.name}
-                </Link>
+                <div className="p-4 h-12 flex items-center">
+                  {category.name}
+                </div>
+                {isOpen && (
+                  <div className="ml-28 -mt-12 w-28 h-auto p-0">
+                  {category.lists.map((link, index) => (
+                    <div
+                      key={index}
+                      className={clsx(
+                        "w-28 h-12 break-keep hover:bg-blue-500 transition-colors",
+                        {
+                          "bg-blue-500": pathname === link.href,
+                        },
+                      )}
+                    >
+                      <Link
+                        href={link.href}
+                        className="w-full h-full flex items-center p-4"
+                        onClick={handleContentOpen}
+                      >
+                        {link.name}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+                )}
               </div>
             ))}
           </div>
-          )}
+          <div className="w-auto h-auto overflow-y-auto max-h-screen">
+            {hasSubPath && isContentOpen && (
+              <div className="bg-gray-200 h-full w-full top-16 p-4 border-t border-gray-400">
+                {children}
+              </div>
+            )}
+          </div>
         </div>
-      ))}
+      </div>
+
+
     </div>
   )
 }
