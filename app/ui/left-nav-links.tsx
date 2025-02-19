@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { useState } from "react";
+import { X } from 'lucide-react';
 
 const categories = [
   { name: '소개',
@@ -35,17 +37,44 @@ const categories = [
 ]
 
 export default function LeftNavLinks() {
+  const [isOpen, setIsOpen] = useState(false);
+  
   const pathname = usePathname();
 
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
+  }
+
   return (
-    <div>
+    <div
+      className={clsx(
+        "bg-gray-200 h-full w-28 transition-[width, colors] duration-300",
+        {
+          "w-56": isOpen,
+        },
+        {
+          "hover:bg-gray-300": !isOpen,
+        }
+      )}
+      onClick={isOpen ? undefined : handleOpen}
+    >
+      <div className="bg-gray-400 h-12 flex p-4 items-center">
+        {isOpen && (
+          <button onClick={handleOpen} className="ml-auto text-gray-600 hover:text-gray-900 z-80 transition-colors">
+            <X />
+          </button>
+        )}
+      </div>
       {categories.map((category, index) => (
         <div
           key={index}
-          className="w-full h-auto border-t border-gray-400"
+          className="w-full h-auto border-t border-gray-400 flex flex-col items-start"
         >
-          <p className="p-4 h-12">{category.name}</p>
-          <div className="ml-28 -mt-12 w-28 h-auto p-0">
+          <div className="p-4 h-12 flex items-center">
+            {category.name}
+          </div>
+          {isOpen && (
+            <div className="ml-28 -mt-12 w-28 h-auto p-0">
             {category.lists.map((link, index) => (
               <div
                 key={index}
@@ -58,13 +87,14 @@ export default function LeftNavLinks() {
               >
                 <Link
                   href={link.href}
-                  className="w-full h-full flex items-center z-30 p-4"
+                  className="w-full h-full flex items-center p-4"
                 >
                   {link.name}
                 </Link>
               </div>
             ))}
           </div>
+          )}
         </div>
       ))}
     </div>
