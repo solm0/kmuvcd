@@ -4,6 +4,7 @@ import { CalendarProps, UserDataProps } from "../lib/definitions"
 import { useRef } from "react";
 import { useState } from "react";
 import CalendarEntry2 from "./calendar-entry-2";
+import generateCalendarHeadData from "../lib/generate-calendar-head-data";
 
 interface EntryProps {
   start: number,
@@ -80,8 +81,13 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
   const input_in_date = new Date(inputDay);
   const first_to_inputday = Math.floor((+input_in_date - +first_date) / (1000 * 60 * 60 * 24));
 
+  // generate head year, month, date
+  const calendar_head_data = generateCalendarHeadData(first_date, last_date);
+  console.log(calendar_head_data)
+
   return (
     <>
+      {/* position controll */}
       <button
         className="flex px-5 py-2 bg-neutral-950 text-white text-sm rounded-full hover:bg-neutral-700 transition-colors"
         onClick={() => {scrollToDay(first_to_today)}}
@@ -114,16 +120,72 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
         </button>
       </div>
 
+      {/* month, day area */}
       <div
         className="relative bg-gray-100 overflow-x-auto"
         style={{ width: "100%", maxWidth: "100%", overflowX: 'auto' }}
         ref={calendarRef}
         >
         <div
+          id="month"
+          className={`grid border`}
+          style={{
+            gridTemplateColumns: `repeat(${day_count}, 20px)`,
+            gridTemplateRows: `repeat(3, 20px)`,
+            width: `${day_count * 10}px`,
+          }}
+        >
+          {calendar_head_data &&
+            [...calendar_head_data.years.entries()].map(([year, yearData]) => (
+              <div
+                key={year}
+                id="year"
+                style={{
+                  gridRowStart: 1,
+                  gridRowEnd: 2,
+                  gridColumnStart: 3, // change
+                  gridColumnEnd: 4, // change
+                }}
+              >
+                {year}
+                {yearData && [...yearData.months.entries()].map(([month, monthData]) => (
+                  <div
+                    key={month}
+                    id="month"
+                    style={{
+                      gridRowStart: 2,
+                      gridRowEnd: 3,
+                      gridColumnStart: 3, // change
+                      gridColumnEnd: 4, // change
+                    }}
+                  >
+                    {month + 1}
+                    {monthData && [...monthData.dates.entries()].map(([date]) => (
+                      <div
+                        key={date}
+                        id="date"
+                        style={{
+                          gridRowStart: 3,
+                          gridRowEnd: 4,
+                          gridColumnStart: 3, // change
+                          gridColumnEnd: 4, // change
+                        }}
+                      >
+                        {date + 1}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ))}
+        </div>
+        
+        {/* calendar content */}
+        <div
           className={`grid h-[570px] border`}
           style={{
-            gridTemplateColumns: `repeat(${day_count}, 12px)`,
-            gridTemplateRows: `repeat(${entry_count}, 12px)`,
+            gridTemplateColumns: `repeat(${day_count}, 20px)`,
+            gridTemplateRows: `repeat(${entry_count}, 20px)`,
             width: `${day_count * 10}px`,
           }}
         >
