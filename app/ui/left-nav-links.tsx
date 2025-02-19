@@ -71,7 +71,7 @@ export default function LeftNavLinks({ children }: { children: React.ReactNode }
         className={clsx(
           "bg-gray-200 h-full w-28 transition-[width, colors] duration-300",
           isOpen ?
-            isContentOpen && hasSubPath ? "w-[56rem]"
+            isContentOpen && hasSubPath ? "w-[42rem]"
             : "w-56"
           : "hover:bg-gray-300"
           // {
@@ -80,7 +80,7 @@ export default function LeftNavLinks({ children }: { children: React.ReactNode }
         )}
         onClick={isOpen ? undefined : handleOpen}
       > 
-        <div className="bg-gray-400 w-full h-12 flex p-4 items-center">
+        <div className="bg-gray-400 w-full h-12 flex p-4 items-center border-b border-gray-400">
           {isOpen && (
             <button onClick={handleOpen} className="ml-auto text-gray-600 hover:text-gray-900 z-80 transition-colors">
               <X />
@@ -88,7 +88,7 @@ export default function LeftNavLinks({ children }: { children: React.ReactNode }
           )}
         </div>
 
-        <div className="flex">
+        <div className="flex h-[calc(100%-48px)]">
           <div className={clsx(
             "w-28", {"w-56": isOpen},
           )}>
@@ -126,9 +126,11 @@ export default function LeftNavLinks({ children }: { children: React.ReactNode }
               </div>
             ))}
           </div>
-          <div className="w-auto h-auto overflow-y-auto max-h-screen">
+          <div className={clsx(
+            "w-full h-full", {"w-0": !isContentOpen}
+          )}>
             {hasSubPath && isContentOpen && (
-              <div className="bg-gray-200 h-full w-full top-16 p-4 border-t border-gray-400">
+              <div className="bg-gray-200 overflow-y-auto max-h-full top-16 p-4 border-t border-gray-400">
                 {children}
               </div>
             )}
