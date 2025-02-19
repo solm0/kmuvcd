@@ -6,6 +6,6 @@ export const metadata: Metadata = {
 
 export default async function Page() {
     return (
-        <h1 className='text-2xl pb-8'>국제교류</h1>
+        <h1 className='pb-8'>국제교류</h1>
     );
 }

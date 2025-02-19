@@ -17,7 +17,7 @@ export default async function Page() {
 
     return (
         <div>
-            <h1 className="text-2xl pb-8">공간</h1>
+            <h1 className="pb-8">공간</h1>
             {data.map((post: PostProps) => (
                 <div key={post.id} className="rounded-lg bg-gray-100 p-8 mb-4">
                     <p>title: {post.name}</p>

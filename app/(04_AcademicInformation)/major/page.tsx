@@ -16,7 +16,7 @@ export default async function Page() {
 
     return (
         <div>
-            <h1 className='text-2xl pb-8'>복/부전공</h1>
+            <h1 className='pb-8'>복/부전공</h1>
                 <div key={data.id} className='rounded-lg bg-gray-100 p-8'>
                     <p>name:{data.name}</p>
                     <MdText markdown={data.text ?? " "} />

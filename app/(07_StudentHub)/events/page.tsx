@@ -21,7 +21,7 @@ export default async function Page() {
 
     return (
         <>
-            <h1 className='text-2xl pb-8'>이벤트</h1>
+            <h1 className='pb-8'>이벤트</h1>
             {data.map((post: PostProps) => (
                 <div key={post.id} >
                     {post.calendars?.map((calendar) => (

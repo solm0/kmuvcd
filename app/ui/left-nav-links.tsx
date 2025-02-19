@@ -106,9 +106,9 @@ export default function LeftNavLinks({ children }: { children: React.ReactNode }
                     <div
                       key={index}
                       className={clsx(
-                        "w-28 h-12 break-keep hover:bg-blue-500 transition-colors",
+                        "w-28 h-12 break-keep hover:bg-gray-300 transition-colors",
                         {
-                          "bg-blue-500": pathname === link.href,
+                          "bg-gray-300": pathname === link.href,
                         },
                       )}
                     >
