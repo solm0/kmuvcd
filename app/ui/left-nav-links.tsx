@@ -127,7 +127,7 @@ export default function LeftNavLinks({ children }: { children: React.ReactNode }
             ))}
           </div>
           <div className={clsx(
-            "w-full h-full", {"w-0": !isContentOpen}
+            "w-full h-full", {"hidden": !isContentOpen}
           )}>
             {hasSubPath && isContentOpen && (
               <div className="bg-gray-200 overflow-y-auto max-h-full top-16 p-4 border-t border-gray-400">
