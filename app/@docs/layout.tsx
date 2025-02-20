@@ -36,7 +36,7 @@ export const categories = [
   },
 ]
 
-export default function LeftNavLinks() {
+export default function Page({children}: {children: React.ReactNode}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isContentOpen, setIsContentOpen] = useState(false);
 
@@ -81,9 +81,12 @@ export default function LeftNavLinks() {
   const handleContentOpen = (path: string) => {
     setCurrentPath(path)
 
-    if (pathname && !isContentOpen) {
+    console.log("isContentOpen before", isContentOpen, path)
+
+    if (!isContentOpen) {
       setIsContentOpen(true);
     }
+    console.log("isContentOpen", isContentOpen, path)
   }
 
 
@@ -156,13 +159,11 @@ export default function LeftNavLinks() {
               </div>
             ))}
           </div>
-          <div className={clsx("w-full h-full", {"hidden": !isOpen})}>
-            {hasSubPath && isContentOpen && (<div>f</div>)}
+          <div className={clsx("w-full h-full p-4 overflow-x-auto", {"hidden": !isOpen})}>
+            {hasSubPath && isContentOpen && (<div>{children}</div>)}
           </div>
         </div>
       </div>
-
-
     </div>
   )
 }

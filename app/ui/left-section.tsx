@@ -1,11 +1,10 @@
-import LeftNavLinks from "./left-nav-links";
 import { Suspense } from "react";
 
-export default async function LeftSection() {
+export default async function LeftSection({children}: {children: React.ReactNode}) {
   return (
     <section className="relative w-auto h-[calc(100%-4rem)] z-30">
-      <Suspense>
-        <LeftNavLinks />
+      <Suspense fallback={<div>Loading...</div>}>
+        {children}
       </Suspense>
     </section>
   );

@@ -5,8 +5,10 @@ import RightSection from "./ui/right-section";
 
 export default function RootLayout({
   children,
+  docs
 }: Readonly<{
   children: React.ReactNode;
+  docs: React.ReactNode;
 }>) {
   return (
     <html lang="en" className="h-full">
@@ -14,7 +16,7 @@ export default function RootLayout({
         <div className="flex flex-col h-full overflow-hidden">
           <HeaderSection />
           <div className="flex mt-16 min-h-screen">
-            <LeftSection />
+            <LeftSection>{docs}</LeftSection>
             <RightSection>{children}</RightSection>
           </div>
         </div>
