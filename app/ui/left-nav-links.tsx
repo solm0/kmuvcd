@@ -43,6 +43,7 @@ export default function LeftNavLinks() {
   const pathname = usePathname();
   const hasSubPath = pathname !== "/" && pathname.split("/").length > 1;
   const searchParams = useSearchParams()
+  const [currentPath, setCurrentPath] = useState<string>();
 
   useEffect(() => {
     if (searchParams.get("expand") === "true") {
@@ -55,10 +56,11 @@ export default function LeftNavLinks() {
   const handleOpen = () => {
     const newOpen = !isOpen;
     setIsOpen(newOpen);
-
+    
     const newParams = new URLSearchParams(searchParams.toString());
+
     newParams.set("expand", newOpen.toString());
-    window.history.pushState({}, "", "?" + newParams.toString());
+    window.history.pushState({}, "", `${currentPath ? currentPath : ''}?${newParams.toString()}`);
 
     if (hasSubPath) {
       setIsContentOpen(true);
@@ -69,11 +71,21 @@ export default function LeftNavLinks() {
     }
   };
 
-  const handleContentOpen = () => {
+  // 유저가 링크를 클릭했는데 docs에 해당하지 않는 외부 path면 isContentOpen을 false로 만들어 다시 열 때 제대로 열리게 만든다
+  useEffect(() => {
+    if (!(['/mission', '/professors', '/curriculum', '/grad_schools', '/international', '/student_councils', '/staffs', '/facility', '/graduation', '/major'].includes(pathname))) {
+      setIsContentOpen(false)
+    }
+  }, [pathname])
+
+  const handleContentOpen = (path: string) => {
+    setCurrentPath(path)
+
     if (pathname && !isContentOpen) {
       setIsContentOpen(true);
     }
   }
+
 
   return (
     <div
@@ -125,14 +137,14 @@ export default function LeftNavLinks() {
                         className={clsx(
                           "w-28 h-12 break-keep hover:bg-gray-300 transition-colors",
                           {
-                            "bg-gray-300": pathname === link.href, // param
+                            "bg-gray-300": pathname === link.href,
                           },
                         )}
                       >
                         <Link
                           href={updatedHref}
                           className="w-full h-full flex items-center p-4"
-                          onClick={handleContentOpen}
+                          onClick={() => handleContentOpen(link.href)}
                         >
                           {link.name}
                         </Link>
