@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from 'lucide-react';
+import { useSearchParams } from "next/navigation";
 
-const categories = [
+export const categories = [
   { name: '소개',
     lists: [
       { name: '목표', href: '/mission'},
-      { name: '역사', href: '/history'}
     ]
   },
   { name: '교육',
@@ -39,11 +39,26 @@ const categories = [
 export default function LeftNavLinks() {
   const [isOpen, setIsOpen] = useState(false);
   const [isContentOpen, setIsContentOpen] = useState(false);
-  
+
   const pathname = usePathname();
+  const hasSubPath = pathname !== "/" && pathname.split("/").length > 1;
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.get("expand") === "true") {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, [searchParams]);
 
   const handleOpen = () => {
-    setIsOpen(!isOpen);
+    const newOpen = !isOpen;
+    setIsOpen(newOpen);
+
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set("expand", newOpen.toString());
+    window.history.pushState({}, "", "?" + newParams.toString());
 
     if (hasSubPath) {
       setIsContentOpen(true);
@@ -52,15 +67,13 @@ export default function LeftNavLinks() {
     if (isContentOpen) {
       setIsContentOpen(false);
     }
-  }
+  };
 
   const handleContentOpen = () => {
     if (pathname && !isContentOpen) {
       setIsContentOpen(true);
     }
   }
-
-  const hasSubPath = pathname !== "/" && pathname.split("/").length > 1;
 
   return (
     <div
@@ -102,38 +115,37 @@ export default function LeftNavLinks() {
                 </div>
                 {isOpen && (
                   <div className="ml-28 -mt-12 w-28 h-auto p-0">
-                  {category.lists.map((link, index) => (
-                    <div
-                      key={index}
-                      className={clsx(
-                        "w-28 h-12 break-keep hover:bg-gray-300 transition-colors",
-                        {
-                          "bg-gray-300": pathname === link.href,
-                        },
-                      )}
-                    >
-                      <Link
-                        href={link.href}
-                        className="w-full h-full flex items-center p-4"
-                        onClick={handleContentOpen}
+                  {category.lists.map((link, index) => {
+                    const currentParams = new URLSearchParams(searchParams.toString());
+                    const updatedHref = `${link.href.split('?')[0]}?${currentParams.toString()}`;
+
+                    return (
+                      <div
+                        key={index}
+                        className={clsx(
+                          "w-28 h-12 break-keep hover:bg-gray-300 transition-colors",
+                          {
+                            "bg-gray-300": pathname === link.href, // param
+                          },
+                        )}
                       >
-                        {link.name}
-                      </Link>
-                    </div>
-                  ))}
+                        <Link
+                          href={updatedHref}
+                          className="w-full h-full flex items-center p-4"
+                          onClick={handleContentOpen}
+                        >
+                          {link.name}
+                        </Link>
+                      </div>
+                    );
+                  })}
                 </div>
                 )}
               </div>
             ))}
           </div>
-          <div className={clsx(
-            "w-full h-full", {"hidden": !isContentOpen}
-          )}>
-            {hasSubPath && isContentOpen && (
-              <div className="bg-gray-200 overflow-y-auto max-h-full top-16 p-4 border-t border-gray-400">
-                f
-              </div>
-            )}
+          <div className={clsx("w-full h-full", {"hidden": !isOpen})}>
+            {hasSubPath && isContentOpen && (<div>f</div>)}
           </div>
         </div>
       </div>
