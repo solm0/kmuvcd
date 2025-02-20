@@ -36,7 +36,7 @@ const categories = [
   },
 ]
 
-export default function LeftNavLinks({ children }: { children: React.ReactNode }) {
+export default function LeftNavLinks() {
   const [isOpen, setIsOpen] = useState(false);
   const [isContentOpen, setIsContentOpen] = useState(false);
   
@@ -64,7 +64,7 @@ export default function LeftNavLinks({ children }: { children: React.ReactNode }
 
   return (
     <div
-      className="h-full w-screen flex"
+      className="h-full w-auto flex"
       onClick={isOpen ? undefined : handleOpen}
     >
       <div
@@ -131,7 +131,7 @@ export default function LeftNavLinks({ children }: { children: React.ReactNode }
           )}>
             {hasSubPath && isContentOpen && (
               <div className="bg-gray-200 overflow-y-auto max-h-full top-16 p-4 border-t border-gray-400">
-                {children}
+                f
               </div>
             )}
           </div>
