@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { X } from 'lucide-react';
 import { useSearchParams } from "next/navigation";
 
-export const categories = [
+const categories = [
   { name: '소개',
     lists: [
       { name: '목표', href: '/mission'},

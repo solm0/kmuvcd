@@ -91,7 +91,7 @@ export default function Page({children}: {children: React.ReactNode}) {
 
 
   return (
-    <div
+    <nav
       className="h-full w-auto flex"
       onClick={isOpen ? undefined : handleOpen}
     >
@@ -164,6 +164,6 @@ export default function Page({children}: {children: React.ReactNode}) {
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   )
 }
