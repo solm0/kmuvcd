@@ -117,7 +117,7 @@ export default function Page({children}: {children: React.ReactNode}) {
           )}
         </div>
 
-        <div className="flex h-[calc(100%-48px)]">
+        <div className="flex h-[calc(100%-36px)]">
           <div className={clsx(
             "w-28", {"w-56": isOpen},
           )}>

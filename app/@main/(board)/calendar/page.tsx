@@ -1,6 +1,6 @@
-import CalendarGrid from "./calendar-grid";
-import { getCalendarEntries } from "../lib/get-calendar-entries";
-import { getUserMe } from "../lib/services/get-user-me";
+import CalendarGrid from "@/app/ui/calendar-grid";
+import { getCalendarEntries } from "@/app/lib/get-calendar-entries";
+import { getUserMe } from "@/app/lib/services/get-user-me";
 import { getAuthToken } from "@/app/lib/services/get-token";
 
 export default async function Calendar2() {
@@ -9,8 +9,7 @@ export default async function Calendar2() {
   const token = await getAuthToken();
 
   return (
-    <div>
-      <h1 className="text-2xl pb-8">Calendar2</h1>
+    <div className="w-full">
       <CalendarGrid
         calendarEntries={calendarEntries}
         token={token ?? undefined}

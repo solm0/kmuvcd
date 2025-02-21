@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { X } from 'lucide-react';
 import { useSearchParams } from "next/navigation";
 
-export const categories = [
+const categories = [
   { name: '소개',
     lists: [
       { name: '목표', href: '/mission'},
@@ -116,7 +116,7 @@ export default function Page({children}: {children: React.ReactNode}) {
           )}
         </div>
 
-        <div className="flex h-[calc(100%-48px)]">
+        <div className="flex h-[calc(100%-36px)]">
           <div className={clsx(
             "w-28", {"w-56": isOpen},
           )}>

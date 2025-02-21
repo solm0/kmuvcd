@@ -5,19 +5,19 @@ import RightSection from "./ui/right-section";
 
 export default function RootLayout({
   docs,
-  events
+  main
 }: Readonly<{
   docs: React.ReactNode;
-  events: React.ReactNode;
+  main: React.ReactNode;
 }>) {
   return (
     <html lang="en" className="h-full">
       <body className="h-full">
         <div className="flex flex-col h-full overflow-hidden">
           <HeaderSection />
-          <div className="flex mt-16 min-h-screen">
+          <div className="flex mt-12 min-h-screen">
             <LeftSection>{docs}</LeftSection>
-            <RightSection>{events}</RightSection>
+            <RightSection>{main}</RightSection>
           </div>
         </div>
       </body>
