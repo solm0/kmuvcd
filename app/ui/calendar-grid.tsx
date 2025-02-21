@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import CalendarEntry2 from "./calendar-entry-2";
 import generateCalendarHeadData from "../lib/generate-calendar-head-data";
+import { useSearchParams } from "next/navigation";
 
 interface EntryProps {
   start: number,
@@ -20,9 +21,20 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
   const last_date = new Date(calendarEntries[calendarEntries.length - 1].endDate);
   const day_count = (+last_date - +first_date) / (1000 * 60 * 60 * 24);
 
-  console.log(calendarEntries);
-  // 필터링. 쿼리에서 태그를 뺴내서 필터해야 하나?
+  // 카테고리 필터링
 
+  // 태그 필터링
+  const searchParams = useSearchParams();
+  const tag = searchParams.get('tag');
+  let filteredCalendarEntries
+  
+  if (tag === '*') {
+    filteredCalendarEntries = calendarEntries;
+  } else {
+    filteredCalendarEntries = calendarEntries.filter((entry) => {
+      return tag && Array.isArray(entry.tags) && entry.tags.some(t => t.tag === tag);
+    })
+  }
 
   // entry들의 date계산해서 그 date와 firstEntry와의 차이를 계산.
   function getDiff(entry: CalendarProps) {
@@ -36,6 +48,8 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
     }
   }
 
+  // console.log(filteredCalendarEntries)
+
   // function getRow(entry: CalendarProps) {...}
   /*
     1 부터 10까지의 변수를 만든다.
@@ -46,7 +60,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
 
   const entries: EntryProps[] = [];
   
-  calendarEntries.map((entry: CalendarProps) => {
+  filteredCalendarEntries.map((entry: CalendarProps) => {
     entries.push(getDiff(entry)); // column위치계산
     // entries.push(getRow(entry)); row위치계산
   })
@@ -87,7 +101,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
 
   // generate head year, month, date
   const calendar_head_data = generateCalendarHeadData(first_date, last_date);
-  console.log(calendar_head_data)
+  // console.log(calendar_head_data)
 
   return (
     <>

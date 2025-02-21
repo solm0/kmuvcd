@@ -31,7 +31,7 @@ const tags = [
   },
   { category: 'notices',
     tags: [
-      { name: '학사일정', query: 'academic' },
+      { name: '학사일정', query: '학사일정' },
       { name: '뉴스', query: 'news'},
       { name: '공지', query: 'announcement'},
       { name: '채용공고', query: 'job'},

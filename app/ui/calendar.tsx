@@ -12,17 +12,11 @@ export default async function Calendar() {
   return (
     <div className="w-full">
       <h1 className="text-2xl pb-8">Calendar</h1>
-      {calendarEntries.map((entry: CalendarProps, index: number) => (
-        <div key={index}>
-          <CalendarEntry
-            key={entry.id}
-            data={entry}
-            token={token ?? undefined}
-            user={user?.data}
-            href={entry?.url ? entry.url : null}
-          />
-        </div>
-      ))}
+      <CalendarEntry
+        data={calendarEntries}
+        token={token ?? undefined}
+        user={user?.data}
+      />
     </div>
   );
 }
