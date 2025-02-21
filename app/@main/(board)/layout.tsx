@@ -1,11 +1,5 @@
 'use client'
 
-// 태그 컴포넌트에 prop으로 넘겨주면 태그 컴포넌트에서 그에 맞는 태그버튼 가져옴.
-// 카테고리, 태그 컴포넌트들은 useSearchparam으로 쿼리에다가 넣음.
-// 그리고 그걸 CalendarGrid같은 중간 클라이언트컴포넌트에서 useSearchParam으로 갖다가
-// CalendarEntry같은거를 필터링해서 렌더하면 되는거임. 잠만 그건 클라이언트니까 실시간으로 되겠네?
-// 카테고리 바꿀때 태그 쿼리 초기화.
-
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";

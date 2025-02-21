@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import clsx from "clsx";
+import Tags from "./tags";
 
 const categories = [
   { name: '전시', query: 'exhibitions', },
@@ -27,27 +28,31 @@ export default function Categories() {
 
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("category", query.toString());
+    newParams.set("tag", '*');
     window.history.pushState({}, "", "?" + newParams.toString());
   }
 
   return (
-    <div className="bg-gray-200 h-12 p-4 flex items-center border-b border-gray-400 gap-4">
-      <label>카테고리: </label>
-      <button
-        onClick={() => handleCategory('*')}
-        className={clsx("hover:text-gray-500", {"text-gray-500": currentCategory === '*'})}
-      >
-        전체
-      </button>
-      {categories.map((category, index) => (
+    <>
+      <div className="bg-gray-200 h-12 p-4 flex items-center border-b border-gray-400 gap-4">
+        <label>카테고리: </label>
         <button
-          key={index}
-          onClick={() => handleCategory(category.query)}
-          className={clsx("hover:text-gray-500", {"text-gray-500": currentCategory === category.query})}
+          onClick={() => handleCategory('*')}
+          className={clsx("hover:text-gray-500", {"text-gray-500": currentCategory === '*'})}
         >
-          {category.name}
+          전체
         </button>
-      ))}
-    </div>
+        {categories.map((category, index) => (
+          <button
+            key={index}
+            onClick={() => handleCategory(category.query)}
+            className={clsx("hover:text-gray-500", {"text-gray-500": currentCategory === category.query})}
+          >
+            {category.name}
+          </button>
+        ))}
+      </div>
+      {currentCategory !== '*' && <Tags category={currentCategory} />}
+    </>
   );
 }
