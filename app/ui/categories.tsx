@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import clsx from "clsx";
 
@@ -12,14 +12,20 @@ const categories = [
 ]
 
 export default function Categories() {
-  const [currentCategory, setCurrentCategory] = useState('exhibitions');
+  const [currentCategory, setCurrentCategory] = useState('*');
   const searchParams = useSearchParams();
+
+  // 처음엔 전체
+  useEffect(() => {
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set("category", '*');
+    window.history.pushState({}, "", "?" + newParams.toString());
+  }, []);
 
   const handleCategory = (query: string) => {
     setCurrentCategory(query);
 
     const newParams = new URLSearchParams(searchParams.toString());
-
     newParams.set("category", query.toString());
     window.history.pushState({}, "", "?" + newParams.toString());
   }
@@ -27,6 +33,12 @@ export default function Categories() {
   return (
     <div className="bg-gray-200 h-12 p-4 flex items-center border-b border-gray-400 gap-4">
       <label>카테고리: </label>
+      <button
+        onClick={() => handleCategory('*')}
+        className={clsx("hover:text-gray-500", {"text-gray-500": currentCategory === '*'})}
+      >
+        전체
+      </button>
       {categories.map((category, index) => (
         <button
           key={index}
