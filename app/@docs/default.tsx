@@ -1,11 +1,10 @@
 'use client';
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { X } from 'lucide-react';
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 const categories = [
   { name: '소개',
@@ -40,6 +39,7 @@ export default function Page({children}: {children: React.ReactNode}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isContentOpen, setIsContentOpen] = useState(false);
 
+  const router = useRouter();
   const pathname = usePathname();
   const hasSubPath = pathname !== "/" && pathname.split("/").length > 1;
   const searchParams = useSearchParams()
@@ -60,7 +60,7 @@ export default function Page({children}: {children: React.ReactNode}) {
     const newParams = new URLSearchParams(searchParams.toString());
 
     newParams.set("expand", newOpen.toString());
-    window.history.pushState({}, "", `${currentPath ? currentPath : ''}?${newParams.toString()}`);
+    router.push(`${currentPath ? currentPath : ''}?${newParams.toString()}`);
 
     if (hasSubPath) {
       setIsContentOpen(true);
@@ -117,7 +117,7 @@ export default function Page({children}: {children: React.ReactNode}) {
           )}
         </div>
 
-        <div className="flex h-[calc(100%-36px)]">
+        <div className="flex h-[calc(100%-3rem)]">
           <div className={clsx(
             "w-28", {"w-56": isOpen},
           )}>

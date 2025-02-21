@@ -1,11 +1,10 @@
 'use client';
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { X } from 'lucide-react';
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 const categories = [
   { name: '소개',
@@ -40,27 +39,18 @@ export default function Page({children}: {children: React.ReactNode}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isContentOpen, setIsContentOpen] = useState(false);
 
+  const router = useRouter();
   const pathname = usePathname();
   const hasSubPath = pathname !== "/" && pathname.split("/").length > 1;
   const searchParams = useSearchParams()
   const [currentPath, setCurrentPath] = useState<string>();
 
-  useEffect(() => {
-    if (searchParams.get("expand") === "true") {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
-  }, [searchParams]);
-
   const handleOpen = () => {
     const newOpen = !isOpen;
-    setIsOpen(newOpen);
     
     const newParams = new URLSearchParams(searchParams.toString());
-
     newParams.set("expand", newOpen.toString());
-    window.history.pushState({}, "", `${currentPath ? currentPath : ''}?${newParams.toString()}`);
+    router.push(`${currentPath ? currentPath : ''}?${newParams.toString()}`);
 
     if (hasSubPath) {
       setIsContentOpen(true);
@@ -70,6 +60,14 @@ export default function Page({children}: {children: React.ReactNode}) {
       setIsContentOpen(false);
     }
   };
+
+  useEffect(() => {
+    if (searchParams.get("expand") === "true") {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, [searchParams]);
 
   // 유저가 링크를 클릭했는데 docs에 해당하지 않는 외부 path면 isContentOpen을 false로 만들어 다시 열 때 제대로 열리게 만든다
   useEffect(() => {
@@ -116,7 +114,7 @@ export default function Page({children}: {children: React.ReactNode}) {
           )}
         </div>
 
-        <div className="flex h-[calc(100%-36px)]">
+        <div className="flex h-[calc(100%-3rem)]">
           <div className={clsx(
             "w-28", {"w-56": isOpen},
           )}>

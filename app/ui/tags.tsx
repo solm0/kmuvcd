@@ -45,12 +45,6 @@ export default function Tags({category}: {category: string}) {
   const searchParams = useSearchParams();
   const [currentTag, setCurrentTag] = useState('*');
 
-  console.log(currentTag)
-
-  useEffect(() => {
-    setCurrentTag(searchParams.get('tag') || '*'); 
-}, [searchParams]); 
-
   useEffect(() => {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("tag", '*');
@@ -58,12 +52,20 @@ export default function Tags({category}: {category: string}) {
   }, []);
 
   const handleTag = (query: string) => {
-    setCurrentTag(query);
-
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("tag", query.toString());
     router.push(`${pathname}?${newParams.toString()}`);
   }
+
+  useEffect(() => {
+    const param = searchParams.get('tag');
+
+    if (param && param!== currentTag) {
+      setCurrentTag(param);
+    }
+  }, [searchParams]); 
+
+  // console.log("tag by url", currentTag)
 
   const currentCategory = tags.find((element) => element.category === category);
   const tagSet = currentCategory?.tags;

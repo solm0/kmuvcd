@@ -18,7 +18,6 @@ export default function Categories() {
   const searchParams = useSearchParams();
   const [currentCategory, setCurrentCategory] = useState('*');
 
-  // 처음엔 전체
   useEffect(() => {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("category", '*');
@@ -26,13 +25,19 @@ export default function Categories() {
   }, []);
 
   const handleCategory = (query: string) => {
-    setCurrentCategory(query);
-
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("category", query);
     newParams.set("tag", '*');
     router.push(`${pathname}?${newParams.toString()}`);
   }
+
+  useEffect(() => {
+    const param = searchParams.get('category');
+
+    if (param && param !== currentCategory) {
+      setCurrentCategory(param);
+    }
+  }, [searchParams]);
 
   return (
     <>

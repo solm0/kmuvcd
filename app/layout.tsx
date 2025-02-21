@@ -15,7 +15,7 @@ export default function RootLayout({
       <body className="h-full">
         <div className="flex flex-col h-full overflow-hidden">
           <HeaderSection />
-          <div className="flex mt-12 min-h-screen">
+          <div className="flex fixed w-full top-12 h-[calc(100%-3rem)]">
             <LeftSection>{docs}</LeftSection>
             <RightSection>{main}</RightSection>
           </div>

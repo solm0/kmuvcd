@@ -20,6 +20,10 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
   const last_date = new Date(calendarEntries[calendarEntries.length - 1].endDate);
   const day_count = (+last_date - +first_date) / (1000 * 60 * 60 * 24);
 
+  console.log(calendarEntries);
+  // 필터링. 쿼리에서 태그를 뺴내서 필터해야 하나?
+
+
   // entry들의 date계산해서 그 date와 firstEntry와의 차이를 계산.
   function getDiff(entry: CalendarProps) {
     const start_date = new Date(entry.startDate);
