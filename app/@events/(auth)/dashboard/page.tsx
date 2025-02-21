@@ -4,7 +4,7 @@ import UserCard from '@/app/ui/auth/usercard';
 import { getAuthToken } from '@/app/lib/services/get-token';
 import { getUserMe } from '@/app/lib/services/get-user-me';
 import { redirect } from 'next/navigation';
-import { logoutAction } from "../../lib/actions/auth-actions";
+import { logoutAction } from '@/app/lib/actions/auth-actions';
 
 export const metadata: Metadata = {
     title: '내 프로필',

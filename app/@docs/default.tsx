@@ -109,6 +109,7 @@ export default function Page({children}: {children: React.ReactNode}) {
         onClick={isOpen ? undefined : handleOpen}
       > 
         <div className="bg-gray-400 w-full h-12 flex p-4 items-center border-b border-gray-400">
+          default of /@docs
           {isOpen && (
             <button onClick={handleOpen} className="ml-auto text-gray-600 hover:text-gray-900 z-80 transition-colors">
               <X />

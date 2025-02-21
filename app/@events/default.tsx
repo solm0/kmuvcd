@@ -1,7 +1,7 @@
 export default function Default() {
   return (
     <div>
-      default of /app
+      default of /@events
     </div>
   );
 }

@@ -4,11 +4,11 @@ import LeftSection from "./ui/left-section";
 import RightSection from "./ui/right-section";
 
 export default function RootLayout({
-  children,
-  docs
+  docs,
+  events
 }: Readonly<{
-  children: React.ReactNode;
   docs: React.ReactNode;
+  events: React.ReactNode;
 }>) {
   return (
     <html lang="en" className="h-full">
@@ -17,7 +17,7 @@ export default function RootLayout({
           <HeaderSection />
           <div className="flex mt-16 min-h-screen">
             <LeftSection>{docs}</LeftSection>
-            <RightSection>{children}</RightSection>
+            <RightSection>{events}</RightSection>
           </div>
         </div>
       </body>
