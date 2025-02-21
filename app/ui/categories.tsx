@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
 import Tags from "./tags";
 
@@ -13,23 +13,25 @@ const categories = [
 ]
 
 export default function Categories() {
-  const [currentCategory, setCurrentCategory] = useState('*');
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [currentCategory, setCurrentCategory] = useState('*');
 
   // 처음엔 전체
   useEffect(() => {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("category", '*');
-    window.history.pushState({}, "", "?" + newParams.toString());
+    router.push(`${pathname}?${newParams.toString()}`);
   }, []);
 
   const handleCategory = (query: string) => {
     setCurrentCategory(query);
 
     const newParams = new URLSearchParams(searchParams.toString());
-    newParams.set("category", query.toString());
+    newParams.set("category", query);
     newParams.set("tag", '*');
-    window.history.pushState({}, "", "?" + newParams.toString());
+    router.push(`${pathname}?${newParams.toString()}`);
   }
 
   return (

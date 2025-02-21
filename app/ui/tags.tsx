@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, usePathname, useRouter } from "next/navigation"
 import clsx from "clsx"
 
 const tags = [
@@ -40,13 +40,21 @@ const tags = [
 ]
 
 export default function Tags({category}: {category: string}) {
-  const [currentTag, setCurrentTag] = useState('*');
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [currentTag, setCurrentTag] = useState('*');
+
+  console.log(currentTag)
+
+  useEffect(() => {
+    setCurrentTag(searchParams.get('tag') || '*'); 
+}, [searchParams]); 
 
   useEffect(() => {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("tag", '*');
-    window.history.pushState({}, "", "?" + newParams.toString());
+    router.push(`${pathname}?${newParams.toString()}`);
   }, []);
 
   const handleTag = (query: string) => {
@@ -54,7 +62,7 @@ export default function Tags({category}: {category: string}) {
 
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("tag", query.toString());
-    window.history.pushState({}, "", "?" + newParams.toString());
+    router.push(`${pathname}?${newParams.toString()}`);
   }
 
   const currentCategory = tags.find((element) => element.category === category);
