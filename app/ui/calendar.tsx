@@ -1,4 +1,4 @@
-import { CalendarProps } from "@/app/lib/definitions";
+// import { CalendarProps } from "@/app/lib/definitions";
 import { getCalendarEntries } from "../lib/get-calendar-entries";
 import { getUserMe } from "../lib/services/get-user-me";
 import { getAuthToken } from "@/app/lib/services/get-token";

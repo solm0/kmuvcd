@@ -15,7 +15,7 @@ export default function CalendarEntry2({ entryPosition, index, data, token, user
 
   const isUser = userData?.id;
 
-  // console.log(data, token, isUser);
+  console.log(data, token, isUser);
 
   // const Content = (...)
   // link는 뺴야겠지..? [slug]라우트를 없애고.. 여기서 또 다른 컴포넌트를 렌더해야?

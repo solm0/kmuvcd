@@ -3,7 +3,7 @@ import { getCalendarEntries } from "@/app/lib/get-calendar-entries";
 import { getUserMe } from "@/app/lib/services/get-user-me";
 import { getAuthToken } from "@/app/lib/services/get-token";
 
-import CalendarEntry from "@/app/ui/calendar-entry";
+// import CalendarEntry from "@/app/ui/calendar-entry";
 
 export default async function Calendar2() {
   const calendarEntries = await getCalendarEntries();

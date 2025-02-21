@@ -2,21 +2,23 @@
 
 import { useState } from "react";
 import { CalendarProps, UserDataProps } from "@/app/lib/definitions";
-import BookmarkButton from "./bookmark-button";
-import Link from "next/link";
-import clsx from "clsx";
+// import BookmarkButton from "./bookmark-button";
+// import Link from "next/link";
+// import clsx from "clsx";
 import { useSearchParams } from "next/navigation";
 
-interface EntryProps {
-  start: number,
-  end: number,
-  // row: number,
-}
+// interface EntryProps {
+//   start: number,
+//   end: number,
+//   // row: number,
+// }
 
 export default function CalendarEntry({ data, token, user }: { data: CalendarProps[]; token?: string; user:UserDataProps; }) {
   const [userData] = useState<UserDataProps | null>(user);
 
   const isUser = userData?.id;
+
+  console.log(token, isUser);
 
   // 태그 필터링
   const searchParams = useSearchParams();
