@@ -2,11 +2,11 @@ import { Metadata } from 'next';
 import { getCmsData } from '@/app/lib/get-cms-data';
 import { PostProps } from '@/app/lib/definitions';
 import Website from '@/app/ui/cms/website';
-import CalendarEntry from '@/app/ui/calendar-entry';
+// import CalendarEntry from '@/app/ui/calendar-entry';
 import MdText from '@/app/ui/cms/md-text';
 import { ImageMedia } from '@/app/ui/cms/media';
-import { getAuthToken } from '@/app/lib/services/get-token';
-import { getUserMe } from '@/app/lib/services/get-user-me';
+// import { getAuthToken } from '@/app/lib/services/get-token';
+// import { getUserMe } from '@/app/lib/services/get-user-me';
 
 export const metadata: Metadata = {
     title: '공지',
@@ -19,8 +19,8 @@ export default async function Page() {
         return <p>No data available or failed to load.</p>;
     }
 
-    const token = await getAuthToken();
-    const user = await getUserMe(true);
+    // const token = await getAuthToken();
+    // const user = await getUserMe(true);
 
     return (
         <div>
@@ -32,14 +32,14 @@ export default async function Page() {
                     <p>author: {post.author}</p>
                     {post.calendars && post.calendars?.length > 0 && (
                         <div className='rounded-lg bg-gray-200 p-4'>
-                            {post.calendars?.map((calendar) => (
+                            {/* {post.calendars?.map((calendar) => (
                                  <CalendarEntry
                                     key={calendar.id}
                                     data={calendar}
                                     token={token ?? undefined}
                                     user={user?.data}
                                 />
-                            ))}
+                            ))} */}
                         </div>
                     )}
                     <div>media:

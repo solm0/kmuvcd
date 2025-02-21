@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import { UserDataProps } from '@/app/lib/definitions';
-import CalendarEntry from '../calendar-entry';
+// import CalendarEntry from '../calendar-entry';
 
 export default function UserCard({ token, user }: { token?: string; user: UserDataProps }) {
   const [userData] = useState<UserDataProps | null>(user);
+
+  console.log(token);
 
   return (
     <div>
@@ -16,7 +18,7 @@ export default function UserCard({ token, user }: { token?: string; user: UserDa
           <p>Your email has been {userData.confirmed ? 'confirmed' : 'not confirmed'}!</p>
           <p>You are {userData.blocked ? 'blocked' : 'not blocked'}!</p>
           <p>Your role is &apos;{userData.role.name}&apos; user!</p>
-          { userData.calendars && userData.calendars.length > 0 && (
+          {/* { userData.calendars && userData.calendars.length > 0 && (
             <div>
               {userData.calendars
                 .filter(calendar => calendar.publishedAt !== null) // Filter out calendars with null 'publishedAt'
@@ -30,7 +32,7 @@ export default function UserCard({ token, user }: { token?: string; user: UserDa
                     />
               ))}
             </div>
-          )}
+          )} */}
         </>
       ) : (
         <p>Loading...</p>

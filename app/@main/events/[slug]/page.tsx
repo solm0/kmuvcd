@@ -1,10 +1,10 @@
 import { getCmsData } from '@/app/lib/get-cms-data';
 import { PostProps } from '@/app/lib/definitions';
-import CalendarEntry from '@/app/ui/calendar-entry';
+// import CalendarEntry from '@/app/ui/calendar-entry';
 import { ImageMedia } from '@/app/ui/cms/media';
 import Website from '@/app/ui/cms/website';
-import { getAuthToken } from '@/app/lib/services/get-token';
-import { getUserMe } from '@/app/lib/services/get-user-me';
+// import { getAuthToken } from '@/app/lib/services/get-token';
+// import { getUserMe } from '@/app/lib/services/get-user-me';
 
 export async function generateStaticParams() {
   const posts = await getCmsData('events');
@@ -26,22 +26,22 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   // Use the `slug` as you normally would
   const post = await getCmsData<PostProps>(`events/${slug}?populate[calendars][populate][0]=tags&populate[website]=true&populate[poster]=true`) as PostProps;
 
-  const token = await getAuthToken();
-  const user = await getUserMe(true);
+  // const token = await getAuthToken();
+  // const user = await getUserMe(true);
 
   return (
     <div>
       <h1 className='pb-8'>{post.name}</h1>
       <div key={post.id} className='rounded-lg bg-gray-100 p-8 mb-4'>
           <div>
-              {post.calendars?.map((calendar) => (
+              {/* {post.calendars?.map((calendar) => (
                   <CalendarEntry
                     key={calendar.id}
                     data={calendar}
                     token={token ?? undefined}
                     user={user?.data}
                   />
-              ))}
+              ))} */}
           </div>
           <p>text: {post.text}</p>
           {post.poster && 
