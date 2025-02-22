@@ -43,6 +43,7 @@ export interface CalendarProps {
   tags?: {
     id?: number;
     tag?: string;
+    documentId?: string;
   }[];
   url?: string;
   events?: {

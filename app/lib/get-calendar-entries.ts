@@ -11,7 +11,8 @@ export async function getCalendarEntries() {
   
   // TODO: events말고 다른 카테고리도 받아야됨.
 
-  const entries = data?.data.map((entry: CalendarProps) => ({
+  const entries = data?.data.map((entry: CalendarProps) => (
+    {
     url: entry?.events ? `/events/${entry?.events?.documentId}` : null,
     documentId: entry?.documentId,
     name: entry?.name ?? 'Unknown Event',
@@ -21,7 +22,7 @@ export async function getCalendarEntries() {
     tags: entry?.tags?.map(tag => ({
       tag: tag?.tag ?? null,
     })),
-    category: entry?.events?.category,
+    category: entry?.tags?.[0]?.documentId === 'vl0xeseio4i439p1gmps7618' ? 'notices' : entry?.events?.category,
   }));
 
   const sortedEntries = entries.sort(function(a: CalendarProps, b: CalendarProps) {
