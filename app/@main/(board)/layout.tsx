@@ -16,7 +16,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
   };
 
   return(
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col ">
       <nav className="h-auto">
         <div className="bg-gray-200 w-full h-12 p-4 flex items-center border-b border-gray-400 gap-4">
           <label>보기: </label>
@@ -38,7 +38,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
         <Categories />
       </nav>
       
-      <div className="p-4 flex-1 overflow-auto">
+      <div className="flex-1 overflow-hidden">
         {children}
       </div>
     </div>

@@ -1,5 +1,7 @@
 export default async function CalendarPage() {
   return (
-    <div className="w-full">/lists</div>
+    <div className="w-full">
+      lists page
+    </div>
   );
 }
