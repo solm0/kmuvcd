@@ -6,11 +6,10 @@ import clsx from "clsx";
 import Tags from "./tags";
 
 const categories = [
+  { name: '공지', query: 'notices', },
+  { name: '이벤트', query: 'events', },
   { name: '전시', query: 'exhibitions', },
   { name: '동아리', query: 'clubs', },
-  { name: '이벤트', query: 'events', },
-  { name: '공지', query: 'notices', },
-  { name: '국민대 학사일정', query: 'kookmin', },
 ]
 
 export default function Categories() {

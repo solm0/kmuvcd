@@ -85,7 +85,9 @@ class EventScraper:
                     "name": event["name"],
                     "startDate": event["startDate"],
                     "endDate": event["endDate"],
-                    "category": "kookmin",
+                    "tags": {
+                        "connect": ['vl0xeseio4i439p1gmps7618']
+                    }
                 }
             }
 

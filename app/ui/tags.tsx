@@ -5,6 +5,24 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation"
 import clsx from "clsx"
 
 const tags = [
+  { category: 'notices',
+    tags: [
+      { name: '학과 공지'},
+      { name: '국민대 학사일정'},
+      { name: '채용공고'},
+      { name: '뉴스'},
+    ],
+  },
+  { category: 'events',
+    tags: [
+      { name: '공연'},
+      { name: '특강'},
+      { name: '워크숍'},
+      { name: '간식행사'},
+      { name: '무비나잇'},
+      { name: '조형인의 밤'},
+    ],
+  },
   { category: 'exhibitions',
     tags: [
       { name: '개인전'},
@@ -18,25 +36,6 @@ const tags = [
       { name: '동아리'},
       { name: '서클'},
     ],
-  },
-  { category: 'events',
-    tags: [
-      { name: '공연'},
-      { name: '특강'},
-      { name: '워크숍'},
-      { name: '간식행사'},
-      { name: '무비나잇'},
-      { name: '조형인의 밤'},
-    ],
-  },
-  { category: 'notices',
-    tags: [
-      { name: '공지'},
-      { name: '채용공고'},
-      { name: '뉴스'},
-    ],
-  },
-  { category: 'kookmin',
   },
 ]
 
