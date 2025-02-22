@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import Categories from "@/app/ui/categories";
+import { Search } from "@/app/ui/search";
 
 export default function Layout({children}: {children: React.ReactNode}) {
   const pathname = usePathname();
@@ -28,6 +29,11 @@ export default function Layout({children}: {children: React.ReactNode}) {
           <Link href={generateHref('/images')} className={clsx("hover:text-gray-500", {"text-gray-500": pathname === '/images'})}>
             이미지
           </Link>
+
+          <div className="ml-auto w-96 border-l border-gray-400 h-12 p-4 flex items-center">
+            <Search />
+          </div>
+          
         </div>
         <Categories />
       </nav>

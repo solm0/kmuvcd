@@ -21,6 +21,7 @@ export default function Categories() {
   useEffect(() => {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("category", '*');
+    newParams.set("tag", '*');
     router.push(`${pathname}?${newParams.toString()}`);
   }, []);
 
