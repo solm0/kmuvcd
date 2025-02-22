@@ -45,10 +45,12 @@ export interface CalendarProps {
     tag?: string;
   }[];
   url?: string;
-  detail?: {
+  events?: {
     documentId?: string;
+    category?: string;
   }
   publishedAt: string | null;
+  category?: string;
 }
 
 export interface MediaProps {

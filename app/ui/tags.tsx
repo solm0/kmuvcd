@@ -7,35 +7,36 @@ import clsx from "clsx"
 const tags = [
   { category: 'exhibitions',
     tags: [
-      { name: '개인전', query: 'solo' },
-      { name: '단체전', query: 'group'},
-      { name: '조형전', query: 'kmuvcd'},
-      { name: '과제전', query: 'assignment'},
+      { name: '개인전'},
+      { name: '단체전'},
+      { name: '조형전'},
+      { name: '과제전'},
     ],
   },
   { category: 'clubs',
     tags: [
-      { name: '동아리', query: 'regular' },
-      { name: '서클', query: 'circle'},
+      { name: '동아리'},
+      { name: '서클'},
     ],
   },
   { category: 'events',
     tags: [
-      { name: '공연', query: 'concert' },
-      { name: '특강', query: 'lecture'},
-      { name: '워크숍', query: 'workshop'},
-      { name: '간식행사', query: 'snack'},
-      { name: '무비나잇', query: 'movienight'},
-      { name: '조형인의 밤', query: 'party'},
+      { name: '공연'},
+      { name: '특강'},
+      { name: '워크숍'},
+      { name: '간식행사'},
+      { name: '무비나잇'},
+      { name: '조형인의 밤'},
     ],
   },
   { category: 'notices',
     tags: [
-      { name: '학사일정', query: '학사일정' },
-      { name: '뉴스', query: 'news'},
-      { name: '공지', query: 'announcement'},
-      { name: '채용공고', query: 'job'},
+      { name: '공지'},
+      { name: '채용공고'},
+      { name: '뉴스'},
     ],
+  },
+  { category: 'kookmin',
   },
 ]
 
@@ -68,26 +69,35 @@ export default function Tags({category}: {category: string}) {
   // console.log("tag by url", currentTag)
 
   const currentCategory = tags.find((element) => element.category === category);
-  const tagSet = currentCategory?.tags;
+  let tagSet
+  if (currentCategory?.tags) {
+    tagSet = currentCategory?.tags;
+  } else {
+    tagSet = null;
+  }
 
   return (
-    <div className="bg-gray-200 h-12 p-4 flex items-center border-b border-gray-400 gap-4">
-      <label>태그: </label>
-      <button
-        onClick={() => handleTag('*')}
-        className={clsx("hover:text-gray-500", {"text-gray-500": currentTag === '*'})}
-      >
-        전체
-      </button>
-      {tagSet?.map((tag, index) => (
-        <button
-          key={index}
-          onClick={() => handleTag(tag.query)}
-          className={clsx("hover:text-gray-500", {"text-gray-500": currentTag === tag.query})}
-        >
-          {tag.name}
-        </button>
-      ))}
-    </div>
+    <>
+      {(tagSet!==null) && (
+        <div className="bg-gray-200 h-12 p-4 flex items-center border-b border-gray-400 gap-4">
+          <label>태그: </label>
+          <button
+            onClick={() => handleTag('*')}
+            className={clsx("hover:text-gray-500", {"text-gray-500": currentTag === '*'})}
+          >
+            전체
+          </button>
+          {tagSet?.map((tag, index) => (
+            <button
+              key={index}
+              onClick={() => handleTag(tag.name)}
+              className={clsx("hover:text-gray-500", {"text-gray-500": currentTag === tag.name})}
+            >
+              {tag.name}
+            </button>
+          ))}
+        </div>
+      )}
+    </>
   );
 }
