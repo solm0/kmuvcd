@@ -81,12 +81,12 @@ export default function Page({children}: {children: React.ReactNode}) {
   const handleContentOpen = (path: string) => {
     setCurrentPath(path)
 
-    console.log("isContentOpen before", isContentOpen, path)
+    // console.log("isContentOpen before", isContentOpen, path)
 
     if (!isContentOpen) {
       setIsContentOpen(true);
     }
-    console.log("isContentOpen", isContentOpen, path)
+    // console.log("isContentOpen", isContentOpen, path)
   }
 
 

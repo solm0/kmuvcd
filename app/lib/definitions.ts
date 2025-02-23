@@ -43,8 +43,20 @@ export interface CalendarProps {
     tag?: string;
     documentId?: string;
   }[];
-  url?: string;
+  subPath?: string;
+  notices?: {
+    documentId?: string;
+    category?: string;
+  };
   events?: {
+    documentId?: string;
+    category?: string;
+  };
+  exhibitions?: {
+    documentId?: string;
+    category?: string;
+  };
+  clubs?: {
     documentId?: string;
     category?: string;
   }

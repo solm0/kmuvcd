@@ -7,7 +7,7 @@ import CalendarEntry from "./calendar-entry";
 import { getAuthToken } from "../lib/services/get-token";
 import { getUserMe } from "../lib/services/get-user-me";
 
-// localhost:3000/calendar/qj7sbkji9w27noc4p6eir48w?category=*&tag=*
+// test: ysamkxa8yv2160r1rsrwwxe1 qj7sbkji9w27noc4p6eir48w
 
 async function getPosts() {
   const [notices, events, exhibitions, clubs] = await Promise.all([
@@ -19,7 +19,7 @@ async function getPosts() {
   
   const posts = [...(notices as PostProps[]), ...(events as PostProps[]), ...(exhibitions as PostProps[]), ...(clubs as PostProps[])];
 
-  console.log("Fetched posts:", posts[0]);
+  // console.log("Fetched posts:", posts[0]);
   
   return posts.length > 0 ? posts : [];
 }

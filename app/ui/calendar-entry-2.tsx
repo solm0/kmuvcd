@@ -15,7 +15,7 @@ export default function CalendarEntry2({ entryPosition, index, data, token, user
 
   const isUser = userData?.id;
 
-  console.log(data, token, isUser);
+  console.log("data", data, token, isUser);
 
   // const Content = (...)
   // link

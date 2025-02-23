@@ -38,8 +38,8 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
 
   // 태그 필터링
   const tag = searchParams.get('tag');
-  
   let tagFiltered;
+
   if (tag === '*') {
     tagFiltered = categoryFiltered;
   } else {
