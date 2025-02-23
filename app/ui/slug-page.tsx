@@ -37,7 +37,7 @@ export default async function SlugPage({slug} : {slug: string}) {
   }
 
   return (
-    <div className="w-96">
+    <div className="w-96 p-4">
       <p>name: {post.name}</p>
       <p>documentId: {post.documentId}</p>
       <p>author: {post.author}</p>

@@ -57,7 +57,7 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
         <div key={index}>
         {entry.documentId ?
           <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>
-            <div className={clsx("rounded-lg p-4 mt-4 bg-gray-100 hover:bg-gray-300", {"bg-gray-300": (subPath === entry?.documentId)})}>
+            <div className={clsx("rounded-lg p-4 mb-4 bg-gray-100 hover:bg-gray-300", {"bg-gray-300": (subPath === entry?.documentId)})}>
               <p>{entry?.name}</p>
               <p>{entry?.author}</p>
               <p>{entry?.publishedAt}</p>
