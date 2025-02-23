@@ -9,10 +9,10 @@ import { Search } from "@/app/ui/search";
 export default function Layout({children}: {children: React.ReactNode}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const queryString = searchParams.toString();
 
-  const generateHref = (path: string) => {
-    return queryString ? `${path}?${queryString}` : path;
+  const generateHref = (newPath: string, pathname: string, searchParams: string) => {
+    const subPath = pathname.split('/').slice(2, 3);
+    return `${newPath}/${subPath}?${searchParams}`;
   };
 
   return(
@@ -20,13 +20,13 @@ export default function Layout({children}: {children: React.ReactNode}) {
       <nav className="h-auto">
         <div className="bg-gray-200 w-full h-12 p-4 flex items-center border-b border-gray-400 gap-4">
           <label>보기: </label>
-          <Link href={generateHref('/calendar')} className={clsx("hover:text-gray-500", {"text-gray-500": pathname === '/calendar'})}>
+          <Link href={generateHref('/calendar', pathname, searchParams.toString())} className={clsx("hover:text-gray-500", {"text-gray-500": pathname.startsWith('/calendar')})}>
             캘린더
           </Link>
-          <Link href={generateHref('/lists')} className={clsx("hover:text-gray-500", {"text-gray-500": pathname === '/lists'})}>
+          <Link href={generateHref('/lists', pathname, searchParams.toString())} className={clsx("hover:text-gray-500", {"text-gray-500": pathname.startsWith('/lists')})}>
             리스트
           </Link>
-          <Link href={generateHref('/images')} className={clsx("hover:text-gray-500", {"text-gray-500": pathname === '/images'})}>
+          <Link href={generateHref('/images', pathname, searchParams.toString())} className={clsx("hover:text-gray-500", {"text-gray-500": pathname.startsWith('/images')})}>
             이미지
           </Link>
 

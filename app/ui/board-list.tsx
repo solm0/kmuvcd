@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { PostProps, UserDataProps } from "@/app/lib/definitions";
-// import clsx from "clsx";
+import clsx from "clsx";
 import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -19,6 +19,8 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
   const isUser = userData?.id;
 
   console.log(token, isUser);
+
+  const subPath = pathname.split('/').slice(2, 3).toString();
 
   // 카테고리 필터링
   const category = searchParams.get('category');
@@ -55,7 +57,7 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
         <div key={index}>
         {entry.documentId ?
           <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>
-            <div className="rounded-lg p-4 mt-4 bg-gray-100 hover:bg-gray-300">
+            <div className={clsx("rounded-lg p-4 mt-4 bg-gray-100 hover:bg-gray-300", {"bg-gray-300": (subPath === entry?.documentId)})}>
               <p>{entry?.name}</p>
               <p>{entry?.author}</p>
               <p>{entry?.publishedAt}</p>
