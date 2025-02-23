@@ -1,13 +1,13 @@
+import AnimatedContainer from "@/app/ui/animated-container";
+
 export default async function Layout({children}: {children: React.ReactNode}) {
   
   return (
-    <div className="w-full flex p-4 h-full gap-4">
-      <div className="flex-1 overflow-x-auto">
+    <div className="w-full flex h-full">
+      <div className="flex-1 overflow-x-auto p-4">
         images layout
       </div>
-      <div className="w-auto overflow-x-auto">
-        {children}
-      </div>
+      <AnimatedContainer>{children}</AnimatedContainer>
     </div>
   );
 }

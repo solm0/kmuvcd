@@ -6,21 +6,28 @@ import clsx from "clsx";
 import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 
-const generateHref = (pathname: string, searchParams: string, subPath: string) => {
-  const cleanPathname =  pathname.split('/').slice(0, 2).join('/');
-  return `${cleanPathname}/${subPath}?${searchParams}`;
-}
+
 
 export default function BoardList({ data, token, user }: { data: PostProps[]; token?: string; user:UserDataProps; }) {
   const pathname = usePathname();
+  const subPath = pathname.split('/').slice(2, 3).toString();
   const searchParams = useSearchParams();
   const [userData] = useState<UserDataProps | null>(user);
+
+  const generateHref = (pathname: string, searchParams: string, documentId: string) => {
+    if (subPath !== documentId) {
+      const cleanPathname =  pathname.split('/').slice(0, 2).join('/');
+      return `${cleanPathname}/${documentId}?${searchParams}`;
+    } else {
+      const cleanPathname = pathname.split('/').slice(0, 2).join('/');
+      return `${cleanPathname}?${searchParams}`;
+    }
+  }
   
   const isUser = userData?.id;
 
   console.log(token, isUser);
 
-  const subPath = pathname.split('/').slice(2, 3).toString();
 
   // 카테고리 필터링
   const category = searchParams.get('category');
@@ -56,7 +63,8 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
       {categoryFiltered.map((entry: PostProps, index) => (
         <div key={index}>
         {entry.documentId ?
-          <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>
+          <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}
+          >
             <div className={clsx("rounded-lg p-4 mb-4 bg-gray-100 hover:bg-gray-300", {"bg-gray-300": (subPath === entry?.documentId)})}>
               <p>{entry?.name}</p>
               <p>{entry?.author}</p>

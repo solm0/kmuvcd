@@ -22,7 +22,7 @@ export default async function Layout({children}: {children: React.ReactNode}) {
           user={user?.data}
         />
       </div>
-        <AnimatedContainer>{children}</AnimatedContainer>
+      <AnimatedContainer>{children}</AnimatedContainer>
     </div>
   );
 }
