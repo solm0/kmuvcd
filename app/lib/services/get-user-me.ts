@@ -4,8 +4,9 @@ export async function getUserMe(detailed = false) {
   const baseUrl = "https://kmuvcd-strapi.onrender.com";
 
   const endpoint = detailed
-    ? "/api/users/me?populate[calendars][populate][0]=detail&populate[calendars][populate][1]=tags&populate[role]=true"
+    ? "/api/users/me?populate[calendars][populate][0]=events&populate[calendars][populate][1]=tags&populate[role]=true"
     : "/api/users/me";
+    //TODO
   
   const url = new URL(endpoint, baseUrl);
   

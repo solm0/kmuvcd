@@ -15,7 +15,7 @@ export default async function Profile() {
   const user = await getUserMe(true);
 
   if (user?.ok === false) {
-    console.log("Redirecting to signin...");
+    console.log("Redirecting to signin...", user);
     redirect("/signin");
   }
 
