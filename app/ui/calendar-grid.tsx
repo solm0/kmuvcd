@@ -34,7 +34,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
     })
   }
 
-  console.log("categoryFiltered", categoryFiltered)
+  // console.log("categoryFiltered", categoryFiltered)
 
   // 태그 필터링
   const tag = searchParams.get('tag');
@@ -48,7 +48,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
     })
   }
 
-  console.log("tagFiltered", tagFiltered)
+  // console.log("tagFiltered", tagFiltered)
 
   // entry들의 date계산해서 그 date와 firstEntry와의 차이를 계산.
   function getDiff(entry: CalendarProps) {

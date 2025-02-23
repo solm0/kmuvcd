@@ -24,6 +24,12 @@ export interface PostProps {
   calendars?: CalendarProps[];
   website?: WebsiteProps[];
   content?: ContentItem[];
+  category?: string;
+  dynamic?: {
+    __component: string;
+    image_block?: MediaProps[];
+    text_block?: string;
+  }[];
 }
 
 export interface ContentItem {
