@@ -23,20 +23,12 @@ export interface PostProps {
   photo?: MediaProps[];
   calendars?: CalendarProps[];
   website?: WebsiteProps[];
-  content?: ContentItem[];
   category?: string;
   dynamic?: {
     __component: string;
     image_block?: MediaProps[];
     text_block?: string;
   }[];
-}
-
-export interface ContentItem {
-  __component?: string;
-  id?: number;
-  text?: string;
-  media?: MediaProps;
 }
 
 export interface CalendarProps {

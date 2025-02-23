@@ -1,6 +1,8 @@
 import { getCmsData } from "../lib/get-cms-data";
 import { PostProps } from "../lib/definitions";
 import Website from "./cms/website";
+import { ImageMedia } from "./cms/media";
+import MdText from "./cms/md-text";
 import CalendarEntry from "./calendar-entry";
 import { getAuthToken } from "../lib/services/get-token";
 import { getUserMe } from "../lib/services/get-user-me";
@@ -9,11 +11,11 @@ import { getUserMe } from "../lib/services/get-user-me";
 
 async function getPosts() {
   const [notices, events, exhibitions, clubs] = await Promise.all([
-    getCmsData('notices?populate=*'),
-    getCmsData('events?populate=*'),
-    getCmsData('exhibitions?populate=*'),
-    getCmsData('clubs?populate=*'),
-  ]);
+    getCmsData('notices?populate[calendars][populate]=tags&populate[website]=true&populate[dynamic][on][dynamic.image-block][populate]=*&populate[dynamic][on][dynamic.text-block][populate]=*'),
+    getCmsData('events?populate[calendars][populate]=tags&populate[website]=true&populate[dynamic][on][dynamic.image-block][populate]=*&populate[dynamic][on][dynamic.text-block][populate]=*'),
+    getCmsData('exhibitions?populate[calendars][populate]=tags&populate[website]=true&populate[dynamic][on][dynamic.image-block][populate]=*&populate[dynamic][on][dynamic.text-block][populate]=*'),
+    getCmsData('clubs?populate[calendars][populate]=tags&populate[website]=true&populate[dynamic][on][dynamic.image-block][populate]=*&populate[dynamic][on][dynamic.text-block][populate]=*'),
+  ]); 
   
   const posts = [...(notices as PostProps[]), ...(events as PostProps[]), ...(exhibitions as PostProps[]), ...(clubs as PostProps[])];
 
@@ -76,9 +78,12 @@ export default async function SlugPage({slug} : {slug: string}) {
       {post.dynamic &&
         <div>dynamic: {post.dynamic?.map((item, index) => (
           <div key={index}>
-            <div>{item.__component}</div>
-            {item.image_block && <p>image block</p>}
-            {item.text_block && <p>{item.text_block}</p>}
+            <div className="flex items-start w-full overflow-y-auto">
+              {item.image_block && item.image_block.map((img) => (
+                <ImageMedia key={img.id} media={img} size="medium" />
+              ))}
+            </div>
+            {item.text_block && <MdText markdown={item.text_block} />}
           </div>
         ))}
         </div>

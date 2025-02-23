@@ -26,7 +26,7 @@ export default async function Layout({children}: {children: React.ReactNode}) {
           user={user?.data}
         />
       </div>
-      <div className="w-auto">
+      <div className="w-auto overflow-x-auto">
         {children}
       </div>
     </div>
