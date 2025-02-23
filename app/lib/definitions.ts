@@ -29,6 +29,7 @@ export interface PostProps {
     image_block?: MediaProps[];
     text_block?: string;
   }[];
+  publishedAt?: string;
 }
 
 export interface CalendarProps {

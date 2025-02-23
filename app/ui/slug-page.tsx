@@ -1,5 +1,4 @@
-import { getCmsData } from "../lib/get-cms-data";
-import { PostProps } from "../lib/definitions";
+import { getBoardPosts } from "../lib/get-board-posts";
 import Website from "./cms/website";
 import { ImageMedia } from "./cms/media";
 import MdText from "./cms/md-text";
@@ -7,25 +6,9 @@ import CalendarEntry from "./calendar-entry";
 import { getAuthToken } from "../lib/services/get-token";
 import { getUserMe } from "../lib/services/get-user-me";
 
-// test: ysamkxa8yv2160r1rsrwwxe1 qj7sbkji9w27noc4p6eir48w
-
-async function getPosts() {
-  const [notices, events, exhibitions, clubs] = await Promise.all([
-    getCmsData('notices?populate[calendars][populate]=tags&populate[website]=true&populate[dynamic][on][dynamic.image-block][populate]=*&populate[dynamic][on][dynamic.text-block][populate]=*'),
-    getCmsData('events?populate[calendars][populate]=tags&populate[website]=true&populate[dynamic][on][dynamic.image-block][populate]=*&populate[dynamic][on][dynamic.text-block][populate]=*'),
-    getCmsData('exhibitions?populate[calendars][populate]=tags&populate[website]=true&populate[dynamic][on][dynamic.image-block][populate]=*&populate[dynamic][on][dynamic.text-block][populate]=*'),
-    getCmsData('clubs?populate[calendars][populate]=tags&populate[website]=true&populate[dynamic][on][dynamic.image-block][populate]=*&populate[dynamic][on][dynamic.text-block][populate]=*'),
-  ]); 
-  
-  const posts = [...(notices as PostProps[]), ...(events as PostProps[]), ...(exhibitions as PostProps[]), ...(clubs as PostProps[])];
-
-  // console.log("Fetched posts:", posts[0]);
-  
-  return posts.length > 0 ? posts : [];
-}
+const posts = await getBoardPosts();
 
 export async function generateStaticParams() {
-  const posts = await getPosts();
   console.log("Generated Static Params:", posts);
 
   if (!posts) {
@@ -47,7 +30,6 @@ export default async function SlugPage({slug} : {slug: string}) {
   const token = await getAuthToken();
   const user = await getUserMe(true);
 
-  const posts = await getPosts();
   const post = posts?.find((p) => p.documentId === slug);
 
   if (!post) {
