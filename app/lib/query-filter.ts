@@ -35,7 +35,7 @@ export default function queryFilter(data: PostProps[], category: string | null, 
     searchFiltered = tagFiltered;
   } else {
     searchFiltered = tagFiltered.filter((entry) => {
-      return search && entry.name?.includes(search);
+      return search && entry.name?.includes(search) || entry.dynamic?.some(item => item.text_block?.includes(search));
     })
   }
 

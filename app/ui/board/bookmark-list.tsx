@@ -1,13 +1,13 @@
 'use client'
 
-import { useState } from "react";
+import { useState} from "react";
 import { PostProps, UserDataProps } from "@/app/lib/definitions";
 import clsx from "clsx";
 import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
-import queryFilter from "@/app/lib/query-filter";
+import BookmarkButton from "../bookmark-button";
 
-export default function BoardList({ data, token, user }: { data: PostProps[]; token?: string; user:UserDataProps; }) {
+export default function BookmarkList({ data, token, user }: { data: PostProps[]; token?: string; user:UserDataProps; }) {
   const pathname = usePathname();
   const subPath = pathname.split('/').slice(2, 3).toString();
   const searchParams = useSearchParams();
@@ -22,41 +22,35 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
       return `${cleanPathname}?${searchParams}`;
     }
   }
-  
-  const isUser = userData?.id;
 
-  console.log(token, isUser);
+  const categories = ["clubs", "events", "exhibitions", "notices", "kookmins"];
+  const allPostIds = categories.flatMap(
+    (category) => ((userData as unknown as Record<string, PostProps[]>)[category] || [])
+      .map((post) => post.documentId)
+  );
 
-  // 카테고리, 태그 필터
-  const category = searchParams.get('category');
-  const tag = searchParams.get('tag');
-  const search = searchParams.get('search');
-  const filteredEntries = queryFilter(data, category, tag, search);
+  const filteredEntries = data.filter(post => allPostIds.includes(post.documentId));
+
+  console.log(filteredEntries)
+
 
   return (
     <>
       {filteredEntries.map((entry: PostProps) => (
         <div key={entry.documentId}>
         {entry.documentId ?
+        <div className={clsx("rounded-lg p-4 mb-4 bg-gray-100 hover:bg-gray-300", {"bg-gray-300": (subPath === entry?.documentId)})}>
           <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>
-            <div className={clsx("rounded-lg p-4 mb-4 bg-gray-100 hover:bg-gray-300", {"bg-gray-300": (subPath === entry?.documentId)})}>
+            <div>
               <p>{entry?.name}</p>
               <p>작성자: {entry?.author}</p>
               <p>{entry?.publishedAt?.slice(0,10)} 작성</p>
               {entry.startDate && <p>{entry.startDate}{entry.endDate && `-${entry.endDate}`}</p>}
               <p>{entry?.category}</p>
-              {/* <div className="flex flex-wrap gap-2 mt-2">
-                {entry?.tags?.map((tag, index) => (
-                    <span
-                        key={index}
-                        className="bg-red-300 text-red-900 px-2 py-1 rounded-md text-sm"
-                    >
-                        {tag.tag}
-                    </span>
-                ))}
-              </div> */}
             </div>
           </Link>
+          {entry.documentId && token && user && entry.category && <BookmarkButton postId={entry.documentId} token={token} user={user} category={entry.category} />}
+        </div>
           :
           <div className="rounded-lg p-4 mt-4 bg-gray-100">no documentId</div>
         }

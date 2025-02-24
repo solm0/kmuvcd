@@ -35,6 +35,7 @@ export interface PostProps {
   endDate: string;
   location?: string;
   publishedAt: string | null;
+  users?: UserDataProps[];
 }
 
 export interface MediaProps {
