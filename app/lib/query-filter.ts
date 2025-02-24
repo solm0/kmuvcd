@@ -1,6 +1,6 @@
 import { PostProps } from "./definitions";
 
-export default function queryFilter(data: PostProps[], category: string | null, tag: string | null) {
+export default function queryFilter(data: PostProps[], category: string | null, tag: string | null, search: string | null) {
 
   // 카테고리 필터링
   let categoryFiltered;
@@ -27,5 +27,17 @@ export default function queryFilter(data: PostProps[], category: string | null, 
   }
 
   // console.log("tagFiltered", tagFiltered)
-  return tagFiltered;
+
+  // 검색 필터링
+  let searchFiltered;
+
+  if (search === null) {
+    searchFiltered = tagFiltered;
+  } else {
+    searchFiltered = tagFiltered.filter((entry) => {
+      return search && entry.name?.includes(search);
+    })
+  }
+
+  return searchFiltered;
 }

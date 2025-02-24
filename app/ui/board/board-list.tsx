@@ -30,7 +30,8 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
   // 카테고리, 태그 필터
   const category = searchParams.get('category');
   const tag = searchParams.get('tag');
-  const filteredEntries = queryFilter(data, category, tag);
+  const search = searchParams.get('search');
+  const filteredEntries = queryFilter(data, category, tag, search);
 
   return (
     <>

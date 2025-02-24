@@ -26,7 +26,8 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
   const tag = searchParams.get('tag');
-  const filteredEntries = queryFilter(calendarEntries, category, tag);
+  const search = searchParams.get('search');
+  const filteredEntries = queryFilter(calendarEntries, category, tag, search);
 
   // entry들의 date계산해서 그 date와 firstEntry와의 차이를 계산.
   function getDiff(entry: PostProps) {
