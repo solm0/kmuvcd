@@ -27,10 +27,10 @@ export interface PostProps {
     image_block?: MediaProps[];
     text_block?: string;
   }[];
-  tags?: {
+  tags?:{
     name: string;
     documentId: string;
-  }
+  }[];
   startDate: string;
   endDate: string;
   location?: string;

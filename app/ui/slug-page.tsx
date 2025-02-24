@@ -32,19 +32,26 @@ export default async function SlugPage({slug} : {slug: string}) {
 
   const post = posts?.find((p) => p.documentId === slug);
 
+  console.log(post)
+
   if (!post) {
     return <div className="w-full">Post not found</div>;
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 h-full overflow-x-auto">
+      <div className="relative h-0 left-[calc(100%-2rem)]">
+        {post.documentId && token && user && post.category && <BookmarkButton postId={post.documentId} token={token} user={user.data} category={post.category} />}
+      </div>
       <p>name: {post.name}</p>
       <p>documentId: {post.documentId}</p>
       <p>author: {post.author}</p>
       <p>category: {post.category}</p>
-      {post.documentId && token && user && post.category && <BookmarkButton postId={post.documentId} token={token} user={user.data} category={post.category} />}
+      {post.startDate && <p>date: {post.startDate}{post.endDate && `-${post.endDate}`}</p>}
+      {post.location && <p>location: {post.location}</p>}
+      {post.tags && <div className="flex gap-2">tags: {post.tags.map(tag => (<div key={tag.documentId} className="bg-gray-200 text-gray-900 px-2 text-sm py-1 rounded-lg">{tag.name}</div>))}</div>}
       {post.website && 
-        <div>website: {post.website?.map((website) => (
+        <div>website: {post.website?.map(website => (
           <Website key={website.id} website={website} />
         ))}
         </div>
