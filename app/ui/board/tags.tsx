@@ -8,7 +8,6 @@ const tags = [
   { category: 'notices',
     tags: [
       { name: '학과 공지'},
-      { name: '국민대 학사일정'},
       { name: '채용공고'},
       { name: '뉴스'},
     ],
@@ -36,6 +35,9 @@ const tags = [
       { name: '동아리'},
       { name: '서클'},
     ],
+  },
+  { category: 'kookmin',
+    tags: [],
   },
 ]
 

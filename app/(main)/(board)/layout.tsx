@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";
-import Categories from "@/app/ui/categories";
+import Categories from "@/app/ui/board/categories";
 import { Search } from "@/app/ui/search";
 
 export default function Layout({children}: {children: React.ReactNode}) {

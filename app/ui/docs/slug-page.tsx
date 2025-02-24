@@ -1,10 +1,10 @@
-import { getBoardPosts } from "../lib/get-board-posts";
-import Website from "./cms/website";
-import { ImageMedia } from "./cms/media";
-import MdText from "./cms/md-text";
-import CalendarEntry from "./calendar-entry";
-import { getAuthToken } from "../lib/services/get-token";
-import { getUserMe } from "../lib/services/get-user-me";
+import { getBoardPosts } from "@/app/lib/get-board-posts";
+import Website from "../cms/website";
+import { ImageMedia } from "../cms/media";
+import MdText from "../cms/md-text";
+import CalendarEntry from "../calendar-entry";
+import { getAuthToken } from "@/app/lib/services/get-token";
+import { getUserMe } from "@/app/lib/services/get-user-me";
 
 const posts = await getBoardPosts();
 

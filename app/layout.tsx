@@ -2,13 +2,13 @@ import "./globals.css";
 import HeaderSection from "./ui/header-section";
 import LeftSection from "./ui/left-section";
 import RightSection from "./ui/right-section";
-import Docs from "./ui/docs";
-import DocPage from "./ui/doc-page";
+import Docs from "./ui/docs/docs";
+import DocPage from "./ui/docs/doc-page";
 
 export default function RootLayout({
-  main
+  children
 }: Readonly<{
-  main: React.ReactNode;
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" className="h-full scroll-smooth">
@@ -21,7 +21,7 @@ export default function RootLayout({
                 <DocPage />
               </Docs>
             </LeftSection>
-            <RightSection>{main}</RightSection>
+            <RightSection>{children}</RightSection>
           </div>
         </div>
       </body>

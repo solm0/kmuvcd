@@ -1,8 +1,8 @@
-import CalendarGrid from "@/app/ui/calendar-grid";
+import CalendarGrid from "@/app/ui/board/calendar-grid";
 import { getCalendarEntries } from "@/app/lib/get-calendar-entries";
 import { getUserMe } from "@/app/lib/services/get-user-me";
 import { getAuthToken } from "@/app/lib/services/get-token";
-import AnimatedContainer from "@/app/ui/animated-container";
+import AnimatedContainer from "@/app/ui/docs/animated-container";
 
 export default async function Layout({children}: {children: React.ReactNode}) {
   const calendarEntries = await getCalendarEntries();

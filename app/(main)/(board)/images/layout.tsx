@@ -1,4 +1,4 @@
-import AnimatedContainer from "@/app/ui/animated-container";
+import AnimatedContainer from "@/app/ui/docs/animated-container";
 
 export default async function Layout({children}: {children: React.ReactNode}) {
   

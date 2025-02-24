@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Categories from "@/app/ui/categories";
-import Calendar2 from "../ui/calendar-2";
+import Categories from "@/app/ui/board/categories";
+import Calendar2 from "../ui/board/calendar-2";
 
 export default function Default() {
 

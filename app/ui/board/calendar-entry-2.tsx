@@ -1,6 +1,6 @@
 'use client'
 
-import { CalendarProps, UserDataProps } from "../lib/definitions"
+import { UserDataProps, CalendarProps } from "@/app/lib/definitions";
 import { useState } from "react"
 
 interface EntryProps {

@@ -1,10 +1,10 @@
 'use client'
 
-import { CalendarProps, UserDataProps } from "../lib/definitions"
+import { CalendarProps, UserDataProps } from "../../lib/definitions"
 import { useRef } from "react";
 import { useState } from "react";
 import CalendarEntry2 from "./calendar-entry-2";
-import generateCalendarHeadData from "../lib/generate-calendar-head-data";
+import generateCalendarHeadData from "../../lib/generate-calendar-head-data";
 import { useSearchParams } from "next/navigation";
 
 interface EntryProps {

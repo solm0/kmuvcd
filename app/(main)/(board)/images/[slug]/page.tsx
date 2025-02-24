@@ -1,4 +1,4 @@
-import SlugPage from "@/app/ui/slug-page"
+import SlugPage from "@/app/ui/docs/slug-page";
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
