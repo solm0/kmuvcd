@@ -6,11 +6,10 @@ export function ImageMedia({ media, size = "thumbnail" }: { media: MediaProps, s
 
   return (
     <Image
-        src={imageFormat?.url || " "}
-        width={imageFormat?.width}
-        height={imageFormat?.height}
-        alt={media.alternativeText || 'Image'}
-        className="mt-4"
+      src={imageFormat?.url || " "}
+      width={imageFormat?.width}
+      height={imageFormat?.height}
+      alt={media.alternativeText || 'Image'}
     />
   );
 }

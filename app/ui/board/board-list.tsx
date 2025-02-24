@@ -38,8 +38,7 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
       {filteredEntries.map((entry: PostProps) => (
         <div key={entry.documentId}>
         {entry.documentId ?
-          <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}
-          >
+          <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>
             <div className={clsx("rounded-lg p-4 mb-4 bg-gray-100 hover:bg-gray-300", {"bg-gray-300": (subPath === entry?.documentId)})}>
               <p>{entry?.name}</p>
               <p>{entry?.author}</p>
@@ -58,9 +57,7 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
             </div>
           </Link>
           :
-          <div className="rounded-lg p-4 mt-4 bg-gray-100">
-            f
-          </div>
+          <div className="rounded-lg p-4 mt-4 bg-gray-100">no documentId</div>
         }
         </div>
       ))}
