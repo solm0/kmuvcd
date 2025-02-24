@@ -71,23 +71,20 @@ class EventScraper:
             sys.exit(1)
 
     def post_to_strapi(self):
-        api_url = "https://kmuvcd-strapi.onrender.com/api/calendars"
+        api_url = "https://kmuvcd-strapi.onrender.com/api/kookmins"
 
         headers = {
             "Authorization": f"Bearer {api_token}",
             "Content-Type": "application/json"
         }
 
-        # post 양식에 맞춰 기존 데이터를 수정해야 함.
         for event in self.all_events:
             data = { 
                 "data": {
                     "name": event["name"],
+                    "category": "kookmin",
                     "startDate": event["startDate"],
                     "endDate": event["endDate"],
-                    "tags": {
-                        "connect": ['vl0xeseio4i439p1gmps7618']
-                    }
                 }
             }
 
