@@ -39,7 +39,7 @@ export default async function SlugPage({slug} : {slug: string}) {
   }
 
   return (
-    <div className="p-4 h-full overflow-x-auto">
+    <div className="p-4 h-full overflow-y-auto overflow-x-hidden">
       <div className="relative h-0 left-[calc(100%-1.5rem)]">
         {post.documentId && token && user && post.category && <BookmarkButton postId={post.documentId} token={token} user={user.data} category={post.category} />}
       </div>
@@ -59,7 +59,7 @@ export default async function SlugPage({slug} : {slug: string}) {
       {post.dynamic &&
         <div>내용: {post.dynamic?.map((item, index) => (
           <div key={index}>
-            <div className="flex items-start w-full overflow-y-auto">
+            <div className="flex items-start w-full overflow-x-auto">
               {item.image_block && item.image_block.map((img, index) => (
                 <ImageMedia key={`${img.id}-${index}`} media={img} size="medium" />
               ))}
