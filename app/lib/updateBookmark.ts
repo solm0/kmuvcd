@@ -1,7 +1,6 @@
-export async function addBookmark(userId: string, calendarId: string, token:string) {
-
+export async function addBookmark(userId: string, postId: string, token:string, category: string) {
   try {
-    const res = await fetch(`https://kmuvcd-strapi.onrender.com/api/calendars/${calendarId}`, {
+    const res = await fetch(`https://kmuvcd-strapi.onrender.com/api/${category}/${postId}`, {
       method: "PUT",
       credentials: 'include',
       headers: {
@@ -31,10 +30,10 @@ export async function addBookmark(userId: string, calendarId: string, token:stri
 
 }
 
-export async function removeBookmark(userId: string, calendarId: string, token:string) {
+export async function removeBookmark(userId: string, postId: string, token:string, category: string) {
 
   try {
-    const res = await fetch(`https://kmuvcd-strapi.onrender.com/api/calendars/${calendarId}?populate=*`, {
+    const res = await fetch(`https://kmuvcd-strapi.onrender.com/api/${category}/${postId}?populate=*`, {
       method: "PUT",
       credentials: 'include',
       headers: {

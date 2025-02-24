@@ -36,7 +36,7 @@ const tags = [
       { name: '서클'},
     ],
   },
-  { category: 'kookmin',
+  { category: 'kookmins',
     tags: [],
   },
 ]

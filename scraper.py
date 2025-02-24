@@ -82,7 +82,7 @@ class EventScraper:
             data = { 
                 "data": {
                     "name": event["name"],
-                    "category": "kookmin",
+                    "category": "kookmins",
                     "startDate": event["startDate"],
                     "endDate": event["endDate"],
                 }

@@ -116,5 +116,9 @@ export interface UserDataProps {
     id: number;
     name: string;
   };
-  calendars?: CalendarProps[];
+  clubs?: PostProps[];
+  events?: PostProps[];
+  exhibitions?: PostProps[];
+  notices?: PostProps[];
+  kookmins?: PostProps[];
 }

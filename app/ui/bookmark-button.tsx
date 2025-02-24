@@ -1,37 +1,42 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { CalendarProps, UserDataProps } from "@/app/lib/definitions";
+import { PostProps, UserDataProps } from "@/app/lib/definitions";
 import { BookmarkIcon as BookmarkOutlineIcon } from "@heroicons/react/24/outline";
 import { BookmarkIcon as BookmarkSolidIcon } from "@heroicons/react/24/solid";
 import { addBookmark, removeBookmark } from "../lib/updateBookmark";
 
-export default function BookmarkButton ({ calendarId, token, user }: { calendarId: string; token: string; user: UserDataProps} ) {
+export default function BookmarkButton ({ postId, token, user, category }: { postId: string; token: string; user: UserDataProps, category: string} ) {
   const [userData, setUserData] = useState<UserDataProps | null>(user);
   const [isBookmarked, setIsBookmarked] = useState(false);
 
+  // clubs, events, exhibitions, notices, kookmins를 다 map해서 documentId를 빼낸다.
   useEffect(() => {
-    if (userData?.calendars) {
-      const calendarIds = userData.calendars.map((calendar) => calendar.documentId);
-      setIsBookmarked(calendarIds.includes(calendarId));
+    if (userData) {
+      const categories = ["clubs", "events", "exhibitions", "notices", "kookmins"];
+      const allPostIds = categories.flatMap(
+        (category) => ((userData as unknown as Record<string, PostProps[]>)[category] || [])
+          .map((post) => post.documentId)
+      );
+      setIsBookmarked(allPostIds.includes(postId));
     }
-  }, [userData, calendarId]);
+  }, [userData, postId]);
 
   const handleAddBookmark = async () => {
-    if (userData?.id && calendarId) {
+    if (userData?.id && postId) {
       try {
         setIsBookmarked(true);
-
-        const result = await addBookmark(userData?.documentId, calendarId, token);
+  
+        const result = await addBookmark(userData?.documentId, postId, token, category);
         console.log("Bookmark added:", result);
-
+  
         setUserData((prev) =>
           prev
             ? {
                 ...prev,
-                calendars: [
-                  ...(prev.calendars || []),
-                  { documentId: calendarId, publishedAt: "" } as CalendarProps, // Ensure it matches CalendarProps
+                [category]: [
+                  ...((prev as unknown as Record<string, PostProps[]>)[category] || []),
+                  { documentId: postId, publishedAt: "" } as PostProps,
                 ],
               }
             : prev
@@ -43,23 +48,23 @@ export default function BookmarkButton ({ calendarId, token, user }: { calendarI
   };
 
   const handleRemoveBookmark = async () => {
-    if (userData?.id && calendarId) {
+    if (userData?.id && postId) {
       try {
         setIsBookmarked(false);
-        
-        const result = await removeBookmark(userData?.documentId, calendarId, token);
+  
+        const result = await removeBookmark(userData?.documentId, postId, token, category);
         console.log("Bookmark deleted:", result);
-
+  
         setUserData((prev) =>
           prev
             ? {
                 ...prev,
-                calendars: prev.calendars?.filter((calendar) => calendar.documentId !== calendarId) || [],
+                [category]: (prev as unknown as Record<string, PostProps[]>)[category]?.filter((post) => post.documentId !== postId) || [],
               }
             : prev
         );
       } catch (error) {
-        console.log("Error delettttting bookmark:", error);
+        console.log("Error deleting bookmark:", error);
       }
     }
   };

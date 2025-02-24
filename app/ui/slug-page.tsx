@@ -1,10 +1,10 @@
 import { getBoardPosts } from "@/app/lib/get-board-posts";
-import Website from "../cms/website";
-import { ImageMedia } from "../cms/media";
-import MdText from "../cms/md-text";
-import CalendarEntry from "../calendar-entry";
+import Website from "./cms/website";
+import { ImageMedia } from "./cms/media";
+import MdText from "./cms/md-text";
 import { getAuthToken } from "@/app/lib/services/get-token";
 import { getUserMe } from "@/app/lib/services/get-user-me";
+import BookmarkButton from "./bookmark-button";
 
 const posts = await getBoardPosts();
 
@@ -42,15 +42,7 @@ export default async function SlugPage({slug} : {slug: string}) {
       <p>documentId: {post.documentId}</p>
       <p>author: {post.author}</p>
       <p>category: {post.category}</p>
-      {post.calendars &&
-        <div>calendars:
-          <CalendarEntry
-            data={post.calendars}
-            token={token ?? undefined}
-            user={user?.data}
-          />
-        </div>
-      }
+      {post.documentId && token && user && post.category && <BookmarkButton postId={post.documentId} token={token} user={user.data} category={post.category} />}
       {post.website && 
         <div>website: {post.website?.map((website) => (
           <Website key={website.id} website={website} />
