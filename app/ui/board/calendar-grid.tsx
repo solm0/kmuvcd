@@ -3,7 +3,7 @@
 import { PostProps, UserDataProps } from "../../lib/definitions"
 import { useRef } from "react";
 import { useState } from "react";
-import CalendarEntry2 from "./calendar-entry-2";
+import CalendarEntry from "./calendar-entry";
 import generateCalendarHeadData from "../../lib/generate-calendar-head-data";
 import queryFilter from "@/app/lib/query-filter";
 import { useSearchParams } from "next/navigation";
@@ -41,7 +41,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
     }
   }
 
-  // function getRow(entry: CalendarProps) {...}
+  // function getRow(entry: ) {...}
   /*
     1 부터 10까지의 변수를 만든다.
     entry가 렌더링될 때
@@ -199,7 +199,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
           }}
         >
           {entries.map((entry: EntryProps, index) => (
-            <CalendarEntry2
+            <CalendarEntry
               key={`${entry.start}-${index}`}
               entryPosition={entry}
               index={index}

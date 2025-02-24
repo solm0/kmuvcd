@@ -20,7 +20,6 @@ export interface PostProps {
   thumbnail?: MediaProps;
   media?: MediaProps[];
   photo?: MediaProps[];
-  calendars?: CalendarProps[];
   website?: WebsiteProps[];
   category?: string;
   dynamic?: {
@@ -36,39 +35,6 @@ export interface PostProps {
   endDate: string;
   location?: string;
   publishedAt: string | null;
-}
-
-export interface CalendarProps {
-  id: number;
-  documentId: string;
-  name: string;
-  startDate: string;
-  endDate: string;
-  location?: string;
-  tags?: {
-    id?: number;
-    tag?: string;
-    documentId?: string;
-  }[];
-  subPath?: string;
-  notices?: {
-    documentId?: string;
-    category?: string;
-  };
-  events?: {
-    documentId?: string;
-    category?: string;
-  };
-  exhibitions?: {
-    documentId?: string;
-    category?: string;
-  };
-  clubs?: {
-    documentId?: string;
-    category?: string;
-  }
-  publishedAt: string | null;
-  category?: string;
 }
 
 export interface MediaProps {

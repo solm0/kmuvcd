@@ -10,7 +10,7 @@ interface EntryProps {
 }
 
 // index는 나중에 prop에서 삭제...
-export default function CalendarEntry2({ entryPosition, index, data, token, user }: { entryPosition: EntryProps; index: number; data:PostProps; token?: string; user: UserDataProps; }) {
+export default function CalendarEntry({ entryPosition, index, data, token, user }: { entryPosition: EntryProps; index: number; data:PostProps; token?: string; user: UserDataProps; }) {
   const [userData] = useState<UserDataProps | null>(user);
 
   const isUser = userData?.id;

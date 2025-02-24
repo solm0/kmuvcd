@@ -18,21 +18,6 @@ export default function UserCard({ token, user }: { token?: string; user: UserDa
           <p>Your email has been {userData.confirmed ? 'confirmed' : 'not confirmed'}!</p>
           <p>You are {userData.blocked ? 'blocked' : 'not blocked'}!</p>
           <p>Your role is &apos;{userData.role.name}&apos; user!</p>
-          {/* { userData.calendars && userData.calendars.length > 0 && (
-            <div>
-              {userData.calendars
-                .filter(calendar => calendar.publishedAt !== null) // Filter out calendars with null 'publishedAt'
-                .map((calendar) => (
-                    <CalendarEntry
-                      key={calendar.id}
-                      data={calendar}
-                      token={token ?? undefined}
-                      user={user}
-                      href={calendar.detail ? `/events/${calendar.detail?.documentId}` : undefined}
-                    />
-              ))}
-            </div>
-          )} */}
         </>
       ) : (
         <p>Loading...</p>
