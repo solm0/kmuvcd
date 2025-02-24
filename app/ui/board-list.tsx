@@ -60,8 +60,8 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
 
   return (
     <>
-      {categoryFiltered.map((entry: PostProps, index) => (
-        <div key={index}>
+      {categoryFiltered.map((entry: PostProps) => (
+        <div key={entry.documentId}>
         {entry.documentId ?
           <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}
           >

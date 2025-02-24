@@ -50,9 +50,9 @@ export default function Categories() {
         >
           전체
         </button>
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <button
-            key={index}
+            key={category.name}
             onClick={() => handleCategory(category.query)}
             className={clsx("hover:text-gray-500", {"text-gray-500": currentCategory === category.query})}
           >

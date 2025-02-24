@@ -61,8 +61,8 @@ export default async function SlugPage({slug} : {slug: string}) {
         <div>dynamic: {post.dynamic?.map((item, index) => (
           <div key={index}>
             <div className="flex items-start w-full overflow-y-auto">
-              {item.image_block && item.image_block.map((img) => (
-                <ImageMedia key={img.id} media={img} size="medium" />
+              {item.image_block && item.image_block.map((img, index) => (
+                <ImageMedia key={`${img.id}-${index}`} media={img} size="medium" />
               ))}
             </div>
             {item.text_block && <MdText markdown={item.text_block} />}

@@ -221,7 +221,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
         >
           {entries.map((entry: EntryProps, index) => (
             <CalendarEntry2
-              key={index}
+              key={`${entry.start}-${index}`}
               entryPosition={entry}
               index={index}
               data={calendarEntries[index]}

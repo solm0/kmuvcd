@@ -86,9 +86,9 @@ export default function Tags({category}: {category: string}) {
           >
             전체
           </button>
-          {tagSet?.map((tag, index) => (
+          {tagSet?.map((tag) => (
             <button
-              key={index}
+              key={tag.name}
               onClick={() => handleTag(tag.name)}
               className={clsx("hover:text-gray-500", {"text-gray-500": currentTag === tag.name})}
             >

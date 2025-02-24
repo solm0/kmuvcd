@@ -59,8 +59,8 @@ export default function CalendarEntry({ data, token, user }: { data: CalendarPro
 
   return (
     <>
-      {tagFiltered.map((entry: CalendarProps, index) => (
-        <div key={index}>
+      {tagFiltered.map((entry: CalendarProps) => (
+        <div key={entry.documentId}>
         {entry.subPath ?
           <Link href={generateHref(pathname, searchParams.toString(), entry?.subPath)}>
             <div className="rounded-lg p-4 mt-4 bg-gray-100 hover:bg-gray-300">
@@ -68,9 +68,9 @@ export default function CalendarEntry({ data, token, user }: { data: CalendarPro
               <p>{entry?.startDate} - {entry?.endDate || entry?.startDate}</p>
               <p>{entry?.location}</p>
               <div className="flex flex-wrap gap-2 mt-2">
-                {entry?.tags?.map((tag, index) => (
+                {entry?.tags?.map((tag) => (
                     <span
-                        key={index}
+                        key={tag.id}
                         className="bg-red-300 text-red-900 px-2 py-1 rounded-md text-sm"
                     >
                         {tag.tag}
@@ -85,9 +85,9 @@ export default function CalendarEntry({ data, token, user }: { data: CalendarPro
             <p>{entry?.startDate} - {entry?.endDate || entry?.startDate}</p>
             <p>{entry?.location}</p>
             <div className="flex flex-wrap gap-2 mt-2">
-              {entry?.tags?.map((tag, index) => (
+              {entry?.tags?.map((tag) => (
                   <span
-                      key={index}
+                      key={tag.documentId}
                       className="bg-red-300 text-red-900 px-2 py-1 rounded-md text-sm"
                   >
                       {tag.tag}
