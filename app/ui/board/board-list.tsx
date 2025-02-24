@@ -5,8 +5,7 @@ import { PostProps, UserDataProps } from "@/app/lib/definitions";
 import clsx from "clsx";
 import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
-
-
+import queryFilter from "@/app/lib/query-filter";
 
 export default function BoardList({ data, token, user }: { data: PostProps[]; token?: string; user:UserDataProps; }) {
   const pathname = usePathname();
@@ -28,39 +27,14 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
 
   console.log(token, isUser);
 
-
-  // 카테고리 필터링
+  // 카테고리, 태그 필터
   const category = searchParams.get('category');
-  let categoryFiltered;
-
-  if (category === '*') {
-    categoryFiltered = data;
-  } else {
-    categoryFiltered = data.filter((entry) => {
-      console.log(entry.category)
-      return category && entry.category === category;
-    })
-  }
-
-  // console.log("categoryFiltered", categoryFiltered)
-
-  // 태그 필터링 TODO
-  // const tag = searchParams.get('tag');
-  // let tagFiltered
-  
-  // if (tag === '*') {
-  //   tagFiltered = categoryFiltered;
-  // } else {
-  //   tagFiltered = categoryFiltered.filter((entry) => {
-  //     return tag && Array.isArray(entry.tags) && entry.tags.some(t => t.tag === tag);
-  //   })
-  // }
-
-  // console.log("tagFiltered", tagFiltered)
+  const tag = searchParams.get('tag');
+  const filteredEntries = queryFilter(data, category, tag);
 
   return (
     <>
-      {categoryFiltered.map((entry: PostProps) => (
+      {filteredEntries.map((entry: PostProps) => (
         <div key={entry.documentId}>
         {entry.documentId ?
           <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}

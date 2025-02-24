@@ -1,10 +1,11 @@
 'use client'
 
-import { CalendarProps, UserDataProps } from "../../lib/definitions"
+import { PostProps, UserDataProps } from "../../lib/definitions"
 import { useRef } from "react";
 import { useState } from "react";
 import CalendarEntry2 from "./calendar-entry-2";
 import generateCalendarHeadData from "../../lib/generate-calendar-head-data";
+import queryFilter from "@/app/lib/query-filter";
 import { useSearchParams } from "next/navigation";
 
 interface EntryProps {
@@ -13,7 +14,7 @@ interface EntryProps {
   // row: number,
 }
 
-export default function CalendarGrid({calendarEntries, token, user}: {calendarEntries: CalendarProps[]; token?: string; user: UserDataProps; }) {
+export default function CalendarGrid({calendarEntries, token, user}: {calendarEntries: PostProps[]; token?: string; user: UserDataProps; }) {
   const entry_count = calendarEntries.length;
 
   // get first entry's startDate and last entry's endDate
@@ -21,37 +22,14 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
   const last_date = new Date(calendarEntries[calendarEntries.length - 1].endDate);
   const day_count = (+last_date - +first_date) / (1000 * 60 * 60 * 24);
 
-  // 카테고리 필터링
+  // 카테고리, 태그 필터
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
-  let categoryFiltered;
-
-  if (category === '*') {
-    categoryFiltered = calendarEntries;
-  } else {
-    categoryFiltered = calendarEntries.filter((entry) => {
-      return category && entry.category === category;
-    })
-  }
-
-  // console.log("categoryFiltered", categoryFiltered)
-
-  // 태그 필터링
   const tag = searchParams.get('tag');
-  let tagFiltered;
-
-  if (tag === '*') {
-    tagFiltered = categoryFiltered;
-  } else {
-    tagFiltered = categoryFiltered.filter((entry) => {
-      return tag && Array.isArray(entry.tags) && entry.tags.some(t => t.tag === tag);
-    })
-  }
-
-  // console.log("tagFiltered", tagFiltered)
+  const filteredEntries = queryFilter(calendarEntries, category, tag);
 
   // entry들의 date계산해서 그 date와 firstEntry와의 차이를 계산.
-  function getDiff(entry: CalendarProps) {
+  function getDiff(entry: PostProps) {
     const start_date = new Date(entry.startDate);
     const end_date = new Date(entry.endDate);
     const first_to_start = (+start_date - +first_date) / (1000 * 60 * 60 * 24);
@@ -72,7 +50,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
 
   const entries: EntryProps[] = [];
   
-  tagFiltered.map((entry: CalendarProps) => {
+  filteredEntries.map((entry: PostProps) => {
     entries.push(getDiff(entry)); // column위치계산
     // entries.push(getRow(entry)); row위치계산
   })

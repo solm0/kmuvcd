@@ -1,6 +1,6 @@
 'use client'
 
-import { UserDataProps, CalendarProps } from "@/app/lib/definitions";
+import { UserDataProps, PostProps } from "@/app/lib/definitions";
 import { useState } from "react"
 
 interface EntryProps {
@@ -10,12 +10,12 @@ interface EntryProps {
 }
 
 // index는 나중에 prop에서 삭제...
-export default function CalendarEntry2({ entryPosition, index, data, token, user }: { entryPosition: EntryProps; index: number; data:CalendarProps; token?: string; user: UserDataProps; }) {
+export default function CalendarEntry2({ entryPosition, index, data, token, user }: { entryPosition: EntryProps; index: number; data:PostProps; token?: string; user: UserDataProps; }) {
   const [userData] = useState<UserDataProps | null>(user);
 
   const isUser = userData?.id;
 
-  console.log("data", data, token, isUser);
+  console.log("data", data, token, isUser, index);
 
   // const Content = (...)
   // link

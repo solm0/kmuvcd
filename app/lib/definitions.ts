@@ -5,7 +5,6 @@ export interface PostProps {
   text?: string;
   url?: string;
   education?: string;
-  location?: string;
   phone?: string;
   email?: string;
   position?: string;
@@ -29,7 +28,14 @@ export interface PostProps {
     image_block?: MediaProps[];
     text_block?: string;
   }[];
-  publishedAt?: string;
+  tags?: {
+    name: string;
+    documentId: string;
+  }
+  startDate: string;
+  endDate: string;
+  location?: string;
+  publishedAt: string | null;
 }
 
 export interface CalendarProps {
