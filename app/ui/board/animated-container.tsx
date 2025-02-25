@@ -19,7 +19,6 @@ export default function AnimatedContainer({ children }: { children: React.ReactN
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={`window-${pathname}`}
         initial={{ width: "0%", opacity: 0, x: 50 }}
         animate={{ width: hasSubPath ? "50%" : "0%", opacity: 1, x: 0 }}
         exit={{ width: "0%", opacity: 0, x: 50 }}
