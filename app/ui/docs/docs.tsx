@@ -22,7 +22,12 @@ export default function Docs({children}: {children: React.ReactNode}) {
   };
 
   useEffect(() => {
-    setIsOpen(searchParams.get("expand") === "true");
+    if (searchParams.get("expand") === "true") {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+      console.log('closed', isOpen)
+    }
   }, [searchParams]);
 
   return (
