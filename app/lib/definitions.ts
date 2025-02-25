@@ -23,6 +23,7 @@ export interface PostProps {
   website?: WebsiteProps[];
   category?: string;
   dynamic?: {
+    id: number;
     __component: string;
     image_block?: MediaProps[];
     text_block?: string;

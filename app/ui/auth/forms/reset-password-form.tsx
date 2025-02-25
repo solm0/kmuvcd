@@ -173,7 +173,7 @@ export function ResetPasswordForm() {
         {/* Password requirements list */}
         <ul className="space-y-1" aria-label="Password requirements">
           {strength.map((req, index) => (
-            <li key={index} className="flex items-center space-x-2">
+            <li key={`${req}-${index}`} className="flex items-center space-x-2">
               {req.met ? (
                 <Check
                   size={16}

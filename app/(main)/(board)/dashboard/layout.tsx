@@ -4,7 +4,7 @@ import UserCard from '@/app/ui/auth/usercard';
 import { getBoardPosts } from "@/app/lib/get-board-posts";
 import { getUserMe } from "@/app/lib/services/get-user-me";
 import { getAuthToken } from "@/app/lib/services/get-token";
-import AnimatedContainer from "@/app/ui/docs/animated-container";
+import AnimatedContainer from "@/app/ui/board/animated-container";
 import { redirect } from 'next/navigation';
 import { logoutAction } from '@/app/lib/actions/auth-actions';
 

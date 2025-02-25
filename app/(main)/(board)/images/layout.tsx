@@ -1,7 +1,7 @@
 import { PostProps } from "@/app/lib/definitions";
 import { getBoardPosts } from "@/app/lib/get-board-posts";
 import BoardImage from "@/app/ui/board/board-image";
-import AnimatedContainer from "@/app/ui/docs/animated-container";
+import AnimatedContainer from "@/app/ui/board/animated-container";
 
 export default async function Layout({children}: {children: React.ReactNode}) {
   const posts = await getBoardPosts();

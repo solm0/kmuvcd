@@ -5,7 +5,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params;
 
   return (
-    <Suspense fallback={<div className="w-full">Loading post...</div>}>
+    <Suspense key='dashboard' fallback={<div className="w-full">Loading post...</div>}>
       <SlugPage slug={slug} />
     </Suspense>
   )

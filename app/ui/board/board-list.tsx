@@ -45,16 +45,6 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
               <p>{entry?.publishedAt?.slice(0,10)} 작성</p>
               {entry.startDate && <p>{entry.startDate}{entry.endDate && `-${entry.endDate}`}</p>}
               <p>{entry?.category}</p>
-              {/* <div className="flex flex-wrap gap-2 mt-2">
-                {entry?.tags?.map((tag, index) => (
-                    <span
-                        key={index}
-                        className="bg-red-300 text-red-900 px-2 py-1 rounded-md text-sm"
-                    >
-                        {tag.tag}
-                    </span>
-                ))}
-              </div> */}
             </div>
           </Link>
           :

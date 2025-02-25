@@ -50,10 +50,10 @@ export default function DocIndex() {
             {category.name}
           </div>
           <div className="ml-28 -mt-12 w-28 h-auto p-0">
-            {category.lists.map((link, index) => {
+            {category.lists.map((link) => {
               return (
                 <div
-                  key={`${link.name}-${index}`}
+                  key={link.name}
                   className={clsx(
                     "w-28 h-12 break-keep hover:bg-gray-300 transition-colors",
                     {
@@ -63,12 +63,12 @@ export default function DocIndex() {
                 >
                   <button
                     onClick={() => {
+                      if (hash !== `#${link.href}`) setHash(`#${link.href}`);
                       document.getElementById(link.href)?.scrollIntoView({
                         behavior: "smooth",
                         block: "start",
                       });
-                      setHash(`#${link.href}`);
-                      router.replace(`${pathname}?${searchParams}#${link.href}`, {scroll: false});
+                      router.replace(`${pathname}?${searchParams}#${link.href}`, { scroll: false });
                     }}
                     className="w-full h-full flex items-center p-4"
                     >

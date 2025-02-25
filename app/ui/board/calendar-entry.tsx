@@ -52,6 +52,7 @@ export default function CalendarEntry({ entryPosition, index, data, token, user 
     <>
       {data.documentId &&
         <Link
+          key={`${data.documentId}-${index}`}
           href={generateHref(pathname, searchParams.toString(), data?.documentId)}
           className={clsx("bg-blue-300 hover:bg-blue-400", {"border border-red-500": isBookmarked}, {"bg-blue-400": (subPath === data?.documentId)})}
           style={{
