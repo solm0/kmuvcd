@@ -1,7 +1,7 @@
 'use client'
 
 import { PostProps, UserDataProps } from "../../lib/definitions"
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import CalendarEntry from "./calendar-entry";
 import generateCalendarHeadData from "../../lib/generate-calendar-head-data";
@@ -61,14 +61,16 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
 
   const columnWidth = 20;
 
-  function scrollToDay(first_to_targetday: number) {
-    if (calendarRef.current) {
-      // console.log(first_to_targetday)
-      const scrollTarget = first_to_targetday * columnWidth;
+  function scrollToDay(first_to_targetday: number, scroll: boolean = true) {
+    const window = document.getElementById('calendar_window');
+
+    if (calendarRef.current && window?.offsetWidth) {
+      const left = window?.offsetWidth * 0.5 - columnWidth / 2;
+      const scrollTarget = first_to_targetday * columnWidth - left;
 
       calendarRef.current.scrollTo({
         left: scrollTarget,
-        behavior: "smooth",
+        behavior: scroll ? "smooth" : "instant",
       });
     }
   }
@@ -95,6 +97,10 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
   // generate head year, month, date
   const calendar_head_data = generateCalendarHeadData(first_date, last_date);
   // console.log(calendar_head_data)
+
+  useEffect(() => {
+    scrollToDay(first_to_today, false)
+  }, []);
 
   return (
     <>
@@ -134,6 +140,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
       {/* month, day area */}
       <div
         className="relative bg-gray-100 overflow-x-auto"
+        id="calendar_window"
         style={{ width: "100%", maxWidth: "100%", overflowX: 'auto' }}
         ref={calendarRef}
         >
@@ -200,6 +207,15 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
             width: `${day_count * columnWidth}px`,
           }}
         >
+          <div id="today"
+            className="bg-gray-200"
+            style={{
+              gridRow: `1 / span ${entry_count}`,
+              gridColumnStart: first_to_today+1,
+              gridColumnEnd: first_to_today+2,
+            }}
+          >
+          </div>
           {entries.map((entry: EntryProps, index) => (
             <CalendarEntry
               key={`${entry.start}-${index}`}
