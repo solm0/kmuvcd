@@ -59,10 +59,12 @@ export default function CalendarEntry({ entryPosition, index, data, token, user 
             gridRowStart: index+1, // entryPosition.row
             gridRowEnd: index+2,
             gridColumnStart: entryPosition.start,
-            gridColumnEnd: entryPosition.end,
+            gridColumnEnd: entryPosition.end+1,
           }}
         >
-          <p className="text-xs text-nowrap">{data.name}, {data.category}</p>
+          <p className="text-xs text-nowrap">{data.name}, {data.startDate}-{data.endDate}
+            <span className="text-red-600">{entryPosition.start}, {entryPosition.end+1}, {entryPosition.end+1 - entryPosition.start}칸</span>
+          </p>
         </Link>
       }
     </>

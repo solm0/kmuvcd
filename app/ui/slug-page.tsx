@@ -32,7 +32,7 @@ export default async function SlugPage({slug} : {slug: string}) {
 
   const post = posts?.find((p) => p.documentId === slug);
 
-  console.log(post)
+  // console.log(post)
 
   if (!post) {
     return <div className="w-full">Post not found</div>;

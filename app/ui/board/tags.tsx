@@ -46,11 +46,14 @@ export default function Tags({category}: {category: string}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [currentTag, setCurrentTag] = useState('*');
+  const param = searchParams.get('tag');
 
   useEffect(() => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.set("tag", '*');
-    router.push(`${pathname}?${newParams.toString()}`);
+    if (!param) {
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.set("tag", '*');
+      router.push(`${pathname}?${newParams.toString()}`);
+    }
   }, []);
 
   const handleTag = (query: string) => {
@@ -60,8 +63,6 @@ export default function Tags({category}: {category: string}) {
   }
 
   useEffect(() => {
-    const param = searchParams.get('tag');
-
     if (param && param!== currentTag) {
       setCurrentTag(param);
     }

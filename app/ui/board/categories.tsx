@@ -18,12 +18,15 @@ export default function Categories() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [currentCategory, setCurrentCategory] = useState('*');
+  const param = searchParams.get('category');
 
   useEffect(() => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.set("category", '*');
-    newParams.set("tag", '*');
-    router.push(`${pathname}?${newParams.toString()}`);
+    if (!param) {
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.set("category", '*');
+      newParams.set("tag", '*');
+      router.push(`${pathname}?${newParams.toString()}`);
+    }
   }, []);
 
   const handleCategory = (query: string) => {
@@ -34,8 +37,6 @@ export default function Categories() {
   }
 
   useEffect(() => {
-    const param = searchParams.get('category');
-
     if (param && param !== currentCategory) {
       setCurrentCategory(param);
     }

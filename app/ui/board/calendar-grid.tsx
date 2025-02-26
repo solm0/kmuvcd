@@ -21,6 +21,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
   const first_date = new Date(calendarEntries[0].startDate);
   const last_date = new Date(calendarEntries[calendarEntries.length - 1].endDate);
   const day_count = (+last_date - +first_date) / (1000 * 60 * 60 * 24);
+  // console.log("first_date:", first_date, "last_date:", last_date, "day_count: ", day_count, calendarEntries[0]);
 
   // 카테고리, 태그 필터
   const searchParams = useSearchParams();
@@ -58,10 +59,11 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
 
   const calendarRef = useRef<HTMLDivElement>(null);
 
+  const columnWidth = 20;
+
   function scrollToDay(first_to_targetday: number) {
     if (calendarRef.current) {
-      const columnWidth = 10;
-      console.log(first_to_targetday)
+      // console.log(first_to_targetday)
       const scrollTarget = first_to_targetday * columnWidth;
 
       calendarRef.current.scrollTo({
@@ -139,9 +141,9 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
           id="month"
           className={`grid border`}
           style={{
-            gridTemplateColumns: `repeat(${day_count}, 20px)`,
-            gridTemplateRows: `repeat(3, 20px)`,
-            width: `${day_count * 10}px`,
+            gridTemplateColumns: `repeat(${day_count}, ${columnWidth}px)`,
+            gridTemplateRows: `repeat(3, ${columnWidth}px)`,
+            width: `${day_count * columnWidth}px`,
           }}
         >
           {calendar_head_data &&
@@ -193,9 +195,9 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
         <div
           className={`grid h-[570px] border`}
           style={{
-            gridTemplateColumns: `repeat(${day_count}, 20px)`,
-            gridTemplateRows: `repeat(${entry_count}, 20px)`,
-            width: `${day_count * 10}px`,
+            gridTemplateColumns: `repeat(${day_count}, ${columnWidth}px)`,
+            gridTemplateRows: `repeat(${entry_count}, ${columnWidth}px)`,
+            width: `${day_count * columnWidth}px`,
           }}
         >
           {entries.map((entry: EntryProps, index) => (
@@ -203,7 +205,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
               key={`${entry.start}-${index}`}
               entryPosition={entry}
               index={index}
-              data={calendarEntries[index]}
+              data={filteredEntries[index]}
               token={token}
               user={user}
             />

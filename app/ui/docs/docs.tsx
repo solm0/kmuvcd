@@ -26,7 +26,7 @@ export default function Docs({children}: {children: React.ReactNode}) {
       setIsOpen(true);
     } else {
       setIsOpen(false);
-      console.log('closed', isOpen)
+      // console.log('closed', isOpen)
     }
   }, [searchParams]);
 
