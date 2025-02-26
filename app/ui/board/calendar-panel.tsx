@@ -2,11 +2,11 @@
 
 import { PostProps, UserDataProps } from "../../lib/definitions"
 import { useEffect, useRef } from "react";
-import { useState } from "react";
 import CalendarEntry from "./calendar-entry";
 import generateCalendarHeadData from "../../lib/generate-calendar-head-data";
 import queryFilter from "@/app/lib/query-filter";
 import { useSearchParams } from "next/navigation";
+import { scrollToDay, GoToToday, GoToInputday } from "./calendar-controll";
 
 interface EntryProps {
   start: number,
@@ -14,14 +14,20 @@ interface EntryProps {
   // row: number,
 }
 
-export default function CalendarGrid({calendarEntries, token, user}: {calendarEntries: PostProps[]; token?: string; user: UserDataProps; }) {
+export default function CalendarPanel({calendarEntries, token, user}: {calendarEntries: PostProps[]; token?: string; user: UserDataProps; }) {
   const entry_count = calendarEntries.length;
 
   // get first entry's startDate and last entry's endDate
   const first_date = new Date(calendarEntries[0].startDate);
   const last_date = new Date(calendarEntries[calendarEntries.length - 1].endDate);
   const day_count = (+last_date - +first_date) / (1000 * 60 * 60 * 24);
-  // console.log("first_date:", first_date, "last_date:", last_date, "day_count: ", day_count, calendarEntries[0]);
+
+  const today = new Date();
+  const first_to_today = Math.floor((+today - +first_date) / (1000 * 60 * 60 * 24));
+
+  useEffect(() => {
+    scrollToDay(first_to_today, columnWidth, calendarRef, false)
+  }, []);
 
   // 카테고리, 태그 필터
   const searchParams = useSearchParams();
@@ -57,87 +63,21 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
     // entries.push(getRow(entry)); row위치계산
   })
 
-  const calendarRef = useRef<HTMLDivElement>(null);
 
   const columnWidth = 20;
 
-  function scrollToDay(first_to_targetday: number, scroll: boolean = true) {
-    const window = document.getElementById('calendar_window');
+  const calendarRef = useRef<HTMLDivElement | null>(null);
 
-    if (calendarRef.current && window?.offsetWidth) {
-      const left = window?.offsetWidth * 0.5 - columnWidth / 2;
-      const scrollTarget = first_to_targetday * columnWidth - left;
-
-      calendarRef.current.scrollTo({
-        left: scrollTarget,
-        behavior: scroll ? "smooth" : "instant",
-      });
-    }
-  }
-
-  const today = new Date();
-  const first_to_today = Math.floor((+today - +first_date) / (1000 * 60 * 60 * 24));
-
-  const day = today.getDate();
-  const month = today.getMonth() + 1;
-  const year = today.getFullYear();
-  const format_day = day < 10 ? '0' + day : day;
-  const format_month = month < 10 ? '0' + month : month;
-  const format_today = `${year}-${format_month}-${format_day}`;
-
-  const [inputDay, setInputDay] = useState(format_today)
-
-  const handleInputDay = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    setInputDay(input);
-  }
-  const input_in_date = new Date(inputDay);
-  const first_to_inputday = Math.floor((+input_in_date - +first_date) / (1000 * 60 * 60 * 24));
-
+  
   // generate head year, month, date
   const calendar_head_data = generateCalendarHeadData(first_date, last_date);
   // console.log(calendar_head_data)
 
-  useEffect(() => {
-    scrollToDay(first_to_today, false)
-  }, []);
-
   return (
     <>
-      {/* position controll */}
-      <button
-        className="flex px-5 py-2 bg-neutral-950 text-white text-sm rounded-full hover:bg-neutral-700 transition-colors"
-        onClick={() => {scrollToDay(first_to_today)}}
-      >
-        Today
-      </button>
-
-      <div className='rounded-lg bg-gray-100 p-8 my-4'>
-        <form
-          className="flex flex-col gap-2 items-start"
-        >
-          <label htmlFor="inputDay">Select a day</label>
-          <input
-            id="inputDay"
-            type="date"
-            name="inputDay"
-            value={inputDay}
-            min={calendarEntries[0].startDate}
-            max={calendarEntries[calendarEntries.length - 1].endDate}
-            onChange={handleInputDay}
-          >
-          </input>
-        </form>
-        <button
-          type="submit"
-          className="flex px-5 py-2 bg-neutral-950 text-white text-sm rounded-full hover:bg-neutral-700 transition-colors my-2"
-          onClick={() => {scrollToDay(first_to_inputday)}}
-        >
-          Input Day
-        </button>
-      </div>
-
-      {/* month, day area */}
+      <GoToToday first_date={new Date(calendarEntries[0].startDate)} columnWidth={columnWidth} calendarRef={calendarRef} />
+      <GoToInputday first_date={new Date(calendarEntries[0].startDate)} columnWidth={columnWidth} calendarRef={calendarRef} min={calendarEntries[0].startDate} max={calendarEntries[calendarEntries.length - 1].endDate}/>
+      
       <div
         className="relative bg-gray-100 overflow-x-auto"
         id="calendar_window"
@@ -198,7 +138,7 @@ export default function CalendarGrid({calendarEntries, token, user}: {calendarEn
             ))}
         </div>
         
-        {/* calendar content */}
+        {/* body */}
         <div
           className={`grid h-[570px] border`}
           style={{
