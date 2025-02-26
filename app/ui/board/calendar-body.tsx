@@ -30,7 +30,7 @@ export default function CalendarBody({
   const entry_count = calendarEntries.length;
 
   // get first entry's startDate and last entry's endDate
-  const first_date = new Date(calendarEntries[0].startDate);
+  const first_date = new Date('2024-01-01');
   const last_date = new Date(calendarEntries[calendarEntries.length - 1].endDate);
   const day_count = (+last_date - +first_date) / (1000 * 60 * 60 * 24);
 

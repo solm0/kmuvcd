@@ -12,26 +12,25 @@ export default function CalendarPanel({calendarEntries, token, user}: {calendarE
   return (
     <>
       {/* calendar controll */}
-      <GoToToday first_date={new Date(calendarEntries[0].startDate)} columnWidth={columnWidth} calendarRef={calendarRef} />
-      <GoToInputday first_date={new Date(calendarEntries[0].startDate)} columnWidth={columnWidth} calendarRef={calendarRef} min={calendarEntries[0].startDate} max={calendarEntries[calendarEntries.length - 1].endDate}/>
+      <GoToToday first_date={new Date('2024-01-01')} columnWidth={columnWidth} calendarRef={calendarRef} />
+      <GoToInputday first_date={new Date('2024-01-01')} columnWidth={columnWidth} calendarRef={calendarRef} min={calendarEntries[0].startDate} max={calendarEntries[calendarEntries.length - 1].endDate}/>
       
       {/* calendar */}
-      <div
-        className="relative bg-gray-100 flex flex-col items-center"
-        id="calendar_window"
-        style={{ width: "100%", maxWidth: "100%", overflowX: 'auto' }}
-        ref={calendarRef}
+      <div className="relative bg-gray-100 flex flex-col items-center w-full overflow-hidden">
+        <div className="absolute bg-gray-200 w-[20px] h-full"></div>
+        <div
+          className="overflow-x-auto w-full h-full z-10"
+          id="calendar_window"
+          ref={calendarRef}
         >
-          <div className="fixed bg-gray-200 w-[20px] h-full"></div>
-          <div className="w-full h-full z-10">
-            <CalendarWindow
-              calendarEntries={calendarEntries}
-              token={token}
-              user={user}
-              columnWidth={columnWidth}
-              calendarRef={calendarRef}
-            />
-          </div>
+          <CalendarWindow
+            calendarEntries={calendarEntries}
+            token={token}
+            user={user}
+            columnWidth={columnWidth}
+            calendarRef={calendarRef}
+          />
+        </div>
       </div>
     </>
   );

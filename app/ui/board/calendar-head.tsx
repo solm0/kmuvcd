@@ -4,67 +4,89 @@ import { PostProps } from "@/app/lib/definitions"
 import generateCalendarHeadData from "@/app/lib/generate-calendar-head-data";
 
 export default function CalendarHead({calendarEntries, columnWidth}: {calendarEntries: PostProps[], columnWidth: number;}) {
-  const first_date = new Date(calendarEntries[0].startDate);
+  const first_date = new Date('2024-01-01');
   const last_date = new Date(calendarEntries[calendarEntries.length - 1].endDate);
-  const day_count = (+last_date - +first_date) / (1000 * 60 * 60 * 24);
 
   // generate head
   const head_data = generateCalendarHeadData(first_date, last_date);
+
+  function days_of_a_year(year: number) {
+    return (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) ? 366 : 365;
+  }
   
   return (
     <>
       <div
-        id="month"
-        className={`grid border`}
+        id="calendar-head"
+        className="border overflow-visible grid"
         style={{
-          gridTemplateColumns: `repeat(${day_count}, ${columnWidth}px)`,
-          gridTemplateRows: `repeat(3, ${columnWidth}px)`,
-          width: `${day_count * columnWidth}px`,
+          gridAutoFlow: "column", // Stacks children horizontally
+          gridAutoColumns: "max-content", // Ensures children use their own width
+          width: 1000 * columnWidth, // Ensure enough space
         }}
       >
         {head_data &&
-          [...head_data.years.entries()].map(([year, yearData]) => (
-            <div
-              key={year}
-              id="year"
-              style={{
-                gridRowStart: 1,
-                gridRowEnd: 2,
-                gridColumnStart: 3, // change
-                gridColumnEnd: 4, // change
-              }}
-            >
-              {year}
-              {yearData && [...yearData.months.entries()].map(([month, monthData]) => (
+          [...head_data.years.entries()].map(([year, yearData]) => {
+            const width = days_of_a_year(year) * columnWidth;
+
+            return (
+              <div
+                key={year}
+                className="sticky left-0 bg-gray-100"
+                style={{
+                  width: width,
+                }}
+              >
+                {year}
                 <div
-                  key={month}
-                  id="month"
+                  className="top-[20px] grid"
                   style={{
-                    gridRowStart: 2,
-                    gridRowEnd: 3,
-                    gridColumnStart: 3, // change
-                    gridColumnEnd: 4, // change
+                    gridAutoFlow: "column", // Stacks children horizontally
+                    gridAutoColumns: "max-content", // Ensures children use their own width
                   }}
                 >
-                  {month + 1}
-                  {monthData && [...monthData.dates.entries()].map(([date]) => (
-                    <div
-                      key={date}
-                      id="date"
-                      style={{
-                        gridRowStart: 3,
-                        gridRowEnd: 4,
-                        gridColumnStart: 3, // change
-                        gridColumnEnd: 4, // change
-                      }}
-                    >
-                      {date + 1}
-                    </div>
-                  ))}
+                  {yearData && [...yearData.months.entries()].map(([month, monthData]) => {
+                    const width = 30 * columnWidth;
+                  
+                    return (
+                      <div
+                        key={month}
+                        id="month"
+                        className="sticky left-0 bg-gray-100"
+                        style={{
+                          width: width,
+                        }}
+                      >
+                        {month + 1}
+                        <div
+                          className="top-[20px] grid"
+                          style={{
+                            gridAutoFlow: "column", // Stacks children horizontally
+                            gridAutoColumns: "max-content", // Ensures children use their own width
+                          }}
+                        >
+                          {monthData && [...monthData.dates.entries()].map(([date]) => {
+                            const width = columnWidth; 
+                            return (
+                              <div
+                                key={date}
+                                id="date"
+                                style={{
+                                  gridAutoFlow: "column", // Stacks children horizontally
+                                  gridAutoColumns: "max-content", // Ensures children use their own width
+                                  width: width,
+                                }}
+                              >
+                                {date + 1}
+                              </div>
+                          )})}
+                        </div>
+                      </div>
+                  )})}
                 </div>
-              ))}
-            </div>
-          ))}
+              </div>
+            );
+          })}
       </div>
     </>
   )
