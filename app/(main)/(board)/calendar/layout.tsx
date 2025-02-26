@@ -29,7 +29,7 @@ export default async function Layout({children}: {children: React.ReactNode}) {
 
   return (
     <div className="w-full flex h-full">
-      <div className="flex-1 overflow-x-auto p-4">
+      <div className="flex-1 overflow-x-auto p-4 flex flex-col items-start">
         <CalendarPanel
           calendarEntries={sortedPosts}
           token={token ?? undefined}

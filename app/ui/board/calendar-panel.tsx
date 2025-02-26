@@ -17,18 +17,21 @@ export default function CalendarPanel({calendarEntries, token, user}: {calendarE
       
       {/* calendar */}
       <div
-        className="relative bg-gray-100 overflow-x-auto"
+        className="relative bg-gray-100 flex flex-col items-center"
         id="calendar_window"
         style={{ width: "100%", maxWidth: "100%", overflowX: 'auto' }}
         ref={calendarRef}
         >
-        <CalendarWindow
-          calendarEntries={calendarEntries}
-          token={token}
-          user={user}
-          columnWidth={columnWidth}
-          calendarRef={calendarRef}
-        />
+          <div className="fixed bg-gray-200 w-[20px] h-full"></div>
+          <div className="w-full h-full z-10">
+            <CalendarWindow
+              calendarEntries={calendarEntries}
+              token={token}
+              user={user}
+              columnWidth={columnWidth}
+              calendarRef={calendarRef}
+            />
+          </div>
       </div>
     </>
   );

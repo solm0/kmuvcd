@@ -84,15 +84,6 @@ export default function CalendarBody({
         width: `${day_count * columnWidth}px`,
       }}
     >
-      <div id="today"
-        className="bg-gray-200"
-        style={{
-          gridRow: `1 / span ${entry_count}`,
-          gridColumnStart: first_to_today+1,
-          gridColumnEnd: first_to_today+2,
-        }}
-      >
-      </div>
       {entries.map((entry: EntryProps, index) => (
         <CalendarEntry
           key={`${entry.start}-${index}`}
