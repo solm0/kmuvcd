@@ -1,14 +1,10 @@
 import { getBoardPosts } from "@/app/lib/get-board-posts";
-import { getUserMe } from "@/app/lib/services/get-user-me";
-import { getAuthToken } from "@/app/lib/services/get-token";
 import BoardList from "@/app/ui/board/board-list";
 import AnimatedContainer from "@/app/ui/board/animated-container";
 import { PostProps } from "@/app/lib/definitions";
 
 export default async function Layout({children}: {children: React.ReactNode}) {
   const posts = await getBoardPosts();
-  const user = await getUserMe(true);
-  const token = await getAuthToken();
 
   // publishedAt 정렬.
   const sortedPosts = posts
@@ -25,8 +21,6 @@ export default async function Layout({children}: {children: React.ReactNode}) {
       <div className="flex-1 overflow-x-auto p-4">
         <BoardList
           data={sortedPosts}
-          token={token ?? undefined}
-          user={user?.data}
         />
       </div>
       <AnimatedContainer>{children}</AnimatedContainer>

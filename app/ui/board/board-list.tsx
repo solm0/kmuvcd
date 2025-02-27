@@ -1,17 +1,17 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 'use client'
 
-import { useState } from "react";
-import { PostProps, UserDataProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/definitions";
 import clsx from "clsx";
 import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import queryFilter from "@/app/lib/query-filter";
 
-export default function BoardList({ data, token, user }: { data: PostProps[]; token?: string; user:UserDataProps; }) {
+export default function BoardList({ data }: { data: PostProps[]; }) {
   const pathname = usePathname();
   const subPath = pathname.split('/').slice(2, 3).toString();
   const searchParams = useSearchParams();
-  const [userData] = useState<UserDataProps | null>(user);
 
   const generateHref = (pathname: string, searchParams: string, documentId: string) => {
     if (subPath !== documentId) {
@@ -22,10 +22,6 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
       return `${cleanPathname}?${searchParams}`;
     }
   }
-  
-  const isUser = userData?.id;
-
-  console.log(token, isUser);
 
   // 카테고리, 태그 필터
   const category = searchParams.get('category');
@@ -33,13 +29,36 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
   const search = searchParams.get('search');
   const filteredEntries = queryFilter(data, category, tag, search);
 
+  const colors = {
+    "notices": "green",
+    "events": "purple",
+    "exhibitions": "orange",
+    "clubs": "pink",
+    "kookmins": "blue",
+  }
+
+  const colorVariants = {
+    green: "bg-green-400 hover:bg-opacity-50",
+    purple: "bg-purple-400 hover:bg-opacity-50",
+    orange: "bg-orange-400 hover:bg-opacity-50",
+    pink: "bg-pink-400 hover:bg-opacity-50",
+    blue: "bg-blue-400 hover:bg-opacity-50",
+  };
+
   return (
     <>
-      {filteredEntries.map((entry: PostProps) => (
+      {filteredEntries.map((entry: PostProps) => {
+        const colorCategory = entry.category as keyof typeof colorVariants;
+
+        return (
         <div key={entry.documentId}>
         {entry.documentId ?
           <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>
-            <div className={clsx("rounded-lg p-4 mb-4 bg-gray-100 hover:bg-gray-300", {"bg-gray-300": (subPath === entry?.documentId)})}>
+            <div className={clsx(
+              colorVariants[colors[colorCategory]],
+              subPath === entry?.documentId && "opacity-50 hover:bg-opacity-100",
+              "p-4 mb-4",
+            )}>
               <p>{entry?.name}</p>
               <p>작성자: {entry?.author}</p>
               <p>{entry?.publishedAt?.slice(0,10)} 작성</p>
@@ -48,10 +67,10 @@ export default function BoardList({ data, token, user }: { data: PostProps[]; to
             </div>
           </Link>
           :
-          <div className="rounded-lg p-4 mt-4 bg-gray-100">no documentId</div>
+          <div className="p-4 mt-4 bg-gray-100">no documentId</div>
         }
         </div>
-      ))}
+      )})}
     </>
   );
 }

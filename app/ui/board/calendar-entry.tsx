@@ -38,11 +38,11 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
   }
 
   const colorVariants = {
-    green: "bg-green-300 hover:bg-green-400",
-    purple: "bg-purple-300 hover:bg-purple-400",
-    orange: "bg-orange-300 hover:bg-orange-400",
-    pink: "bg-pink-300 hover:bg-pink-400",
-    blue: "bg-blue-300 hover:bg-blue-400",
+    green: "bg-green-400 hover:bg-opacity-50",
+    purple: "bg-purple-400 hover:bg-opacity-50",
+    orange: "bg-orange-400 hover:bg-opacity-50",
+    pink: "bg-pink-400 hover:bg-opacity-50",
+    blue: "bg-blue-400 hover:bg-opacity-50",
   };
 
   const category = data.category as keyof typeof colorVariants;
@@ -55,7 +55,7 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
           href={generateHref(pathname, searchParams.toString(), data?.documentId)}
           className={clsx(
             colorVariants[colors[category]], 
-            subPath === data?.documentId && `bg-${colors[category]}-400`,
+            subPath === data?.documentId && "opacity-50 hover:bg-opacity-100",
             "flex items-center h-8 z-10"
           )}
           style={{

@@ -93,6 +93,15 @@ export default function CalendarBody({
         }}
       ></div>
 
+      {entries.map((entry: EntryProps, index) => (
+        <CalendarEntry
+          key={`${entry.start}-${index}`}
+          entryPosition={entry}
+          index={index}
+          data={filteredEntries[index]}
+        />
+      ))}
+
       {/*saturday, sunday color */}
       {head_data &&
       [...head_data.years.entries()].flatMap(([year, yearData]) =>
@@ -124,15 +133,6 @@ export default function CalendarBody({
             )
           : []
       )}
-      
-      {entries.map((entry: EntryProps, index) => (
-        <CalendarEntry
-          key={`${entry.start}-${index}`}
-          entryPosition={entry}
-          index={index}
-          data={filteredEntries[index]}
-        />
-      ))}
     </div>
   )
 }
