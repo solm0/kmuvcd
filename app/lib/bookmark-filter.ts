@@ -18,6 +18,8 @@ export default function bookmarkFilter(data: PostProps[], bookmark: string | nul
     } else {
       bookmarkFiltered = data;
     }
+  } else {
+    bookmarkFiltered = data;
   }
 
   // console.log("bookmarkFiltered", bookmarkFiltered)
