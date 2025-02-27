@@ -12,7 +12,7 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
   const head_data = generateCalendarHeadData(first_date, last_date);
   
   return (
-    <div className="sticky top-0">
+    <div className="sticky top-0 z-20">
       <div
         className="flex text-gray-500 bg-gray-100/50 backdrop-blur-md overflow-visible"
         style={{

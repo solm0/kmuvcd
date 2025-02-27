@@ -33,7 +33,7 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
         <Link
           key={`${data.documentId}-${index}`}
           href={generateHref(pathname, searchParams.toString(), data?.documentId)}
-          className={clsx("bg-blue-300 hover:bg-blue-400 flex items-center h-8", {"bg-blue-400": (subPath === data?.documentId)})}
+          className={clsx("bg-blue-300 hover:bg-blue-400 flex items-center h-8 z-10", {"bg-blue-400": (subPath === data?.documentId)})}
           style={{
             gridRowStart: index+1, // entryPosition.row
             gridRowEnd: index+2,

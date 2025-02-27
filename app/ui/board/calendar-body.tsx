@@ -6,6 +6,8 @@ import { useSearchParams } from "next/navigation";
 import { PostProps } from "@/app/lib/definitions";
 import { useEffect } from "react";
 import { scrollToDay } from "./calendar-controll";
+import generateCalendarHeadData from "@/app/lib/generate-calendar-head-data";
+import clsx from "clsx";
 
 interface EntryProps {
   start: number,
@@ -71,6 +73,8 @@ export default function CalendarBody({
     // entries.push(getRow(entry)); row위치계산
   })
 
+  const head_data = generateCalendarHeadData(first_date, last_date);
+
   return (
     <div
       className={`grid border`}
@@ -81,13 +85,46 @@ export default function CalendarBody({
       }}
     >
       <div id="today"
-        className="bg-gray-200"
+        className="relative z-10 border-l border-red-600 left-1/2"
         style={{
           gridRow: `1 / span ${entry_count}`,
           gridColumnStart: first_to_today+1,
           gridColumnEnd: first_to_today+2,
         }}
       ></div>
+
+      {/*saturday, sunday color */}
+      {head_data &&
+      [...head_data.years.entries()].flatMap(([year, yearData]) =>
+        yearData
+          ? [...yearData.months.entries()].flatMap(([month, monthData]) =>
+              monthData
+                ? [...monthData.dates.values()].map((actualDate) => {
+                    const dateObj = new Date(`${year}-${month + 1}-${actualDate}`);
+                    const isWeekend = [0, 6].includes(dateObj.getDay()); // 0 = Sunday, 6 = Saturday
+                    const columnStart = Math.round(
+                      (+dateObj - +new Date(calendarEntries[0].startDate)) /
+                        (1000 * 60 * 60 * 24) + 1
+                    );
+
+                    return (
+                      <div
+                        key={`${year}-${month}-${actualDate}`}
+                        className={clsx("bg-gray-100 z-0", { "bg-gray-200 opacity-50": isWeekend })}
+                        style={{
+                          gridRow: `1 / span ${entry_count}`,
+                          gridColumnStart: columnStart,
+                          gridColumnEnd: columnStart + 1,
+                        }}
+                      >
+                      </div>
+                    );
+                  })
+                : []
+            )
+          : []
+      )}
+      
       {entries.map((entry: EntryProps, index) => (
         <CalendarEntry
           key={`${entry.start}-${index}`}
