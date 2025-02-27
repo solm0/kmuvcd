@@ -39,7 +39,7 @@ export function GoToToday({
   calendarRef:React.RefObject<HTMLDivElement | null>
 }) {
   const first_to_today = Math.floor((+today - +first_date) / (1000 * 60 * 60 * 24));
-  console.log("first_date", first_date)
+  // console.log("first_date", first_date)
 
   return (
     <button
