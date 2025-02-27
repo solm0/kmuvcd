@@ -6,6 +6,7 @@ import { PostProps } from "@/app/lib/definitions";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
+import { useHoveredStore } from "@/app/lib/useHoveredStore";
 
 interface EntryProps {
   start: number,
@@ -47,6 +48,8 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
 
   const category = data.category as keyof typeof colorVariants;
 
+  const setHoveredDate = useHoveredStore((state) => state.setHoveredDate);
+
   return (
     <>
       {data.documentId &&
@@ -64,6 +67,8 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
             gridColumnStart: entryPosition.start,
             gridColumnEnd: entryPosition.end+1,
           }}
+          onMouseEnter={() => setHoveredDate({ startDate: data.startDate, endDate: data.endDate })}
+          onMouseLeave={() => setHoveredDate(null)}
         >
           <p className="text-sm text-nowrap">{data.name}
             {/* <span className="text-gray-800 opacity-50">{data.startDate}-{data.endDate}, {entryPosition.start}, {entryPosition.end+1}, {entryPosition.end+1 - entryPosition.start}칸</span> */}
