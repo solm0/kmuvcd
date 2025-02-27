@@ -4,90 +4,65 @@ import { PostProps } from "@/app/lib/definitions"
 import generateCalendarHeadData from "@/app/lib/generate-calendar-head-data";
 
 export default function CalendarHead({calendarEntries, columnWidth}: {calendarEntries: PostProps[], columnWidth: number;}) {
-  const first_date = new Date('2024-01-01');
+  const first_date = new Date(calendarEntries[0].startDate);
   const last_date = new Date(calendarEntries[calendarEntries.length - 1].endDate);
+  const day_count = Math.max(1, Math.round((+last_date - +first_date) / (1000 * 60 * 60 * 24)));
 
   // generate head
   const head_data = generateCalendarHeadData(first_date, last_date);
-
-  function days_of_a_year(year: number) {
-    return (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) ? 366 : 365;
-  }
   
   return (
-    <>
+    <div className="sticky top-0">
       <div
-        id="calendar-head"
-        className="border overflow-visible grid"
+        className="flex text-gray-500 bg-gray-100/50 backdrop-blur-md overflow-visible"
         style={{
-          gridAutoFlow: "column", // Stacks children horizontally
-          gridAutoColumns: "max-content", // Ensures children use their own width
-          width: 1000 * columnWidth, // Ensure enough space
+          width: `${(day_count+1) * columnWidth}px`,
         }}
       >
         {head_data &&
-          [...head_data.years.entries()].map(([year, yearData]) => {
-            const width = days_of_a_year(year) * columnWidth;
-
-            return (
+        [...head_data.years.entries()].flatMap(([year, yearData]) =>
+          yearData
+            ? [...yearData.months.entries()].flatMap(([month, monthData]) => (
               <div
-                key={year}
-                className="sticky left-0 bg-gray-100"
-                style={{
-                  width: width,
-                }}
+                key={`${year}-${month}`}
+                id="month"
+                className="flex items-center sticky left-0 pl-4 bg-gray-100"
+                style={{width: `${monthData.dates.length * columnWidth}px`}}
               >
-                {year}
-                <div
-                  className="top-[20px] grid"
-                  style={{
-                    gridAutoFlow: "column", // Stacks children horizontally
-                    gridAutoColumns: "max-content", // Ensures children use their own width
-                  }}
-                >
-                  {yearData && [...yearData.months.entries()].map(([month, monthData]) => {
-                    const width = 30 * columnWidth;
-                  
-                    return (
-                      <div
-                        key={month}
-                        id="month"
-                        className="sticky left-0 bg-gray-100"
-                        style={{
-                          width: width,
-                        }}
-                      >
-                        {month + 1}
-                        <div
-                          className="top-[20px] grid"
-                          style={{
-                            gridAutoFlow: "column", // Stacks children horizontally
-                            gridAutoColumns: "max-content", // Ensures children use their own width
-                          }}
-                        >
-                          {monthData && [...monthData.dates.entries()].map(([date]) => {
-                            const width = columnWidth; 
-                            return (
-                              <div
-                                key={date}
-                                id="date"
-                                style={{
-                                  gridAutoFlow: "column", // Stacks children horizontally
-                                  gridAutoColumns: "max-content", // Ensures children use their own width
-                                  width: width,
-                                }}
-                              >
-                                {date + 1}
-                              </div>
-                          )})}
-                        </div>
-                      </div>
-                  )})}
-                </div>
+                {month === 0 ? `${year}년` : null} {month + 1}월
               </div>
-            );
-          })}
+            )
+              )
+            : []
+        )}
       </div>
-    </>
-  )
+      <div
+        className="grid text-gray-500 bg-gray-100"
+        style={{
+          gridTemplateColumns: `repeat(${day_count+1}, ${columnWidth}px)`,
+          gridTemplateRows: `repeat(1, ${columnWidth}px)`,
+          width: `${(day_count+1) * columnWidth + 1}px`,
+        }}
+      >
+        {head_data &&
+        [...head_data.years.entries()].flatMap(([year, yearData]) =>
+          yearData
+            ? [...yearData.months.entries()].flatMap(([month, monthData]) =>
+                monthData
+                  ? [...monthData.dates.values()].map((actualDate) => (
+                    <div
+                      key={`${year}-${month}-${actualDate}`}
+                      id="date"
+                      className="text-center flex justify-center items-center"
+                    >
+                      {actualDate}
+                    </div>
+                  ))
+                  : []
+              )
+            : []
+        )}
+      </div>
+    </div>
+  );
 }

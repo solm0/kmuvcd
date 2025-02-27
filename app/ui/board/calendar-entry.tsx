@@ -1,7 +1,6 @@
 'use client'
 
-import { UserDataProps, PostProps } from "@/app/lib/definitions";
-import { useState, useEffect } from "react"
+import { PostProps } from "@/app/lib/definitions";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
@@ -13,12 +12,7 @@ interface EntryProps {
 }
 
 // index는 나중에 prop에서 삭제...
-export default function CalendarEntry({ entryPosition, index, data, token, user }: { entryPosition: EntryProps; index: number; data:PostProps; token?: string; user: UserDataProps; }) {
-  const [userData] = useState<UserDataProps | null>(user);
-  const [isBookmarked, setIsBookmarked] = useState(false);
-
-  console.log(token);
-
+export default function CalendarEntry({ entryPosition, index, data }: { entryPosition: EntryProps; index: number; data:PostProps; }) {
   const pathname = usePathname();
   const subPath = pathname.split('/').slice(2, 3).toString();
   const searchParams = useSearchParams();
@@ -33,28 +27,13 @@ export default function CalendarEntry({ entryPosition, index, data, token, user 
     }
   }
 
-  const postId = data.documentId;
-
-  useEffect(() => {
-    if (userData) {
-      const categories = ["clubs", "events", "exhibitions", "notices", "kookmins"];
-      const allPostIds = categories.flatMap(
-        (category) => ((userData as unknown as Record<string, PostProps[]>)[category] || [])
-          .map((post) => post.documentId)
-      );
-      setIsBookmarked(allPostIds.includes(postId));
-    }
-  }, [userData, postId]);
-
-  // console.log(data)
-
   return (
     <>
       {data.documentId &&
         <Link
           key={`${data.documentId}-${index}`}
           href={generateHref(pathname, searchParams.toString(), data?.documentId)}
-          className={clsx("bg-blue-300 hover:bg-blue-400", {"border border-red-500": isBookmarked}, {"bg-blue-400": (subPath === data?.documentId)})}
+          className={clsx("bg-blue-300 hover:bg-blue-400 flex items-center h-8", {"bg-blue-400": (subPath === data?.documentId)})}
           style={{
             gridRowStart: index+1, // entryPosition.row
             gridRowEnd: index+2,
@@ -62,8 +41,8 @@ export default function CalendarEntry({ entryPosition, index, data, token, user 
             gridColumnEnd: entryPosition.end+1,
           }}
         >
-          <p className="text-xs text-nowrap">{data.name}, {data.startDate}-{data.endDate}
-            <span className="text-red-600">{entryPosition.start}, {entryPosition.end+1}, {entryPosition.end+1 - entryPosition.start}칸</span>
+          <p className="text-sm text-nowrap">{data.name}
+            {/* <span className="text-gray-800 opacity-50">{data.startDate}-{data.endDate}, {entryPosition.start}, {entryPosition.end+1}, {entryPosition.end+1 - entryPosition.start}칸</span> */}
           </p>
         </Link>
       }

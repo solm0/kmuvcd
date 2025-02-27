@@ -1,14 +1,10 @@
 import { getBoardPosts } from "@/app/lib/get-board-posts";
-import { getUserMe } from "@/app/lib/services/get-user-me";
-import { getAuthToken } from "@/app/lib/services/get-token";
 import CalendarPanel from "@/app/ui/board/calendar-panel";
 import AnimatedContainer from "@/app/ui/board/animated-container";
 import { PostProps } from "@/app/lib/definitions";
 
 export default async function Layout({children}: {children: React.ReactNode}) {
   const posts = await getBoardPosts();
-  const user = await getUserMe(true);
-  const token = await getAuthToken();
 
   // posts를 startDate가 있는것만 filter
   const filteredPosts = posts
@@ -32,8 +28,6 @@ export default async function Layout({children}: {children: React.ReactNode}) {
       <div className="flex-1 overflow-x-auto p-4 flex flex-col items-start">
         <CalendarPanel
           calendarEntries={sortedPosts}
-          token={token ?? undefined}
-          user={user?.data}
         />
       </div>
       <AnimatedContainer>{children}</AnimatedContainer>
