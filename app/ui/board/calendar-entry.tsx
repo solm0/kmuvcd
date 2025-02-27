@@ -19,12 +19,19 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
   const searchParams = useSearchParams();
 
   const generateHref = (pathname: string, searchParams: string, documentId: string) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+    const currentExpand = newParams.get("expand");
+  
+    if (currentExpand === "true") {
+      newParams.set("expand", "false");
+    }
+
     if (subPath !== documentId) {
       const cleanPathname =  pathname.split('/').slice(0, 2).join('/');
-      return `${cleanPathname}/${documentId}?${searchParams}`;
+      return `${cleanPathname}/${documentId}?${newParams.toString()}`;
     } else {
       const cleanPathname = pathname.split('/').slice(0, 2).join('/');
-      return `${cleanPathname}?${searchParams}`;
+      return `${cleanPathname}?${newParams.toString()}`;
     }
   }
 
@@ -47,8 +54,6 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
   const category = data.category as keyof typeof colorVariants;
 
   const setHoveredDate = useHoveredStore((state) => state.setHoveredDate);
-
-
 
   return (
     <>
