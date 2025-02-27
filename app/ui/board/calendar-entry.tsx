@@ -54,8 +54,8 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
           key={`${data.documentId}-${index}`}
           href={generateHref(pathname, searchParams.toString(), data?.documentId)}
           className={clsx(
+            subPath === data?.documentId ? "opacity-50 hover:!bg-opacity-100" : "hover:bg-opacity-50",
             colorVariants[colors[category]], 
-            subPath === data?.documentId && "opacity-50 hover:bg-opacity-100",
             "flex items-center h-8 z-10"
           )}
           style={{

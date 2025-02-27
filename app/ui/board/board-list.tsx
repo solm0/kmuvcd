@@ -55,8 +55,8 @@ export default function BoardList({ data }: { data: PostProps[]; }) {
         {entry.documentId ?
           <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>
             <div className={clsx(
+              subPath === entry?.documentId ? "opacity-50 hover:!bg-opacity-100" : "hover:bg-opacity-50",
               colorVariants[colors[colorCategory]],
-              subPath === entry?.documentId && "opacity-50 hover:bg-opacity-100",
               "p-4 mb-4",
             )}>
               <p>{entry?.name}</p>
