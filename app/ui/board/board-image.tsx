@@ -1,13 +1,14 @@
 'use client';
 
-import { PostProps } from "@/app/lib/definitions";
+import { PostProps, UserDataProps } from "@/app/lib/definitions";
 import { usePathname, useSearchParams } from "next/navigation";
 import queryFilter from "@/app/lib/query-filter";
 import Link from "next/link";
 import clsx from "clsx";
 import { ImageMedia } from "../cms/media";
+import bookmarkFilter from "@/app/lib/bookmark-filter";
 
-export default function BoardImage({data}: { data: PostProps[]}) {
+export default function BoardImage({data, user}: { data: PostProps[]; user: UserDataProps}) {
   const pathname = usePathname();
   const subPath = pathname.split('/').slice(2, 3).toString();
   const searchParams = useSearchParams();
@@ -26,11 +27,13 @@ export default function BoardImage({data}: { data: PostProps[]}) {
    const category = searchParams.get('category');
    const tag = searchParams.get('tag');
    const search = searchParams.get('search');
+   const bookmark = searchParams.get('bookmark');
    const filteredEntries = queryFilter(data, category, tag, search);
+   const bookmarkEntries = bookmarkFilter(filteredEntries, bookmark, user);
 
    return (
     <div className="flex gap-4">
-      {filteredEntries.map((entry: PostProps) => (
+      {bookmarkEntries && bookmarkEntries.map((entry: PostProps) => (
         <div key={entry.documentId} className="max-w-96 min-w-48">
           {entry.documentId && entry.thumbnail ?
             <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>

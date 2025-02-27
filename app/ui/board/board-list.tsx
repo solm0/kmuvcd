@@ -2,13 +2,14 @@
 // @ts-nocheck
 'use client'
 
-import { PostProps } from "@/app/lib/definitions";
+import { PostProps, UserDataProps } from "@/app/lib/definitions";
 import clsx from "clsx";
 import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import queryFilter from "@/app/lib/query-filter";
+import bookmarkFilter from "@/app/lib/bookmark-filter";
 
-export default function BoardList({ data }: { data: PostProps[]; }) {
+export default function BoardList({ data, user }: { data: PostProps[]; user: UserDataProps }) {
   const pathname = usePathname();
   const subPath = pathname.split('/').slice(2, 3).toString();
   const searchParams = useSearchParams();
@@ -27,7 +28,9 @@ export default function BoardList({ data }: { data: PostProps[]; }) {
   const category = searchParams.get('category');
   const tag = searchParams.get('tag');
   const search = searchParams.get('search');
+  const bookmark = searchParams.get('bookmark');
   const filteredEntries = queryFilter(data, category, tag, search);
+  const bookmarkEntries = bookmarkFilter(filteredEntries, bookmark, user);
 
   const colors = {
     "notices": "green",
@@ -47,7 +50,7 @@ export default function BoardList({ data }: { data: PostProps[]; }) {
 
   return (
     <>
-      {filteredEntries.map((entry: PostProps) => {
+      {bookmarkEntries.map((entry: PostProps) => {
         const colorCategory = entry.category as keyof typeof colorVariants;
 
         return (
@@ -60,10 +63,9 @@ export default function BoardList({ data }: { data: PostProps[]; }) {
               "p-4 mb-4",
             )}>
               <p>{entry?.name}</p>
-              <p>작성자: {entry?.author}</p>
-              <p>{entry?.publishedAt?.slice(0,10)} 작성</p>
-              {entry.startDate && <p>{entry.startDate}{entry.endDate && `-${entry.endDate}`}</p>}
-              <p>{entry?.category}</p>
+              {entry.startDate && <p>기간: {entry.startDate}{entry.endDate && `-${entry.endDate}`}</p>}
+              {entry.author && <p>작성자: {entry?.author}</p>}
+              <p>작성일: {entry?.publishedAt?.slice(0,10)}</p>
             </div>
           </Link>
           :

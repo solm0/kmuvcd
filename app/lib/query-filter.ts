@@ -1,6 +1,11 @@
 import { PostProps } from "./definitions";
 
-export default function queryFilter(data: PostProps[], category: string | null, tag: string | null, search: string | null) {
+export default function queryFilter(
+  data: PostProps[],
+  category: string | null,
+  tag: string | null,
+  search: string | null,
+) {
 
   // 카테고리 필터링
   let categoryFiltered;

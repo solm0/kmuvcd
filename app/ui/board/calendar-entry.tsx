@@ -11,10 +11,8 @@ import { useHoveredStore } from "@/app/lib/useHoveredStore";
 interface EntryProps {
   start: number,
   end: number,
-  // row: number,
 }
 
-// index는 나중에 prop에서 삭제...
 export default function CalendarEntry({ entryPosition, index, data }: { entryPosition: EntryProps; index: number; data:PostProps; }) {
   const pathname = usePathname();
   const subPath = pathname.split('/').slice(2, 3).toString();
@@ -49,6 +47,8 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
   const category = data.category as keyof typeof colorVariants;
 
   const setHoveredDate = useHoveredStore((state) => state.setHoveredDate);
+
+
 
   return (
     <>

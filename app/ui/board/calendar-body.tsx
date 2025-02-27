@@ -3,24 +3,26 @@
 import CalendarEntry from "./calendar-entry";
 import queryFilter from "@/app/lib/query-filter";
 import { useSearchParams } from "next/navigation";
-import { PostProps } from "@/app/lib/definitions";
-import { useEffect } from "react";
+import { PostProps, UserDataProps } from "@/app/lib/definitions";
+import { useEffect} from "react";
 import { scrollToDay } from "./calendar-controll";
 import generateCalendarHeadData from "@/app/lib/generate-calendar-head-data";
 import clsx from "clsx";
+import bookmarkFilter from "@/app/lib/bookmark-filter";
 
 interface EntryProps {
   start: number,
   end: number,
-  // row: number,
 }
 
 export default function CalendarBody({
   calendarEntries,
+  user,
   columnWidth,
   calendarRef
 } : {
   calendarEntries: PostProps[],
+  user: UserDataProps
   columnWidth: number,
   calendarRef: React.RefObject<HTMLDivElement | null>
 }
@@ -44,7 +46,9 @@ export default function CalendarBody({
   const category = searchParams.get('category');
   const tag = searchParams.get('tag');
   const search = searchParams.get('search');
+  const bookmark = searchParams.get('bookmark');
   const filteredEntries = queryFilter(calendarEntries, category, tag, search);
+  const bookmarkEntries = bookmarkFilter(filteredEntries, bookmark, user);
 
   // entry들의 date계산해서 그 date와 firstEntry와의 차이를 계산.
   function getDiff(entry: PostProps) {
@@ -58,20 +62,13 @@ export default function CalendarBody({
     }
   }
 
-  // function getRow(entry: ) {...}
-  /*
-    1 부터 10까지의 변수를 만든다.
-    entry가 렌더링될 때
-    작은 숫자부터 검사, 변수에 담긴 endDate가 있으면, 새로운 entry의 startDate보다 뒤면 다음 숫자로 fall,
-    아닐 때까지 계속 반복, endDate를 그 변수에 저장.
-  */
-
   const entries: EntryProps[] = [];
   
-  filteredEntries.map((entry: PostProps) => {
-    entries.push(getDiff(entry)); // column위치계산
-    // entries.push(getRow(entry)); row위치계산
-  })
+  if (bookmarkEntries) {
+    bookmarkEntries.map((entry: PostProps) => {
+      entries.push(getDiff(entry)); // column위치계산
+    })
+  }
 
   const head_data = generateCalendarHeadData(first_date, last_date);
 
@@ -98,7 +95,7 @@ export default function CalendarBody({
           key={`${entry.start}-${index}`}
           entryPosition={entry}
           index={index}
-          data={filteredEntries[index]}
+          data={bookmarkEntries ? bookmarkEntries[index] : filteredEntries[index]}
         />
       ))}
 

@@ -2,9 +2,12 @@ import { PostProps } from "@/app/lib/definitions";
 import { getBoardPosts } from "@/app/lib/get-board-posts";
 import BoardImage from "@/app/ui/board/board-image";
 import AnimatedContainer from "@/app/ui/board/animated-container";
+import { getUserMe } from "@/app/lib/services/get-user-me";
+import MoreOptions from "@/app/ui/board/more-options";
 
 export default async function Layout({children}: {children: React.ReactNode}) {
   const posts = await getBoardPosts();
+  const user = await getUserMe(true);
 
   // dynamic zone -> image_block이 있는것만 filter
   const filteredPosts = posts
@@ -30,7 +33,11 @@ export default async function Layout({children}: {children: React.ReactNode}) {
   return (
     <div className="w-full flex h-full">
       <div className="flex-1 overflow-x-auto p-4">
-        <BoardImage data={sortedPosts} />
+        <MoreOptions login={user.ok ? true : false} />
+        <BoardImage
+          data={sortedPosts}
+          user={user.data}
+        />
       </div>
       <AnimatedContainer>{children}</AnimatedContainer>
     </div>
