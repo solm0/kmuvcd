@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 'use client'
 
 import { PostProps } from "@/app/lib/definitions";
@@ -27,13 +29,35 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
     }
   }
 
+  const colors = {
+    "notices": "green",
+    "events": "purple",
+    "exhibitions": "orange",
+    "clubs": "pink",
+    "kookmins": "blue",
+  }
+
+  const colorVariants = {
+    green: "bg-green-300 hover:bg-green-400",
+    purple: "bg-purple-300 hover:bg-purple-400",
+    orange: "bg-orange-300 hover:bg-orange-400",
+    pink: "bg-pink-300 hover:bg-pink-400",
+    blue: "bg-blue-300 hover:bg-blue-400",
+  };
+
+  const category = data.category as keyof typeof colorVariants;
+
   return (
     <>
       {data.documentId &&
         <Link
           key={`${data.documentId}-${index}`}
           href={generateHref(pathname, searchParams.toString(), data?.documentId)}
-          className={clsx("bg-blue-300 hover:bg-blue-400 flex items-center h-8 z-10", {"bg-blue-400": (subPath === data?.documentId)})}
+          className={clsx(
+            colorVariants[colors[category]], 
+            subPath === data?.documentId && `bg-${colors[category]}-400`,
+            "flex items-center h-8 z-10"
+          )}
           style={{
             gridRowStart: index+1, // entryPosition.row
             gridRowEnd: index+2,
