@@ -7,6 +7,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 import { useHoveredStore } from "@/app/lib/useHoveredStore";
+import generateHref from "@/app/lib/generate-href";
 
 interface EntryProps {
   start: number,
@@ -17,23 +18,6 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
   const pathname = usePathname();
   const subPath = pathname.split('/').slice(2, 3).toString();
   const searchParams = useSearchParams();
-
-  const generateHref = (pathname: string, searchParams: string, documentId: string) => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    const currentExpand = newParams.get("expand");
-  
-    if (currentExpand === "true") {
-      newParams.set("expand", "false");
-    }
-
-    if (subPath !== documentId) {
-      const cleanPathname =  pathname.split('/').slice(0, 2).join('/');
-      return `${cleanPathname}/${documentId}?${newParams.toString()}`;
-    } else {
-      const cleanPathname = pathname.split('/').slice(0, 2).join('/');
-      return `${cleanPathname}?${newParams.toString()}`;
-    }
-  }
 
   const colors = {
     "notices": "green",
@@ -60,7 +44,7 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
       {data.documentId &&
         <Link
           key={`${data.documentId}-${index}`}
-          href={generateHref(pathname, searchParams.toString(), data?.documentId)}
+          href={generateHref(pathname, searchParams.toString(), data?.documentId, subPath)}
           className={clsx(
             subPath === data?.documentId ? "opacity-50 hover:!bg-opacity-100" : "hover:bg-opacity-50",
             colorVariants[colors[category]], 

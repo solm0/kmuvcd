@@ -8,28 +8,12 @@ import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import queryFilter from "@/app/lib/query-filter";
 import bookmarkFilter from "@/app/lib/bookmark-filter";
+import generateHref from "@/app/lib/generate-href";
 
 export default function BoardList({ data, user }: { data: PostProps[]; user: UserDataProps }) {
   const pathname = usePathname();
   const subPath = pathname.split('/').slice(2, 3).toString();
   const searchParams = useSearchParams();
-
-  const generateHref = (pathname: string, searchParams: string, documentId: string) => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    const currentExpand = newParams.get("expand");
-  
-    if (currentExpand === "true") {
-      newParams.set("expand", "false");
-    }
-
-    if (subPath !== documentId) {
-      const cleanPathname =  pathname.split('/').slice(0, 2).join('/');
-      return `${cleanPathname}/${documentId}?${newParams.toString()}`;
-    } else {
-      const cleanPathname = pathname.split('/').slice(0, 2).join('/');
-      return `${cleanPathname}?${newParams.toString()}`;
-    }
-  }
 
   // 카테고리, 태그 필터
   const category = searchParams.get('category');
@@ -63,7 +47,7 @@ export default function BoardList({ data, user }: { data: PostProps[]; user: Use
         return (
         <div key={entry.documentId}>
         {entry.documentId ?
-          <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>
+          <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId, subPath)}>
             <div className={clsx(
               subPath === entry?.documentId ? "opacity-50 hover:!bg-opacity-100" : "hover:bg-opacity-50",
               colorVariants[colors[colorCategory]],
