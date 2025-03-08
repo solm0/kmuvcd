@@ -15,10 +15,10 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className="h-full">
+      <body className="h-full bg-gray-100">
         <div className="flex flex-col h-full overflow-hidden">
           <HeaderSection />
-          <div className="md:flex fixed w-full top-12 h-[calc(100%-3rem)]">
+          <div className="px-4 pb-4 md:flex md:gap-4 fixed w-full top-12 h-[calc(100%-3rem)]">
             <LeftSection>
               <Docs>
                 <DocPage />

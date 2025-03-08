@@ -81,7 +81,7 @@ export default function Tags({category}: {category: string}) {
   return (
     <>
       {(tagSet!==null) && (
-        <div className="bg-gray-200 h-12 p-4 flex items-center border-b border-gray-400 gap-4">
+        <div className="h-8 text-sm p-4 flex items-center gap-4">
           <label>태그: </label>
           <button
             onClick={() => handleTag('*')}

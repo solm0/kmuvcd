@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import Categories from "@/app/ui/board/categories";
-import { Search } from "@/app/ui/search";
+import { Search } from "../ui/search";
 
 export default function Layout({children}: {children: React.ReactNode}) {
   const pathname = usePathname();
@@ -18,7 +18,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
   return(
     <div className="w-full h-full flex flex-col ">
       <nav className="h-auto">
-        <div className="bg-gray-200 w-full h-12 p-4 flex items-center border-b border-gray-400 gap-4">
+        <div className="w-full h-8 text-sm p-4 flex items-center gap-4">
           <label>보기: </label>
           <Link href={generateHref('/calendar', pathname, searchParams.toString())} className={clsx("hover:text-gray-500", {"text-gray-500": pathname.startsWith('/calendar')})}>
             캘린더
@@ -29,12 +29,9 @@ export default function Layout({children}: {children: React.ReactNode}) {
           <Link href={generateHref('/images', pathname, searchParams.toString())} className={clsx("hover:text-gray-500", {"text-gray-500": pathname.startsWith('/images')})}>
             이미지
           </Link>
-
-          <div className="ml-auto w-96 border-l border-gray-400 h-12 p-4 flex items-center">
-            <Search />
-          </div>
         </div>
         <Categories />
+        <Search />
       </nav>
       
       <div className="flex-1 overflow-hidden">

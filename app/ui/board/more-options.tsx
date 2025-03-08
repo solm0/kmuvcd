@@ -27,7 +27,7 @@ export default function MoreOptions({ login }: { login: boolean }) {
   };
 
   return (
-    <div className="w-1/2 h-12 pb-4 flex items-center gap-4">
+    <div className="w-1/2 h-8 text-sm pb-4 flex items-center gap-4">
       {login && (
         <button
           onClick={handleFilter}

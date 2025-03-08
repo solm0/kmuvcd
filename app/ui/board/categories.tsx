@@ -44,7 +44,7 @@ export default function Categories() {
 
   return (
     <>
-      <div className="bg-gray-200 h-12 p-4 flex items-center border-b border-gray-400 gap-4">
+      <div className="h-8 p-4 text-sm flex items-center gap-4">
         <label>카테고리: </label>
         <button
           onClick={() => handleCategory('*')}

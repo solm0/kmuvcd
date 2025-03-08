@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
+import { Search as Magnifying } from "lucide-react";
 
 export function Search() {
   const searchParams = useSearchParams();
@@ -22,13 +23,14 @@ export function Search() {
   }, 300);
 
   return (
-    <div>
+    <div className="h-8 p-4 text-sm flex items-center gap-4">
+      <Magnifying className="h-4 w-4" />
       <input
         type="text"
         placeholder="Search"
         onChange={(e) => handleSearch(e.target.value)}
         defaultValue={searchParams.get("search")?.toString()}
-        className="bg-transparent focus:outline-none w-56"
+        className="bg-transparent w-full focus:outline-none"
       />
     </div>
   )
