@@ -20,13 +20,13 @@ export default async function DocPage() {
 
     return (
       <div>
-        <h2 className='pb-8 border-t border-gray-400' id='mission'>학과 소개</h2>
+        <h2 className='pb-8' id='mission'>학과 소개</h2>
         <div key={data0101.documentId}>
             <p>title:{data0101.name}</p>
             <MdText markdown={data0101.text ?? " "} />
         </div>
 
-        <h2 className='pb-8 border-t border-gray-400' id='professors'>교수진</h2>
+        <h2 className='pb-8' id='professors'>교수진</h2>
           <p>개인 홈페이지 있을 경우 카드 형태로 함께 기재</p>
           {data0201.map((post: PostProps) => (
               <div key={post.documentId} className='rounded-lg bg-gray-100 p-8 mb-4'>
@@ -51,14 +51,14 @@ export default async function DocPage() {
               </div>
           ))}
 
-        <h2 className='pb-8 border-t border-gray-400' id='curriculum'>학부 커리큘럼</h2>
+        <h2 className='pb-8' id='curriculum'>학부 커리큘럼</h2>
           <p>커리큘럼 표에 hover, click하면 교과목 상세 페이지(설명, 결과물과 강의평(로그인 유저가 직접 올리기 가능)) 나옴, 이것도 뷰를 두개(표 모드, 리스트 모드) 둬서 리스트 모드에서는 subject, format, mandatory, grade로 필터링해볼 수 있게 할까..?</p>
           <div key={data0202.id} className='rounded-lg bg-gray-100 p-8'>
           <p>name:{data0202.name}</p>
           <MdText markdown={data0202.text ?? " "} />
         </div>
 
-        <h3 className='pb-8 border-t border-gray-400'>교과목</h3>
+        <h3 className='pb-8'>교과목</h3>
         {data0203.map((post: PostProps) => (
             <div key={post.documentId} className='rounded-lg bg-gray-100 p-8 mb-4'>
                 <p>name: {post.name}</p>
@@ -71,7 +71,7 @@ export default async function DocPage() {
             </div>
         ))}
 
-        <h2 className="pb-8 border-t border-gray-400" id='grad_schools'>대학원</h2>
+        <h2 className="pb-8" id='grad_schools'>대학원</h2>
         {data0204.map((post: PostProps) => (
             <div key={post.documentId} className="rounded-lg bg-gray-100 p-8 mb-4">
                 <p>name: {post.name}</p>
@@ -86,9 +86,9 @@ export default async function DocPage() {
             </div>
         ))}
 
-        <h2 className='pb-8 border-t border-gray-400' id='international'>국제교류</h2>
+        <h2 className='pb-8' id='international'>국제교류</h2>
 
-        <h2 className="pb-8 border-t border-gray-400" id='student_councils'>학생회</h2>
+        <h2 className="pb-8" id='student_councils'>학생회</h2>
         {data0301.map((post: PostProps) => (
             <div key={post.documentId} className="rounded-lg bg-gray-100 p-8 mb-4">
                 <p>name: {post.name}</p>
@@ -97,7 +97,7 @@ export default async function DocPage() {
             </div>
         ))}
 
-        <h2 className="pb-8 border-t border-gray-400" id='staffs'>교직원</h2>
+        <h2 className="pb-8" id='staffs'>교직원</h2>
         {data0302.map((post: PostProps) => (
             <div key={post.documentId} className="rounded-lg bg-gray-100 p-8 mb-4">
                 <p>name: {post.name}</p>
@@ -108,7 +108,7 @@ export default async function DocPage() {
             </div>
         ))}
 
-        <h2 className="pb-8 border-t border-gray-400" id='facility'>시설 소개</h2>
+        <h2 className="pb-8" id='facility'>시설 소개</h2>
         <p>&apos;로그인 후 신청하러 가기&apos; 버튼, 로그인/회원가입 페이지로 리다이렉트</p>
         {data0303.map((post: PostProps) => (
             <div key={post.documentId} className="rounded-lg bg-gray-100 p-8 mb-4">
@@ -123,13 +123,13 @@ export default async function DocPage() {
             </div>
         ))}
 
-        <h2 className='pb-8 border-t border-gray-400' id='graduation'>졸업요건</h2>
+        <h2 className='pb-8' id='graduation'>졸업요건</h2>
         <div key={data0401.documentId} className='rounded-lg bg-gray-100 p-8'>
             <p>name:{data0401.name}</p>
             <MdText markdown={data0401.text ?? " "} />
         </div>
 
-        <h2 className='pb-8 border-t border-gray-400' id='major'>복/부전공</h2>
+        <h2 className='pb-8' id='major'>복/부전공</h2>
         <div key={data0402.documentId} className='rounded-lg bg-gray-100 p-8'>
             <p>name:{data0402.name}</p>
             <MdText markdown={data0402.text ?? " "} />

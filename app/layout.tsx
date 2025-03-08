@@ -18,7 +18,7 @@ export default function RootLayout({
       <body className="h-full">
         <div className="flex flex-col h-full overflow-hidden">
           <HeaderSection />
-          <div className="md:flex fixed md:w-full top-12 h-[calc(100%-3rem)]">
+          <div className="md:flex fixed w-full top-12 h-[calc(100%-3rem)]">
             <LeftSection>
               <Docs>
                 <DocPage />

@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { useState, useEffect } from "react";
-import { X } from 'lucide-react';
+import { X, Plus } from 'lucide-react';
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import DocIndex from "./doc-index";
 
@@ -34,15 +34,20 @@ export default function Docs({children}: {children: React.ReactNode}) {
     <nav className="w-full h-auto md:h-full md:w-auto md:flex">
       <div
         className={clsx(
-          "bg-gray-200 w-full h-12 md:h-full md:w-28 transition-[width, height, colors] duration-300",
+          "bg-gray-100 w-full h-12 md:h-full md:w-28 transition-[width, height, colors] duration-300",
           isOpen ? "h-[90vh] md:w-[42rem]" : "hover:bg-gray-300"
         )}
         onClick={isOpen ? undefined : handleOpen}
       > 
-        <div className="bg-gray-400 w-full h-12 flex p-4 items-center border-b border-gray-400">
-          {isOpen && (
+        <div className="w-full h-12 flex p-4 items-center">
+          <p className="break-keep">국민대학교 시각디자인학과</p>
+          {isOpen ? (
             <button onClick={handleOpen} className="ml-auto text-gray-600 hover:text-gray-900 z-80 transition-colors">
               <X />
+            </button>
+          ) : (
+            <button onClick={handleOpen} className="ml-auto text-gray-600 hover:text-gray-900 z-80 transition-colors">
+              <Plus />
             </button>
           )}
         </div>
