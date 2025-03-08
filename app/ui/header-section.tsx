@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import DashboardButton from './dashboard-button';
 
 export default async function HeaderSection() {

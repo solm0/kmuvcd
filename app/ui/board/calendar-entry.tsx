@@ -19,24 +19,6 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
   const subPath = pathname.split('/').slice(2, 3).toString();
   const searchParams = useSearchParams();
 
-  const colors = {
-    "notices": "green",
-    "events": "purple",
-    "exhibitions": "orange",
-    "clubs": "pink",
-    "kookmins": "blue",
-  }
-
-  const colorVariants = {
-    green: "bg-green-400 hover:bg-opacity-50",
-    purple: "bg-purple-400 hover:bg-opacity-50",
-    orange: "bg-orange-400 hover:bg-opacity-50",
-    pink: "bg-pink-400 hover:bg-opacity-50",
-    blue: "bg-blue-400 hover:bg-opacity-50",
-  };
-
-  const category = data.category as keyof typeof colorVariants;
-
   const setHoveredDate = useHoveredStore((state) => state.setHoveredDate);
 
   return (
@@ -47,8 +29,12 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
           href={generateHref(pathname, searchParams.toString(), data?.documentId, subPath)}
           className={clsx(
             subPath === data?.documentId ? "opacity-50 hover:!bg-opacity-100" : "hover:bg-opacity-50",
-            colorVariants[colors[category]], 
-            "flex items-center h-8 z-10"
+            "flex items-center h-8 z-10",
+            {"bg-[#000000] text-[#ffffff]": data.category === "notices"},
+            {"bg-[#ffff00]": data.category === "events"},
+            {"bg-[#ff00ff]": data.category === "exhibitions"},
+            {"bg-[#00ffff]": data.category === "clubs"},
+            {"bg-[#ffffff]": data.category === "kookmins"},
           )}
           style={{
             gridRowStart: index+1, // entryPosition.row

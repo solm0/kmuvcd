@@ -4,8 +4,7 @@
 
 import { PostProps, UserDataProps } from "@/app/lib/definitions";
 import clsx from "clsx";
-import { useSearchParams, usePathname } from "next/navigation";
-import Link from "next/link";
+import { useSearchParams, usePathname, redirect } from "next/navigation";
 import queryFilter from "@/app/lib/query-filter";
 import bookmarkFilter from "@/app/lib/bookmark-filter";
 import generateHref from "@/app/lib/generate-href";
@@ -23,46 +22,38 @@ export default function BoardList({ data, user }: { data: PostProps[]; user: Use
   const filteredEntries = queryFilter(data, category, tag, search);
   const bookmarkEntries = bookmarkFilter(filteredEntries, bookmark, user);
 
-  const colors = {
-    "notices": "green",
-    "events": "purple",
-    "exhibitions": "orange",
-    "clubs": "pink",
-    "kookmins": "blue",
-  }
-
-  const colorVariants = {
-    green: "bg-green-400 hover:bg-opacity-50",
-    purple: "bg-purple-400 hover:bg-opacity-50",
-    orange: "bg-orange-400 hover:bg-opacity-50",
-    pink: "bg-pink-400 hover:bg-opacity-50",
-    blue: "bg-blue-400 hover:bg-opacity-50",
-  };
-
   return (
     <>
       {bookmarkEntries.map((entry: PostProps) => {
-        const colorCategory = entry.category as keyof typeof colorVariants;
-
         return (
-        <div key={entry.documentId}>
-        {entry.documentId ?
-          <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId, subPath)}>
-            <div className={clsx(
-              subPath === entry?.documentId ? "opacity-50 hover:!bg-opacity-100" : "hover:bg-opacity-50",
-              colorVariants[colors[colorCategory]],
-              "p-4 mb-4",
-            )}>
-              <p>{entry?.name}</p>
-              {entry.startDate && <p>기간: {entry.startDate}{entry.endDate && `-${entry.endDate}`}</p>}
-              {entry.author && <p>작성자: {entry?.author}</p>}
-              <p>작성일: {entry?.publishedAt?.slice(0,10)}</p>
-            </div>
-          </Link>
-          :
-          <div className="p-4 mt-4 bg-gray-100">no documentId</div>
-        }
-        </div>
+        <tr
+          key={entry.documentId}
+          onClick={() => redirect(generateHref(pathname, searchParams.toString(), entry?.documentId, subPath))}
+          className={clsx(
+            subPath === entry?.documentId && "bg-gray-100",
+            "h-12 hover:bg-gray-100"
+          )}
+        >
+              <td className="pr-4">{entry?.name}</td>
+              <td className="pr-4">
+                <div
+                  className={clsx(
+                    {"bg-[#000000] text-[#ffffff]": entry.category === "notices"},
+                    {"bg-[#ffff00]": entry.category === "events"},
+                    {"bg-[#ff00ff]": entry.category === "exhibitions"},
+                    {"bg-[#00ffff]": entry.category === "clubs"},
+                    {"bg-[#eeeeee]": entry.category === "kookmins"},
+                    "p-2 rounded-full text-center text-sm"
+                  )}
+                >
+                  {entry.category && entry?.category}
+                </div>
+              </td>
+              {/* <td>{entry.startDate && <p>{entry.startDate}{entry.endDate && `-${entry.endDate}`}</p>}</td> */}
+              <td className="pr-4">{entry.author && entry?.author}</td>
+              <td>{entry?.publishedAt?.slice(0,10)}</td>
+
+        </tr>
       )})}
     </>
   );

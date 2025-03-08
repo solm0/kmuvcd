@@ -23,10 +23,22 @@ export default async function Layout({children}: {children: React.ReactNode}) {
     <div className="w-full flex h-full">
       <div className="flex-1 overflow-x-auto p-4">
         <MoreOptions login={user.ok ? true : false} />
-        <BoardList
-          data={sortedPosts}
-          user={user?.data}
-        />
+        <table className="table-auto text-left w-full">
+          <thead>
+            <tr className="h-12">
+              <th>제목</th>
+              <th>카테고리</th>
+              <th>작성자</th>
+              <th>날짜</th>
+            </tr>
+          </thead>
+          <tbody>
+            <BoardList
+              data={sortedPosts}
+              user={user?.data}
+            />
+          </tbody>
+        </table>
       </div>
       <AnimatedContainer>{children}</AnimatedContainer>
     </div>
