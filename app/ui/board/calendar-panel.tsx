@@ -12,7 +12,7 @@ export default function CalendarPanel({calendarEntries, user}: {calendarEntries:
   return (
     <>
       {/* calendar controll */}
-      <div className="flex items-start">
+      <div className="flex items-start mb-4">
         <GoToToday first_date={new Date(calendarEntries[0].startDate)} columnWidth={columnWidth} calendarRef={calendarRef} />
         <GoToInputday first_date={new Date(calendarEntries[0].startDate)} columnWidth={columnWidth} calendarRef={calendarRef} min={calendarEntries[0].startDate} max={calendarEntries[calendarEntries.length - 1].endDate}/>
       </div>

@@ -3,6 +3,7 @@
 import { PostProps } from "@/app/lib/definitions"
 import generateCalendarHeadData from "@/app/lib/generate-calendar-head-data";
 import { useHoveredStore } from "@/app/lib/useHoveredStore";
+import clsx from "clsx";
 
 export default function CalendarHead({calendarEntries, columnWidth}: {calendarEntries: PostProps[], columnWidth: number;}) {
   const first_date = new Date(calendarEntries[0].startDate);
@@ -18,7 +19,7 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
   return (
     <div className="sticky top-0 z-20">
       <div
-        className="flex text-gray-400 overflow-visible"
+        className="flex text-sm text-gray-600 overflow-visible"
         style={{
           width: `${(day_count+1) * columnWidth}px`,
         }}
@@ -41,7 +42,7 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
         )}
       </div>
       <div
-        className="grid absolute text-gray-400 items-center"
+        className="grid absolute items-center"
         style={{
           gridTemplateColumns: `repeat(${day_count+1}, ${columnWidth}px)`,
           gridTemplateRows: `repeat(1, ${columnWidth}px)`,
@@ -50,7 +51,7 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
       >
         {hoveredDate ? (
           <div
-            className="relative bg-gray-200 mix-blend-multiply w-auto rounded-full h-8"
+            className="relative bg-gray-100 mix-blend-multiply w-auto rounded-full h-8"
             style={{
               gridRow: `1 / span ${entry_count}`,
               gridColumnStart: (+new Date(hoveredDate.startDate) - +new Date(calendarEntries[0].startDate)) / (1000 * 60 * 60 * 24)+1,
@@ -63,7 +64,7 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
         )}
       </div>
       <div
-        className="grid text-gray-400 bg-white"
+        className="grid text-sm text-gray-600 bg-white"
         style={{
           gridTemplateColumns: `repeat(${day_count+1}, ${columnWidth}px)`,
           gridTemplateRows: `repeat(1, ${columnWidth}px)`,
@@ -75,16 +76,21 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
           yearData
             ? [...yearData.months.entries()].flatMap(([month, monthData]) =>
                 monthData
-                  ? [...monthData.dates.values()].map((actualDate) => (
-                    <div
-                      key={`${year}-${month}-${actualDate}`}
-                      id="date"
-                      className="text-center flex justify-center items-center"
-                    >
-                      {actualDate}
-                    </div>
-                  ))
-                  : []
+                  ? [...monthData.dates.values()].map((actualDate) => {
+                    const dateObj = new Date(`${year}-${month + 1}-${actualDate}`);
+                    const isWeekend = [0, 6].includes(dateObj.getDay()); // 0 = Sunday, 6 = Saturday
+
+                    return (
+                      <div
+                        key={`${year}-${month}-${actualDate}`}
+                        id="date"
+                        className={clsx("text-center flex justify-center items-center", {"text-gray-400": isWeekend})}
+                      >
+                        {actualDate}
+                      </div>
+                    );
+                  })
+                : []
               )
             : []
         )}

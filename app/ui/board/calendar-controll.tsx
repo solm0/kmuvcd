@@ -43,7 +43,7 @@ export function GoToToday({
 
   return (
     <button
-      className="flex px-5 py-2 bg-gray-200 text-sm hover:bg-gray-300 transition-colors"
+      className="flex px-2 py-1 bg-gray-200 text-sm hover:bg-gray-300 transition-colors"
       onClick={() => {scrollToDay(first_to_today, columnWidth, calendarRef)}}
     >
       Today
@@ -94,7 +94,7 @@ export function GoToInputday({
       </form>
       <button
         type="submit"
-        className="flex px-5 py-2 bg-gray-200 text-sm hover:bg-gray-300 transition-colors"
+        className="flex px-2 py-1 bg-gray-200 text-sm hover:bg-gray-300 transition-colors"
         onClick={() => {scrollToDay(first_to_inputday, columnWidth, calendarRef)}}
       >
         Input Day

@@ -6,8 +6,6 @@ import { useSearchParams } from "next/navigation";
 import { PostProps, UserDataProps } from "@/app/lib/definitions";
 import { useEffect} from "react";
 import { scrollToDay } from "./calendar-controll";
-import generateCalendarHeadData from "@/app/lib/generate-calendar-head-data";
-import clsx from "clsx";
 import bookmarkFilter from "@/app/lib/bookmark-filter";
 
 interface EntryProps {
@@ -70,8 +68,6 @@ export default function CalendarBody({
     })
   }
 
-  const head_data = generateCalendarHeadData(first_date, last_date);
-
   return (
     <div
       className={`grid border`}
@@ -98,38 +94,6 @@ export default function CalendarBody({
           data={bookmarkEntries ? bookmarkEntries[index] : filteredEntries[index]}
         />
       ))}
-
-      {/*saturday, sunday color */}
-      {head_data &&
-      [...head_data.years.entries()].flatMap(([year, yearData]) =>
-        yearData
-          ? [...yearData.months.entries()].flatMap(([month, monthData]) =>
-              monthData
-                ? [...monthData.dates.values()].map((actualDate) => {
-                    const dateObj = new Date(`${year}-${month + 1}-${actualDate}`);
-                    const isWeekend = [0, 6].includes(dateObj.getDay()); // 0 = Sunday, 6 = Saturday
-                    const columnStart = Math.round(
-                      (+dateObj - +new Date(calendarEntries[0].startDate)) /
-                        (1000 * 60 * 60 * 24) + 1
-                    );
-
-                    return (
-                      <div
-                        key={`${year}-${month}-${actualDate}`}
-                        className={clsx("z-0", { "bg-gray-100 opacity-50": isWeekend })}
-                        style={{
-                          gridRow: `1 / span ${entry_count}`,
-                          gridColumnStart: columnStart,
-                          gridColumnEnd: columnStart + 1,
-                        }}
-                      >
-                      </div>
-                    );
-                  })
-                : []
-            )
-          : []
-      )}
     </div>
   )
 }
