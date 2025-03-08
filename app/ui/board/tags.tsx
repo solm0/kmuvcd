@@ -85,7 +85,7 @@ export default function Tags({category}: {category: string}) {
           <label>태그: </label>
           <button
             onClick={() => handleTag('*')}
-            className={clsx("hover:text-gray-500", {"text-gray-500": currentTag === '*'})}
+            className={clsx("hover:text-gray-400", {"text-gray-400": currentTag === '*'})}
           >
             전체
           </button>
@@ -93,7 +93,7 @@ export default function Tags({category}: {category: string}) {
             <button
               key={tag.name}
               onClick={() => handleTag(tag.name)}
-              className={clsx("hover:text-gray-500", {"text-gray-500": currentTag === tag.name})}
+              className={clsx("hover:text-gray-400", {"text-gray-400": currentTag === tag.name})}
             >
               {tag.name}
             </button>

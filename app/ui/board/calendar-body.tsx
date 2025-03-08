@@ -116,7 +116,7 @@ export default function CalendarBody({
                     return (
                       <div
                         key={`${year}-${month}-${actualDate}`}
-                        className={clsx("bg-gray-100 z-0", { "bg-gray-200 opacity-50": isWeekend })}
+                        className={clsx("z-0", { "bg-gray-100 opacity-50": isWeekend })}
                         style={{
                           gridRow: `1 / span ${entry_count}`,
                           gridColumnStart: columnStart,

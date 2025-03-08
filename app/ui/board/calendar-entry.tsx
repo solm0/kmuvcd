@@ -34,7 +34,7 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
             {"bg-[#ffff00]": data.category === "events"},
             {"bg-[#ff00ff]": data.category === "exhibitions"},
             {"bg-[#00ffff]": data.category === "clubs"},
-            {"bg-[#ffffff]": data.category === "kookmins"},
+            {"bg-[#eeeeee]": data.category === "kookmins"},
           )}
           style={{
             gridRowStart: index+1, // entryPosition.row

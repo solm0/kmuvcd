@@ -44,20 +44,20 @@ export default function DocIndex() {
       {categories.map((category) => (
         <div 
           key={category.name}
-          className="w-full h-auto border-t border-gray-400 flex flex-col items-start"
+          className="w-full h-auto flex flex-col items-start text-sm"
         >
-          <div className="p-4 h-12 flex items-center">
+          <div className="p-4 h-8 flex items-center">
             {category.name}
           </div>
-          <div className="ml-28 -mt-12 w-28 h-auto p-0">
+          <div className="ml-28 -mt-8 w-28 h-auto p-0">
             {category.lists.map((link) => {
               return (
                 <div
                   key={link.name}
                   className={clsx(
-                    "w-28 h-12 break-keep hover:bg-gray-300 transition-colors",
+                    "w-28 h-8 break-keep hover:text-gray-400 transition-colors",
                     {
-                      "bg-gray-300": hash === `#${link.href}`,
+                      "text-gray-400": hash === `#${link.href}`,
                     },
                   )}
                 >
@@ -70,7 +70,7 @@ export default function DocIndex() {
                       });
                       router.replace(`${pathname}?${searchParams}#${link.href}`, { scroll: false });
                     }}
-                    className="w-full h-full flex items-center p-4"
+                    className="w-full h-full flex items-center text-left p-4"
                     >
                     {link.name}
                   </button>

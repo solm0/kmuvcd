@@ -18,7 +18,7 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
   return (
     <div className="sticky top-0 z-20">
       <div
-        className="flex text-gray-500 bg-gray-100/50 backdrop-blur-md overflow-visible"
+        className="flex text-gray-400 overflow-visible"
         style={{
           width: `${(day_count+1) * columnWidth}px`,
         }}
@@ -30,7 +30,7 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
               <div
                 key={`${year}-${month}`}
                 id="month"
-                className="flex items-center sticky left-0 pl-4 bg-gray-100"
+                className="flex items-center sticky left-0 pl-4 bg-white"
                 style={{width: `${monthData.dates.length * columnWidth}px`}}
               >
                 {month === 0 ? `${year}년` : null} {month + 1}월
@@ -41,7 +41,7 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
         )}
       </div>
       <div
-        className="grid absolute text-gray-500 items-center"
+        className="grid absolute text-gray-400 items-center"
         style={{
           gridTemplateColumns: `repeat(${day_count+1}, ${columnWidth}px)`,
           gridTemplateRows: `repeat(1, ${columnWidth}px)`,
@@ -63,7 +63,7 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
         )}
       </div>
       <div
-        className="grid text-gray-500 bg-gray-100"
+        className="grid text-gray-400 bg-white"
         style={{
           gridTemplateColumns: `repeat(${day_count+1}, ${columnWidth}px)`,
           gridTemplateRows: `repeat(1, ${columnWidth}px)`,

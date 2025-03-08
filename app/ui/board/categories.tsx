@@ -48,7 +48,7 @@ export default function Categories() {
         <label>카테고리: </label>
         <button
           onClick={() => handleCategory('*')}
-          className={clsx("hover:text-gray-500", {"text-gray-500": currentCategory === '*'})}
+          className={clsx("hover:text-gray-400", {"text-gray-400": currentCategory === '*'})}
         >
           전체
         </button>
@@ -56,7 +56,7 @@ export default function Categories() {
           <button
             key={category.name}
             onClick={() => handleCategory(category.query)}
-            className={clsx("hover:text-gray-500", {"text-gray-500": currentCategory === category.query})}
+            className={clsx("hover:text-gray-400", {"text-gray-400": currentCategory === category.query})}
           >
             {category.name}
           </button>

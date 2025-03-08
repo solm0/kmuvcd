@@ -18,7 +18,7 @@ export default function CalendarPanel({calendarEntries, user}: {calendarEntries:
       </div>
       
       {/* calendar */}
-      <div className="relative bg-gray-100 flex flex-col items-center w-full overflow-hidden">
+      <div className="relative flex flex-col items-center w-full overflow-hidden">
         <div
           className="overflow-x-auto w-full h-full z-10"
           id="calendar_window"
