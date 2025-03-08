@@ -31,11 +31,11 @@ export default function Docs({children}: {children: React.ReactNode}) {
   }, [searchParams]);
 
   return (
-    <nav className="h-full w-auto flex">
+    <nav className="w-full h-auto md:h-full md:w-auto md:flex">
       <div
         className={clsx(
-          "bg-gray-200 h-full w-28 transition-[width, colors] duration-300",
-          isOpen ? "w-[42rem]" : "hover:bg-gray-300"
+          "bg-gray-200 w-full h-12 md:h-full md:w-28 transition-[width, height, colors] duration-300",
+          isOpen ? "h-[90vh] md:w-[42rem]" : "hover:bg-gray-300"
         )}
         onClick={isOpen ? undefined : handleOpen}
       > 
@@ -48,7 +48,7 @@ export default function Docs({children}: {children: React.ReactNode}) {
         </div>
 
         <div className="flex h-[calc(100%-3rem)]">
-          <div className={clsx( "w-28", isOpen ? "w-56" : "overflow-hidden" )}>
+          <div className={clsx("w-full md:w-28", isOpen ? "md:w-56" : "overflow-hidden" )}>
             <DocIndex />
           </div>
           <div className={clsx("w-full h-full p-4 overflow-x-auto", {"hidden": !isOpen})}>
