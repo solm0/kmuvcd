@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import Categories from "@/app/ui/board/categories";
 import { Search } from "../ui/search";
+import { useState, useEffect } from "react";
 
 export default function Layout({children}: {children: React.ReactNode}) {
   const pathname = usePathname();
@@ -15,8 +16,19 @@ export default function Layout({children}: {children: React.ReactNode}) {
     return `${newPath}/${subPath}?${searchParams}`;
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get("expand") === "true") {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+      // console.log('closed', isOpen)
+    }
+  }, [searchParams]);
+
   return(
-    <div className="w-full h-full flex flex-col ">
+    <div className={clsx("w-full h-full flex flex-col", isOpen ? "bg-gray-200 hover:bg-white transition-colors duration-300" : "bg-white")}>
       <nav className="h-auto">
         <div className="w-full h-8 text-sm p-4 flex items-center gap-4">
           <label>보기: </label>

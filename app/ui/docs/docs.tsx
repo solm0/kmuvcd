@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { useState, useEffect } from "react";
-import { X, Plus } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import DocIndex from "./doc-index";
 
@@ -32,10 +32,16 @@ export default function Docs({children}: {children: React.ReactNode}) {
 
   return (
     <nav className="w-full h-auto md:h-full md:w-auto md:flex">
+      <div className="absolute border-black border-r border-b w-8 h-8 -ml-4 -mt-4 z-0"></div>
+      <div className="absolute border-black border-r border-t w-8 h-8 bottom-0 -mb-4 -ml-4 z-0"></div>
+      <div className="absolute border-black border-l border-b w-8 h-8 right-0 -mr-4 -mt-4 z-0"></div>
+      <div className="absolute border-black border-l border-t w-8 h-8 right-0 bottom-0 -mb-4 -mr-4 z-0"></div>
+      <div className="absolute border-black border-r border-b w-8 h-8 right-0 -mr-8 -mt-4 z-0"></div>
+      <div className="absolute border-black border-r border-t w-8 h-8 right-0 bottom-0 -mb-4 -mr-8 z-0"></div>
       <div
         className={clsx(
-          "bg-white w-full h-12 md:h-full md:w-28 transition-[width, height, colors] duration-300",
-          isOpen ? "h-[90vh] md:w-[42rem]" : "hover:bg-gray-300"
+          "relative w-full h-12 md:h-full md:w-28 transition-[width, height, colors] duration-300 z-10",
+          isOpen ? "h-[90vh] md:w-[42rem] bg-white" : "bg-gray-200 hover:bg-white"
         )}
         onClick={isOpen ? undefined : handleOpen}
       > 
@@ -46,7 +52,7 @@ export default function Docs({children}: {children: React.ReactNode}) {
             </button>
           ) : (
             <button onClick={handleOpen} className="ml-auto text-gray-600 hover:text-gray-900 z-80 transition-colors">
-              <Plus />
+
             </button>
           )}
         </div>

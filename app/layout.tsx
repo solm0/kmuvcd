@@ -15,7 +15,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className="h-full bg-gray-100">
+      <body className="h-full bg-gray-200">
         <div className="flex flex-col h-full overflow-hidden">
           <HeaderSection />
           <div className="px-4 pb-4 md:flex md:gap-4 fixed w-full top-12 h-[calc(100%-3rem)]">
@@ -24,7 +24,11 @@ export default function RootLayout({
                 <DocPage />
               </Docs>
             </LeftSection>
-            <RightSection>{children}</RightSection>
+            <RightSection>
+              {children}
+            </RightSection>
+            <div className="absolute border-black border-l border-t bottom-0 right-0 w-8 h-8 -ml-4 -mt-4 z-0"></div>
+            <div className="absolute border-black border-l border-b top-0 right-0 w-8 h-8 -ml-4 -mt-4 z-0"></div>
           </div>
         </div>
       </body>
