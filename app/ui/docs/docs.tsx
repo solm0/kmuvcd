@@ -41,7 +41,7 @@ export default function Docs({children}: {children: React.ReactNode}) {
       <div
         className={clsx(
           "relative w-full h-12 md:h-full md:w-28 transition-[width, height, colors] duration-300 z-10",
-          isOpen ? "h-[90vh] md:w-[42rem] bg-white" : "bg-gray-200 hover:bg-white"
+          isOpen ? "h-[90vh] md:w-[57rem] bg-white" : "bg-gray-200 hover:bg-white"
         )}
         onClick={isOpen ? undefined : handleOpen}
       > 

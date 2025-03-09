@@ -28,7 +28,7 @@ const categories = [
   { name: '학사 정보',
     lists: [
       { name: '졸업 요건', href: 'graduation'},
-      { name: '복/부전공 요건', href: 'major'}
+      { name: '복수/부전공', href: 'major'}
     ]
   },
 ]

@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import Link from "next/link";
+import clsx from "clsx";
 
 export default function AnimatedContainer({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -23,7 +24,7 @@ export default function AnimatedContainer({ children }: { children: React.ReactN
         animate={{ width: hasSubPath ? "50%" : "0%", opacity: 1, x: 0 }}
         exit={{ width: "0%", opacity: 0, x: 50 }}
         transition={{ duration: 0.5 }}
-        className="shadow-lg"
+        className={clsx("shadow-lg", {"min-w-72": hasSubPath})}
       >
         <div className="h-12 p-4 flex absolute w-1/2 items-center">
           <Link

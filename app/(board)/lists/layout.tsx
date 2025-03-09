@@ -23,7 +23,7 @@ export default async function Layout({children}: {children: React.ReactNode}) {
     <div className="w-full flex h-full">
       <div className="flex-1 overflow-x-auto p-4">
         <MoreOptions login={user.ok ? true : false} />
-        <table className="table-auto text-left w-full">
+        <table className="table-auto text-left w-full text-sm">
           <thead>
             <tr className="h-12">
               <th>제목</th>

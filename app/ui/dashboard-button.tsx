@@ -10,7 +10,7 @@ export default function DashboardButton() {
   return (
     <Link
       href={isHome ? '/dashboard' : '/calendar'}
-      className="w-full h-full hover:bg-blue-500 transition-colors flex p-4 items-center text-sm"
+      className="w-full h-full hover:text-gray-500 transition-colors flex p-4 items-center text-sm"
     >
       <p>{isHome ? '대시보드' : '홈으로'}</p>
     </Link>

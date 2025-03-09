@@ -32,7 +32,7 @@ export default function BoardImage({data, user}: { data: PostProps[]; user: User
                 <div>
                   <ImageMedia media={entry?.thumbnail} size="medium" />
                 </div>
-                <p>{entry?.name}</p>
+                <p className="text-sm">{entry?.name}</p>
               </div>
             </Link>
             : <div className="rounded-lg p-4 mt-4 bg-gray-100">no documentId or thumbnail</div>
