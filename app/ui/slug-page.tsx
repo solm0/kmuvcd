@@ -1,34 +1,14 @@
-import { getBoardPosts } from "@/app/lib/get-board-posts";
 import Website from "./cms/website";
 import { ImageMedia } from "./cms/media";
 import MdText from "./cms/md-text";
-import { getAuthToken } from "@/app/lib/services/get-token";
-import { getUserMe } from "@/app/lib/services/get-user-me";
 import BookmarkButton from "./bookmark-button";
+import { PostProps, UserDataProps } from "../lib/definitions";
 
-const posts = await getBoardPosts();
-
-export async function generateStaticParams() {
-  console.log("Generated Static Params:", posts);
-
-  if (!posts) {
-    console.error('No posts found');
-    return [];
-  }
-
-  return posts.map((post) => ({
-    slug: post.documentId,
-  }));
-}
-
-export default async function SlugPage({slug} : {slug: string}) {
+export default async function SlugPage({slug, token, user, posts} : {slug: string; token?: string; user: UserDataProps; posts: PostProps[]}) {
   
   if (!slug) {
     return <div className="w-full">Invalid URL</div>;
   }
-
-  const token = await getAuthToken();
-  const user = await getUserMe(true);
 
   const post = posts?.find((p) => p.documentId === slug);
 
@@ -41,7 +21,7 @@ export default async function SlugPage({slug} : {slug: string}) {
   return (
     <div className="p-4 h-full overflow-y-auto overflow-x-hidden">
       <div className="relative h-0 left-[calc(100%-1.5rem)]">
-        {post.documentId && token && user && post.category && <BookmarkButton postId={post.documentId} token={token} user={user.data} category={post.category} />}
+        {post.documentId && token && user && post.category && <BookmarkButton postId={post.documentId} token={token} user={user} category={post.category} />}
       </div>
       <p>제목: {post.name}</p>
       <p>작성자: {post.author}</p>
