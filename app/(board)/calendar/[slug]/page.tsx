@@ -1,4 +1,4 @@
-import SlugPage from "@/app/ui/slug-page";
+import SlugPage from "@/app/ui/slug-page-calendar";
 import { getAuthToken } from "@/app/lib/services/get-token";
 import { getUserMe } from "@/app/lib/services/get-user-me";
 import { getBoardPosts } from "@/app/lib/get-board-posts";
