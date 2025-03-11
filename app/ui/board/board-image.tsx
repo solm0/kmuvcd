@@ -10,8 +10,7 @@ import bookmarkFilter from "@/app/lib/bookmark-filter";
 import generateHref from "@/app/lib/generate-href";
 
 export default function BoardImage({data, user}: { data: PostProps[]; user: UserDataProps}) {
-  const pathname = usePathname();
-  const subPath = pathname.split('/').slice(2, 3).toString();
+  const pathname = usePathname().split('/').slice(1, 2).toString();
   const searchParams = useSearchParams();
 
    // 카테고리, 태그 필터
@@ -27,8 +26,8 @@ export default function BoardImage({data, user}: { data: PostProps[]; user: User
       {bookmarkEntries && bookmarkEntries.map((entry: PostProps) => (
         <div key={entry.documentId} className="max-w-96 min-w-48">
           {entry.documentId && entry.thumbnail ?
-            <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId, subPath)}>
-              <div className={clsx("rounded-lg mb-4 hover:opacity-50", {"opacity-50": (subPath === entry?.documentId)})}>
+            <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>
+              <div className={clsx("rounded-lg mb-4 hover:opacity-50", {"opacity-50": (pathname === entry?.documentId)})}>
                 <div>
                   <ImageMedia media={entry?.thumbnail} size="medium" />
                 </div>

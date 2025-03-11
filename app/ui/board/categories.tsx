@@ -25,6 +25,7 @@ export default function Categories() {
       const newParams = new URLSearchParams(searchParams.toString());
       newParams.set("category", '*');
       newParams.set("tag", '*');
+      newParams.set("view", "calendar");
       router.push(`${pathname}?${newParams.toString()}`);
     }
   }, []);

@@ -14,7 +14,6 @@ export default function BoardLayout({children}: {children: React.ReactNode}) {
       setIsOpen(true);
     } else {
       setIsOpen(false);
-      // console.log('closed', isOpen)
     }
   }, [searchParams]);
 

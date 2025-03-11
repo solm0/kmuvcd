@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 'use client'
 
 import { PostProps } from "@/app/lib/definitions";
@@ -15,8 +13,7 @@ interface EntryProps {
 }
 
 export default function CalendarEntry({ entryPosition, index, data }: { entryPosition: EntryProps; index: number; data:PostProps; }) {
-  const pathname = usePathname();
-  const subPath = pathname.split('/').slice(2, 3).toString();
+  const pathname = usePathname().split('/').slice(1, 2).toString();
   const searchParams = useSearchParams();
 
   const setHoveredDate = useHoveredStore((state) => state.setHoveredDate);
@@ -26,9 +23,9 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
       {data.documentId &&
         <Link
           key={`${data.documentId}-${index}`}
-          href={generateHref(pathname, searchParams.toString(), data?.documentId, subPath)}
+          href={generateHref(pathname, searchParams.toString(), data?.documentId)}
           className={clsx(
-            subPath === data?.documentId ? "opacity-50 hover:!bg-opacity-100" : "hover:bg-opacity-50",
+            pathname === data?.documentId ? "opacity-50 hover:!bg-opacity-100" : "hover:bg-opacity-50",
             "flex items-center h-8 z-10",
             {"bg-[#000000] text-[#ffffff]": data.category === "notices"},
             {"bg-[#ffff00]": data.category === "events"},

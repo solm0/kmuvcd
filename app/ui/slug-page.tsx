@@ -4,7 +4,7 @@ import MdText from "./cms/md-text";
 import BookmarkButton from "./bookmark-button";
 import { PostProps, UserDataProps } from "../lib/definitions";
 
-export default async function SlugPage({slug, token, user, posts} : {slug: string; token?: string; user: UserDataProps; posts: PostProps[]}) {
+export default async function SlugPage({slug, token, user, posts} : {slug: string; token?: string; user?: UserDataProps; posts: PostProps[]}) {
   
   if (!slug) {
     return <div className="w-full">Invalid URL</div>;
@@ -12,15 +12,13 @@ export default async function SlugPage({slug, token, user, posts} : {slug: strin
 
   const post = posts?.find((p) => p.documentId === slug);
 
-  // console.log(post)
-
   if (!post) {
     return <div className="w-full">Post not found</div>;
   }
 
   return (
     <div className="p-4 h-full overflow-y-auto overflow-x-hidden">
-      <div className="relative h-0 left-[calc(100%-1.5rem)]">
+      <div className="absolute right-4 top-12">
         {post.documentId && token && user && post.category && <BookmarkButton postId={post.documentId} token={token} user={user} category={post.category} />}
       </div>
       <p>제목: {post.name}</p>

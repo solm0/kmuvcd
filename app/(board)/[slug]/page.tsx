@@ -4,9 +4,8 @@ import { getUserMe } from "@/app/lib/services/get-user-me";
 import { getBoardPosts } from "@/app/lib/get-board-posts";
 import { Suspense } from "react";
 
-const posts = await getBoardPosts();
-
 export async function generateStaticParams() {
+  const posts = await getBoardPosts();
   console.log("Generated Static Params:", posts);
 
   if (!posts) {
@@ -16,16 +15,17 @@ export async function generateStaticParams() {
 
   return posts.map((post) => ({
     slug: post.documentId,
-  })); 
+  }));
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const token = await getAuthToken();
   const user = await getUserMe(true);
+  const posts = await getBoardPosts();
 
   return (
-    <Suspense key='lists' fallback={<div className="w-full">Loading post...</div>}>
+    <Suspense fallback={<div className="w-full">Loading post...</div>}>
       <SlugPage slug={slug} token={token} user={user.data} posts={posts} />
     </Suspense>
   )
