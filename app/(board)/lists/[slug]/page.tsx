@@ -1,4 +1,4 @@
-import SlugPage from "@/app/ui/slug-page-lists";
+import SlugPage from "@/app/ui/slug-page";
 import { getAuthToken } from "@/app/lib/services/get-token";
 import { getUserMe } from "@/app/lib/services/get-user-me";
 import { getBoardPosts } from "@/app/lib/get-board-posts";
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 
   return posts.map((post) => ({
     slug: post.documentId,
-  }));
+  })); 
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
