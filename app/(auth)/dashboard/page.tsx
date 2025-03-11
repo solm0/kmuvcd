@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { LogoutButton } from '@/app/ui/auth/logout-button';
 import UserCard from '@/app/ui/auth/usercard';
 import { getUserMe } from "@/app/lib/services/get-user-me";
-import { getAuthToken } from "@/app/lib/services/get-token";
 import { redirect } from 'next/navigation';
 import { logoutAction } from '@/app/lib/actions/auth-actions';
 
@@ -11,7 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const token = await getAuthToken();
   const user = await getUserMe(true);
 
   if (user?.ok === false) {
@@ -23,7 +21,7 @@ export default async function Page() {
     <div className="w-full flex h-full">
       <div className="flex-1 overflow-x-auto">
         <h1 className='text-2xl pb-8'>내 프로필</h1>
-        <UserCard token={token ?? undefined} user={user?.data} />
+        <UserCard user={user?.data} />
         <form action={logoutAction}>
           <LogoutButton />
         </form>

@@ -1,4 +1,5 @@
 import { PostProps } from "./definitions";
+import Fuse from 'fuse.js'
 
 export default function queryFilter(
   data: PostProps[],
@@ -34,15 +35,23 @@ export default function queryFilter(
   // console.log("tagFiltered", tagFiltered)
 
   // 검색 필터링
+  const options = {
+    includeScore: true,
+    threshold: 0.5,
+    keys: ["name", "dynamic.text_block"] // Define searchable fields
+  }
+
+  const fuse = new Fuse(tagFiltered, options)
+
   let searchFiltered;
 
   if (search === null) {
     searchFiltered = tagFiltered;
   } else {
-    searchFiltered = tagFiltered.filter((entry) => {
-      return search && entry.name?.includes(search) || entry.dynamic?.some(item => item.text_block?.includes(search));
-    })
+    searchFiltered = fuse.search(search).map(result => result.item);
   }
+
+  // console.log("searchFiltered", searchFiltered)
 
   return searchFiltered;
 }

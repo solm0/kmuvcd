@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 export async function generateStaticParams() {
   const posts = await getBoardPosts();
-  console.log("Generated Static Params:", posts);
+  // console.log("Generated Static Params:", posts);
 
   if (!posts) {
     console.error('No posts found');

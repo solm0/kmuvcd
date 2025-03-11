@@ -18,7 +18,7 @@ export default function RootLayout({
       <body className="h-full bg-gray-200">
         <div className="flex flex-col h-full overflow-hidden">
           <HeaderSection />
-          <div className="px-4 pb-4 md:flex md:gap-4 fixed w-full top-12 h-[calc(100%-3rem)]">
+          <div className="px-4 pb-4 md:flex md:gap-4 fixed w-full top-12 h-[calc(100%-6rem)] md:h-[calc(100%-3rem)]">
             <LeftSection>
               <Docs>
                 <DocPage />
