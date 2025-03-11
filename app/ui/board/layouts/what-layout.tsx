@@ -6,6 +6,17 @@ import CalendarLayout from "./calendar-layout";
 import ListsLayout from "./lists-layout";
 import GalleryLayout from "./gallery-layout";
 import { useState, useEffect } from "react";
+import { queryFilter, bookmarkFilter } from "@/app/lib/query-filter";
+
+export function filter(posts: PostProps[], user: UserDataProps, searchParams: URLSearchParams) {
+  const category = searchParams.get('category');
+  const tag = searchParams.get('tag');
+  const search = searchParams.get('search');
+  const bookmark = searchParams.get('bookmark');
+  const filteredEntries = queryFilter(posts, category, tag, search);
+  const bookmarkEntries = bookmarkFilter(filteredEntries, bookmark, user);
+  return bookmarkEntries;
+}
 
 export default function WhatLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps;}) {
   const searchParams = useSearchParams();
@@ -38,6 +49,8 @@ export default function WhatLayout({children, posts, user}: {children: React.Rea
       );
   });
 
+  const filteredCalendarPosts = filter(calendarPosts, user, searchParams);
+
   // lists data
 
   // publishedAt 정렬.
@@ -49,6 +62,8 @@ export default function WhatLayout({children, posts, user}: {children: React.Rea
         new Date(a.endDate)?.getTime() - new Date(b.endDate)?.getTime()
       )
     }) 
+
+  const filteredListsPosts = filter(listsPosts, user, searchParams);
 
   // gallery data
 
@@ -73,13 +88,15 @@ export default function WhatLayout({children, posts, user}: {children: React.Rea
       );
     });
 
+  const filteredGalleryPosts = filter(galleryPosts, user, searchParams);
+
   // 파라미터의 view에 따라 어떤 레이아웃 렌더링할지 정함
   switch (layout) {
     case "calendar":
-      return <CalendarLayout posts={calendarPosts} user={user}>{children}</CalendarLayout>;
+      return <CalendarLayout posts={calendarPosts} filteredPosts={filteredCalendarPosts} user={user}>{children}</CalendarLayout>;
     case "lists":
-      return <ListsLayout posts={listsPosts} user={user}>{children}</ListsLayout>;
+      return <ListsLayout posts={filteredListsPosts} user={user}>{children}</ListsLayout>;
     case "gallery":
-      return <GalleryLayout posts={galleryPosts} user={user}>{children}</GalleryLayout>;
+      return <GalleryLayout posts={filteredGalleryPosts} user={user}>{children}</GalleryLayout>;
   }
 }

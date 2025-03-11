@@ -1,11 +1,11 @@
 'use client'
 
-import { PostProps, UserDataProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/definitions";
 import { useRef } from "react";
 import { GoToInputday, GoToToday } from "./calendar-controll";
 import CalendarWindow from "./calendar-window";
 
-export default function CalendarPanel({calendarEntries, user}: {calendarEntries: PostProps[]; user: UserDataProps}) {
+export default function CalendarPanel({calendarEntries, filteredEntries }: {calendarEntries: PostProps[]; filteredEntries: PostProps[]; }) {
   const columnWidth = 35;
   const calendarRef = useRef<HTMLDivElement | null>(null);
 
@@ -26,7 +26,7 @@ export default function CalendarPanel({calendarEntries, user}: {calendarEntries:
         >
           <CalendarWindow
             calendarEntries={calendarEntries}
-            user={user}
+            filteredEntries={filteredEntries}
             columnWidth={columnWidth}
             calendarRef={calendarRef}
           />

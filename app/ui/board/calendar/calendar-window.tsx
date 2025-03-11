@@ -1,10 +1,10 @@
 'use client'
 
-import { PostProps, UserDataProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/definitions";
 import CalendarHead from "./calendar-head";
 import CalendarBody from "./calendar-body";
 
-export default function CalendarWindow({calendarEntries, user, columnWidth, calendarRef}: {calendarEntries: PostProps[]; token?: string; user: UserDataProps; columnWidth: number; calendarRef: React.RefObject<HTMLDivElement | null> }) {
+export default function CalendarWindow({calendarEntries, filteredEntries, columnWidth, calendarRef}: {calendarEntries: PostProps[]; filteredEntries: PostProps[]; token?: string; columnWidth: number; calendarRef: React.RefObject<HTMLDivElement | null> }) {
   return (
     <>
       <CalendarHead
@@ -13,7 +13,7 @@ export default function CalendarWindow({calendarEntries, user, columnWidth, cale
       />
       <CalendarBody
         calendarEntries={calendarEntries}
-        user={user}
+        filteredEntries={filteredEntries}
         columnWidth={columnWidth}
         calendarRef={calendarRef}
       />

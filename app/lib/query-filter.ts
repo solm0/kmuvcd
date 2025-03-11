@@ -1,7 +1,7 @@
-import { PostProps } from "./definitions";
+import { PostProps, UserDataProps } from "./definitions";
 import Fuse from 'fuse.js'
 
-export default function queryFilter(
+export function queryFilter(
   data: PostProps[],
   category: string | null,
   tag: string | null,
@@ -54,4 +54,30 @@ export default function queryFilter(
   // console.log("searchFiltered", searchFiltered)
 
   return searchFiltered;
+}
+
+export function bookmarkFilter(data: PostProps[], bookmark: string | null, user: UserDataProps) {
+  let bookmarkFiltered;
+
+  if (user) {
+    const categories = ["clubs", "events", "exhibitions", "notices", "kookmins"];
+
+    const allPostIds = categories.flatMap(
+      (category) => ((user as unknown as Record<string, PostProps[]>)[category] || [])
+        .map((post) => post.documentId)
+    );
+
+    if (bookmark === 'true') {
+      bookmarkFiltered = data.filter((entry) => {
+        return bookmark && allPostIds.includes(entry.documentId);
+      })
+    } else {
+      bookmarkFiltered = data;
+    }
+  } else {
+    bookmarkFiltered = data;
+  }
+
+  // console.log("bookmarkFiltered", bookmarkFiltered)
+  return bookmarkFiltered;
 }

@@ -11,6 +11,7 @@ export default function ListsLayout({children, posts, user}: {children: React.Re
       <div className="w-full overflow-x-auto">
         <div className="w-full h-full overflow-x-auto p-4">
           <MoreOptions login={user ? true : false} />
+          <div className="w-full overflow-x-auto text-sm">{`필터링 결과 ${posts.length}건`}</div>
           <table className="table-auto text-left w-full text-sm">
             <thead>
               <tr className="h-12">
@@ -23,7 +24,6 @@ export default function ListsLayout({children, posts, user}: {children: React.Re
             <tbody>
               <BoardList
                 data={posts}
-                user={user}
               />
             </tbody>
           </table>

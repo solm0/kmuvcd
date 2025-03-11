@@ -3,28 +3,18 @@
 
 'use client'
 
-import { PostProps, UserDataProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/definitions";
 import clsx from "clsx";
 import { useSearchParams, usePathname, redirect } from "next/navigation";
-import queryFilter from "@/app/lib/query-filter";
-import bookmarkFilter from "@/app/lib/bookmark-filter";
 import generateHref from "@/app/lib/generate-href";
 
-export default function BoardList({ data, user }: { data: PostProps[]; user: UserDataProps }) {
+export default function BoardList({ data }: { data: PostProps[]; }) {
   const pathname = usePathname().split('/').slice(1, 2).toString();
   const searchParams = useSearchParams();
 
-  // 카테고리, 태그 필터
-  const category = searchParams.get('category');
-  const tag = searchParams.get('tag');
-  const search = searchParams.get('search');
-  const bookmark = searchParams.get('bookmark');
-  const filteredEntries = queryFilter(data, category, tag, search);
-  const bookmarkEntries = bookmarkFilter(filteredEntries, bookmark, user);
-
   return (
     <>
-      {bookmarkEntries.map((entry: PostProps) => {
+      {data.map((entry: PostProps) => {
         return (
           <tr
             key={entry.documentId}

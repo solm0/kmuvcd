@@ -1,12 +1,9 @@
 'use client'
 
 import CalendarEntry from "./calendar-entry";
-import queryFilter from "@/app/lib/query-filter";
-import { useSearchParams } from "next/navigation";
-import { PostProps, UserDataProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/definitions";
 import { useEffect} from "react";
 import { scrollToDay } from "./calendar-controll";
-import bookmarkFilter from "@/app/lib/bookmark-filter";
 
 interface EntryProps {
   start: number,
@@ -15,12 +12,12 @@ interface EntryProps {
 
 export default function CalendarBody({
   calendarEntries,
-  user,
+  filteredEntries,
   columnWidth,
   calendarRef
 } : {
   calendarEntries: PostProps[],
-  user: UserDataProps
+  filteredEntries: PostProps[],
   columnWidth: number,
   calendarRef: React.RefObject<HTMLDivElement | null>
 }
@@ -39,15 +36,6 @@ export default function CalendarBody({
     scrollToDay(first_to_today, columnWidth, calendarRef, false)
   }, []);
 
-  // 카테고리, 태그 필터
-  const searchParams = useSearchParams();
-  const category = searchParams.get('category');
-  const tag = searchParams.get('tag');
-  const search = searchParams.get('search');
-  const bookmark = searchParams.get('bookmark');
-  const filteredEntries = queryFilter(calendarEntries, category, tag, search);
-  const bookmarkEntries = bookmarkFilter(filteredEntries, bookmark, user);
-
   // entry들의 date계산해서 그 date와 firstEntry와의 차이를 계산.
   function getDiff(entry: PostProps) {
     const start_date = new Date(entry.startDate);
@@ -62,8 +50,8 @@ export default function CalendarBody({
 
   const entries: EntryProps[] = [];
   
-  if (bookmarkEntries) {
-    bookmarkEntries.map((entry: PostProps) => {
+  if (filteredEntries) {
+    filteredEntries.map((entry: PostProps) => {
       entries.push(getDiff(entry)); // column위치계산
     })
   }
@@ -91,7 +79,7 @@ export default function CalendarBody({
           key={`${entry.start}-${index}`}
           entryPosition={entry}
           index={index}
-          data={bookmarkEntries ? bookmarkEntries[index] : filteredEntries[index]}
+          data={filteredEntries[index]}
         />
       ))}
     </div>

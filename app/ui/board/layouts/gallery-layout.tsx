@@ -11,9 +11,9 @@ export default function GalleryLayout({children, posts, user}: {children: React.
       <div className="w-full flex h-full">
         <div className="flex-1 overflow-x-auto p-4">
           <MoreOptions login={user ? true : false} />
+          <div className="w-full overflow-x-auto text-sm">{`필터링 결과 ${posts.length}건`}</div>
           <BoardImage
             data={posts}
-            user={user}
           />
         </div>
         <DetailWindow>{children}</DetailWindow>
