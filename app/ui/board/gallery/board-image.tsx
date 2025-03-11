@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import queryFilter from "@/app/lib/query-filter";
 import Link from "next/link";
 import clsx from "clsx";
-import { ImageMedia } from "../cms/media";
+import { ImageMedia } from "../../cms/media";
 import bookmarkFilter from "@/app/lib/bookmark-filter";
 import generateHref from "@/app/lib/generate-href";
 

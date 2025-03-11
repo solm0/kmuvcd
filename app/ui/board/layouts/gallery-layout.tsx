@@ -1,8 +1,8 @@
-import { PostProps, UserDataProps } from "../lib/definitions";
-import View from "./view";
-import MoreOptions from "./board/more-options";
-import BoardImage from "./board/board-image";
-import AnimatedContainer from "./board/animated-container";
+import { PostProps, UserDataProps } from "../../../lib/definitions";
+import View from "../view";
+import MoreOptions from "../more-options";
+import BoardImage from "../gallery/board-image";
+import DetailWindow from "../detail-window";
 
 export default function GalleryLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps}) {
   return (
@@ -16,7 +16,7 @@ export default function GalleryLayout({children, posts, user}: {children: React.
             user={user}
           />
         </div>
-        <AnimatedContainer>{children}</AnimatedContainer>
+        <DetailWindow>{children}</DetailWindow>
       </div>
     </div>
   );

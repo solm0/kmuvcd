@@ -1,8 +1,8 @@
-import Website from "./cms/website";
-import { ImageMedia } from "./cms/media";
-import MdText from "./cms/md-text";
+import Website from "../cms/website";
+import { ImageMedia } from "../cms/media";
+import MdText from "../cms/md-text";
 import BookmarkButton from "./bookmark-button";
-import { PostProps, UserDataProps } from "../lib/definitions";
+import { PostProps, UserDataProps } from "../../lib/definitions";
 
 export default async function SlugPage({slug, token, user, posts} : {slug: string; token?: string; user?: UserDataProps; posts: PostProps[]}) {
   

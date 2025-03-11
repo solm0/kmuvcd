@@ -1,6 +1,6 @@
 'use client'
 
-import { PostProps, UserDataProps } from "../lib/definitions";
+import { PostProps, UserDataProps } from "@/app/lib/definitions";
 import { useSearchParams } from "next/navigation";
 import CalendarLayout from "./calendar-layout";
 import ListsLayout from "./lists-layout";

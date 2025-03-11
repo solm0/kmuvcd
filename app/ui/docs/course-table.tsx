@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from "react";
-import { PostProps } from "../lib/definitions";
-import MdText from "./cms/md-text";
+import { PostProps } from "@/app/lib/definitions";
+import MdText from "../cms/md-text";
 import clsx from "clsx";
 
 export default function CourseTable({data}: {data: PostProps[]}) {

@@ -1,9 +1,9 @@
 'use client'
 
-import { PostProps } from "../lib/definitions";
+import { PostProps } from "@/app/lib/definitions";
 import { useState } from "react";
-import { ImageMedia } from "./cms/media";
-import Website from "./cms/website";
+import { ImageMedia } from "../cms/media";
+import Website from "../cms/website";
 import clsx from "clsx";
 
 export default function ProfessorTable({data}: {data:PostProps[]}) {

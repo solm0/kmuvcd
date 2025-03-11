@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import Categories from "@/app/ui/board/categories";
-import { Search } from "../ui/search";
+import { Search } from "./search";
 import { useState, useEffect } from "react";
 
 export default function View() {

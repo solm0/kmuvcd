@@ -3,7 +3,7 @@ import { X } from "lucide-react";
 import Link from "next/link";
 import clsx from "clsx";
 
-export default function AnimatedContainer({ children }: { children: React.ReactNode }) {
+export default function DetailWindow({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const isCleanPath = pathname === "/";
@@ -13,7 +13,7 @@ export default function AnimatedContainer({ children }: { children: React.ReactN
   }
 
   return (
-      <div className={clsx("absolute right-0 top-0 bg-white w-1/2 h-full", {"hidden": isCleanPath})}>
+      <div className={clsx("absolute right-0 top-0 bg-white w-1/2 h-full z-10 overflow-auto", {"hidden": isCleanPath})}>
         <div className="h-12 p-4 flex absolute w-full items-center">
           <Link
             href={generateHref(searchParams.toString())}

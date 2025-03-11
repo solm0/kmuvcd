@@ -1,8 +1,8 @@
 'use client'
 
-import { PostProps, UserDataProps } from "../../lib/definitions"
+import { PostProps, UserDataProps } from "@/app/lib/definitions";
 import { useRef } from "react";
-import { GoToToday, GoToInputday } from "./calendar-controll";
+import { GoToInputday, GoToToday } from "./calendar-controll";
 import CalendarWindow from "./calendar-window";
 
 export default function CalendarPanel({calendarEntries, user}: {calendarEntries: PostProps[]; user: UserDataProps}) {

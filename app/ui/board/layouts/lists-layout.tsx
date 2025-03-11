@@ -1,15 +1,15 @@
-import { PostProps, UserDataProps } from "../lib/definitions";
-import View from "./view";
-import MoreOptions from "./board/more-options";
-import BoardList from "./board/board-list";
-import AnimatedContainer from "./board/animated-container";
+import { PostProps, UserDataProps } from "../../../lib/definitions";
+import View from "../view";
+import MoreOptions from "../more-options";
+import BoardList from "../lists/board-list";
+import DetailWindow from "../detail-window";
 
 export default function ListsLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps}) {
   return (
-    <div className="flex-1 overflow-hidden">
+    <>
       <View />
-      <div className="w-full flex h-full">
-        <div className="flex-1 overflow-x-auto p-4">
+      <div className="w-full overflow-x-auto">
+        <div className="w-full h-full overflow-x-auto p-4">
           <MoreOptions login={user ? true : false} />
           <table className="table-auto text-left w-full text-sm">
             <thead>
@@ -28,8 +28,8 @@ export default function ListsLayout({children, posts, user}: {children: React.Re
             </tbody>
           </table>
         </div>
-        <AnimatedContainer>{children}</AnimatedContainer>
+        <DetailWindow>{children}</DetailWindow>
       </div>
-    </div>
+    </>
   );
 }

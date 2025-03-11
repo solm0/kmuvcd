@@ -3,9 +3,9 @@ import { PostProps } from '@/app/lib/definitions';
 import MdText from '@/app/ui/cms/md-text';
 import Website from '@/app/ui/cms/website';
 import { ImageMedia } from '@/app/ui/cms/media';
-import CopyURLButton from '../copy-url-button';
-import ProfessorTable from '../professor-table';
-import CourseTable from '../course-table';
+import CopyURLButton from './copy-url-button';
+import ProfessorTable from './professor-table';
+import CourseTable from './course-table';
 
 const Head = ({id, text}: {id: string, text: string}) => {
     return (

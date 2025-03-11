@@ -1,8 +1,8 @@
-import { PostProps, UserDataProps} from "../lib/definitions";
-import View from "./view";
-import MoreOptions from "./board/more-options";
-import CalendarPanel from "./board/calendar-panel";
-import AnimatedContainer from "@/app/ui/board/animated-container";
+import { PostProps, UserDataProps} from "../../../lib/definitions";
+import View from "../view";
+import MoreOptions from "../more-options";
+import CalendarPanel from "../calendar/calendar-panel";
+import DetailWindow from "@/app/ui/board/detail-window";
 
 export default function CalendarLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps}) {
   return (
@@ -15,7 +15,7 @@ export default function CalendarLayout({children, posts, user}: {children: React
           user={user}
         />
       </div>
-      <AnimatedContainer>{children}</AnimatedContainer>
+      <DetailWindow>{children}</DetailWindow>
     </div>
   );
 }

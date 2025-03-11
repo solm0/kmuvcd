@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { PostProps, UserDataProps } from "@/app/lib/definitions";
 import { BookmarkIcon as BookmarkOutlineIcon } from "@heroicons/react/24/outline";
 import { BookmarkIcon as BookmarkSolidIcon } from "@heroicons/react/24/solid";
-import { addBookmark, removeBookmark } from "../lib/updateBookmark";
+import { addBookmark, removeBookmark } from "@/app/lib/updateBookmark";
 
 export default function BookmarkButton ({ postId, token, user, category }: { postId: string; token: string; user: UserDataProps, category: string} ) {
   const [userData, setUserData] = useState<UserDataProps | null>(user);
