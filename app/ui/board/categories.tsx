@@ -9,7 +9,7 @@ const categories = [
   { name: '공지', query: 'notices', },
   { name: '이벤트', query: 'events', },
   { name: '전시', query: 'exhibitions', },
-  { name: '동아리', query: 'clubs', },
+  { name: '활동', query: 'clubs', },
   { name: '국민대', query: 'kookmins', },
 ]
 
