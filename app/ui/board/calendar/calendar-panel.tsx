@@ -12,13 +12,13 @@ export default function CalendarPanel({calendarEntries, filteredEntries }: {cale
   return (
     <>
       {/* calendar controll */}
-      <div className="flex items-start mb-4">
+      <div className="flex px-4">
         <GoToToday first_date={new Date(calendarEntries[0].startDate)} columnWidth={columnWidth} calendarRef={calendarRef} />
         <GoToInputday first_date={new Date(calendarEntries[0].startDate)} columnWidth={columnWidth} calendarRef={calendarRef} min={calendarEntries[0].startDate} max={calendarEntries[calendarEntries.length - 1].endDate}/>
       </div>
       
       {/* calendar */}
-      <div className="relative flex flex-col items-center w-full overflow-hidden">
+      <div className="relative flex flex-col px-4 items-center w-full overflow-hidden">
         <div
           className="overflow-x-auto w-full h-full z-10"
           id="calendar_window"

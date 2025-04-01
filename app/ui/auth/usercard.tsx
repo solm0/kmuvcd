@@ -10,11 +10,8 @@ export default function UserCard({ user }: { user: UserDataProps }) {
     <div>
       {userData ? (
         <>
-          <p>Welcome, {userData.realname}!</p>
-          <p>Your email is {userData.email}!</p>
-          <p>Your email has been {userData.confirmed ? 'confirmed' : 'not confirmed'}!</p>
-          <p>You are {userData.blocked ? 'blocked' : 'not blocked'}!</p>
-          <p>Your role is &apos;{userData.role.name}&apos; user!</p>
+          <p>{userData.realname}</p>
+          <p>{userData.email}</p>
         </>
       ) : (
         <p>Loading...</p>

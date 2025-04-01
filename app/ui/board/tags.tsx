@@ -81,11 +81,10 @@ export default function Tags({category}: {category: string}) {
   return (
     <>
       {(tagSet!==null) && (
-        <div className="h-8 text-sm p-4 flex items-center gap-4">
-          <label>태그: </label>
+        <div className="h-auto text-sm flex items-center gap-3 flex-wrap">
           <button
             onClick={() => handleTag('*')}
-            className={clsx("hover:text-gray-400", {"text-gray-400": currentTag === '*'})}
+            className={clsx("hover:text-gray-400 h-6 w-auto px-3 break-keep border border-black", {"bg-gray-200": currentTag === '*'})}
           >
             전체
           </button>
@@ -93,7 +92,7 @@ export default function Tags({category}: {category: string}) {
             <button
               key={tag.name}
               onClick={() => handleTag(tag.name)}
-              className={clsx("hover:text-gray-400", {"text-gray-400": currentTag === tag.name})}
+              className={clsx("hover:text-gray-400 h-6 w-auto px-3 break-keep border border-black", {"bg-gray-200": currentTag === tag.name})}
             >
               {tag.name}
             </button>

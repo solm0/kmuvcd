@@ -2,18 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { UserRound } from "lucide-react";
+import clsx from "clsx";
 
 export default function DashboardButton() {
   const pathname = usePathname();
   const isHome = !['/dashboard', '/email.confirmation', '/email-confirmation-resend', '/forgot-password', '/reset-password', '/signin', '/signup'].some(path => pathname.startsWith(path));
 
   return (
-    <div className="w-auto h-8 ml-auto bg-gray-100">
+    <div className="w-8 h-8 ml-auto">
       <Link
         href={isHome ? '/dashboard' : '/'}
-        className="w-full h-full hover:text-gray-500 transition-colors flex p-4 items-center text-sm"
+        className={clsx("w-full h-full flex items-center justify-center rounded-full bg-gray-200 hover:text-gray-400 transition-colors", !isHome && "bg-gray-900 text-gray-100")}
       >
-        <p>{isHome ? '대시보드' : '홈으로'}</p>
+        <UserRound className="w-[20px] h-[20px]" />
       </Link>
     </div>
   );

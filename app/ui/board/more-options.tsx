@@ -27,14 +27,14 @@ export default function MoreOptions({ login }: { login: boolean }) {
   };
 
   return (
-    <div className="w-1/2 h-8 text-sm pb-4 flex items-center gap-4">
+    <div className="h-8 text-sm flex items-center gap-4">
       {login && (
         <button
           onClick={handleFilter}
           className={clsx( isClicked ? "text-blue-600" : "text-gray-400", "hover:text-blue-400 flex items-center gap-1"
           )}
         >
-          <BookmarkIcon className="w-5 h-5" />
+          <BookmarkIcon className="w-[16px] h-[16px]" />
           내 북마크
         </button>
       )}

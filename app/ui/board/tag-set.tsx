@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Tags from "./tags";
 
-export default function Categories() {
+export default function TagSet() {
   const searchParams = useSearchParams();
   const [currentCategory, setCurrentCategory] = useState('*');
   const param = searchParams.get('category');
@@ -16,8 +16,8 @@ export default function Categories() {
   }, [searchParams]);
 
   return (
-    <>
+    <div className="h-auto">
       {currentCategory !== '*' && <Tags category={currentCategory} />}
-    </>
+    </div>
   );
 }
