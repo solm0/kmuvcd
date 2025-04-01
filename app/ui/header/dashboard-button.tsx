@@ -8,11 +8,13 @@ export default function DashboardButton() {
   const isHome = !['/dashboard', '/email.confirmation', '/email-confirmation-resend', '/forgot-password', '/reset-password', '/signin', '/signup'].some(path => pathname.startsWith(path));
 
   return (
-    <Link
-      href={isHome ? '/dashboard' : '/'}
-      className="w-full h-full hover:text-gray-500 transition-colors flex p-4 items-center text-sm"
-    >
-      <p>{isHome ? '대시보드' : '홈으로'}</p>
-    </Link>
+    <div className="w-auto h-8 ml-auto bg-gray-100">
+      <Link
+        href={isHome ? '/dashboard' : '/'}
+        className="w-full h-full hover:text-gray-500 transition-colors flex p-4 items-center text-sm"
+      >
+        <p>{isHome ? '대시보드' : '홈으로'}</p>
+      </Link>
+    </div>
   );
 }

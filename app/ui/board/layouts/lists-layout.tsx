@@ -1,5 +1,5 @@
 import { PostProps, UserDataProps } from "../../../lib/types";
-import View from "../view";
+import Filter from "../filter";
 import MoreOptions from "../more-options";
 import BoardList from "../lists/board-list";
 import DetailWindow from "../detail-window";
@@ -7,7 +7,7 @@ import DetailWindow from "../detail-window";
 export default function ListsLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps}) {
   return (
     <>
-      <View />
+      <Filter />
       <div className="w-full overflow-x-auto">
         <div className="w-full h-full overflow-x-auto p-4">
           <MoreOptions login={user ? true : false} />

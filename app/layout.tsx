@@ -1,5 +1,7 @@
+'use cilent'
+
 import "./globals.css";
-import HeaderSection from "./ui/header/header-section";
+import HeaderSection from "./ui/header-section";
 import LeftSection from "./ui/left-section";
 import RightSection from "./ui/right-section";
 import Docs from "./ui/docs/docs";
@@ -15,10 +17,10 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className="h-full bg-gray-200">
+      <body className="h-full">
         <div className="flex flex-col h-full overflow-hidden">
           <HeaderSection />
-          <div className="px-4 pb-4 md:flex md:gap-4 fixed w-full top-12 h-[calc(100%-6rem)] md:h-[calc(100%-3rem)]">
+          <div className="px-4 pb-4 md:flex fixed w-full top-16 h-[calc(100%-6rem)] md:h-[calc(100%-4rem)]">
             <LeftSection>
               <Docs>
                 <DocPage />
@@ -27,8 +29,6 @@ export default function RootLayout({
             <RightSection>
               {children}
             </RightSection>
-            <div className="absolute border-black border-l border-t bottom-0 right-0 w-8 h-8 -ml-4 -mt-4 z-0"></div>
-            <div className="absolute border-black border-l border-b top-0 right-0 w-8 h-8 -ml-4 -mt-4 z-0"></div>
           </div>
         </div>
       </body>
