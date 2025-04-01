@@ -6,7 +6,6 @@ import { X } from 'lucide-react';
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import DocIndex from "./doc-index";
 
-
 export default function Docs({children}: {children: React.ReactNode}) {
   const router = useRouter();
   const pathname = usePathname();

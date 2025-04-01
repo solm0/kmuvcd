@@ -1,5 +1,5 @@
 import "./globals.css";
-import HeaderSection from "./ui/header-section";
+import HeaderSection from "./ui/header/header-section";
 import LeftSection from "./ui/left-section";
 import RightSection from "./ui/right-section";
 import Docs from "./ui/docs/docs";
