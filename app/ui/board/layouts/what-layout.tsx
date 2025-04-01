@@ -1,12 +1,12 @@
 'use client'
 
-import { PostProps, UserDataProps } from "@/app/lib/definitions";
+import { PostProps, UserDataProps } from "@/app/lib/types";
 import { useSearchParams } from "next/navigation";
 import CalendarLayout from "./calendar-layout";
 import ListsLayout from "./lists-layout";
 import GalleryLayout from "./gallery-layout";
 import { useState, useEffect } from "react";
-import { queryFilter, bookmarkFilter } from "@/app/lib/query-filter";
+import { queryFilter, bookmarkFilter } from "@/app/lib/utils/query-filter";
 
 export function filter(posts: PostProps[], user: UserDataProps, searchParams: URLSearchParams) {
   const category = searchParams.get('category');

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { UserDataProps } from '@/app/lib/definitions';
+import { UserDataProps } from '@/app/lib/types';
 
 export default function UserCard({ user }: { user: UserDataProps }) {
   const [userData] = useState<UserDataProps | null>(user);

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MediaProps } from "@/app/lib/definitions";
+import { MediaProps } from "@/app/lib/types";
 
 export function ImageMedia({ media, size = "thumbnail" }: { media: MediaProps, size?: "small" | "medium" | "large" | "thumbnail" }) {
   const imageFormat = media.formats?.[size] || media.formats?.thumbnail;

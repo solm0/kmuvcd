@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import { PostProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/types";
 import MdText from "../cms/md-text";
 import clsx from "clsx";
 

@@ -3,10 +3,10 @@
 
 'use client'
 
-import { PostProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/types";
 import clsx from "clsx";
 import { useSearchParams, usePathname, redirect } from "next/navigation";
-import generateHref from "@/app/lib/generate-href";
+import generateHref from "@/app/lib/utils/generate-href";
 
 export default function BoardList({ data }: { data: PostProps[]; }) {
   const pathname = usePathname().split('/').slice(1, 2).toString();

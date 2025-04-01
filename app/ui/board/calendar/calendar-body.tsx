@@ -1,7 +1,7 @@
 'use client'
 
 import CalendarEntry from "./calendar-entry";
-import { PostProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/types";
 import { useEffect} from "react";
 import { scrollToDay } from "./calendar-controll";
 

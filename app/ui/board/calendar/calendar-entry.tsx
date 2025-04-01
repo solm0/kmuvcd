@@ -1,11 +1,11 @@
 'use client'
 
-import { PostProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/types";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
-import { useHoveredStore } from "@/app/lib/useHoveredStore";
-import generateHref from "@/app/lib/generate-href";
+import { useHoveredStore } from "@/app/lib/store/useHoveredStore";
+import generateHref from "@/app/lib/utils/generate-href";
 
 interface EntryProps {
   start: number,

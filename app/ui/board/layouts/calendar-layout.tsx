@@ -1,4 +1,4 @@
-import { PostProps, UserDataProps} from "../../../lib/definitions";
+import { PostProps, UserDataProps} from "../../../lib/types";
 import View from "../view";
 import MoreOptions from "../more-options";
 import CalendarPanel from "../calendar/calendar-panel";

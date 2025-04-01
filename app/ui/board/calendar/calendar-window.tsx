@@ -1,6 +1,6 @@
 'use client'
 
-import { PostProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/types";
 import CalendarHead from "./calendar-head";
 import CalendarBody from "./calendar-body";
 

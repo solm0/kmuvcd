@@ -1,4 +1,4 @@
-import { WebsiteProps } from "@/app/lib/definitions";
+import { WebsiteProps } from "@/app/lib/types";
 
 export default function Website({ website }: { website: WebsiteProps }) {
   const fullUrl = website.url?.startsWith('http') ? website.url : `https://${website.url}`;

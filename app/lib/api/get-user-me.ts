@@ -1,4 +1,4 @@
-import { getAuthToken } from "./get-token";
+import { getAuthToken } from "../api/get-token";
 
 export async function getUserMe(detailed = false) {
   const baseUrl = "https://kmuvcd-strapi.onrender.com";

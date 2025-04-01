@@ -1,8 +1,8 @@
 'use client'
 
-import { PostProps } from "@/app/lib/definitions"
-import generateCalendarHeadData from "@/app/lib/generate-calendar-head-data";
-import { useHoveredStore } from "@/app/lib/useHoveredStore";
+import { PostProps } from "@/app/lib/types"
+import generateCalendarHeadData from "@/app/lib/utils/generate-calendar-head-data";
+import { useHoveredStore } from "@/app/lib/store/useHoveredStore";
 import clsx from "clsx";
 
 export default function CalendarHead({calendarEntries, columnWidth}: {calendarEntries: PostProps[], columnWidth: number;}) {

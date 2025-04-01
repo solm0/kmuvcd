@@ -1,7 +1,7 @@
 import SlugPage from "@/app/ui/board/slug-page";
-import { getAuthToken } from "@/app/lib/services/get-token";
-import { getUserMe } from "@/app/lib/services/get-user-me";
-import { getBoardPosts } from "@/app/lib/get-board-posts";
+import { getAuthToken } from "@/app/lib/api/get-token";
+import { getUserMe } from "@/app/lib/api/get-user-me";
+import { getBoardPosts } from "@/app/lib/api/get-board-posts";
 import { Suspense } from "react";
 
 export async function generateStaticParams() {

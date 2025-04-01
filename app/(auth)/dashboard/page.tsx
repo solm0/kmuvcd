@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import { LogoutButton } from '@/app/ui/auth/logout-button';
 import UserCard from '@/app/ui/auth/usercard';
-import { getUserMe } from "@/app/lib/services/get-user-me";
+import { getUserMe } from '@/app/lib/api/get-user-me';
 import { redirect } from 'next/navigation';
-import { logoutAction } from '@/app/lib/actions/auth-actions';
+import { logoutAction } from '@/app/lib/api/auth-actions';
 
 export const metadata: Metadata = {
   title: '내 프로필',

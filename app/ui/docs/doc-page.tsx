@@ -1,5 +1,5 @@
-import { getCmsData } from '@/app/lib/get-cms-data';
-import { PostProps } from '@/app/lib/definitions';
+import { getCmsData } from '@/app/lib/api/get-cms-data';
+import { PostProps } from '@/app/lib/types';
 import MdText from '@/app/ui/cms/md-text';
 import Website from '@/app/ui/cms/website';
 import { ImageMedia } from '@/app/ui/cms/media';

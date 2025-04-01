@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { registerUserAction } from '@/app/lib/actions/auth-actions';
+import { registerUserAction } from '@/app/lib/api/auth-actions';
 import { useActionState } from "react";
 import { ZodErrors } from "../zod-errors";
 import { StrapiErrors } from "../strapi-errors";

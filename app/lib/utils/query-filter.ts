@@ -1,4 +1,4 @@
-import { PostProps, UserDataProps } from "./definitions";
+import { PostProps, UserDataProps } from '../types';
 import Fuse from 'fuse.js'
 
 export function queryFilter(

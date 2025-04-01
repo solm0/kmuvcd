@@ -1,11 +1,11 @@
 'use client';
 
-import { PostProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/types";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 import { ImageMedia } from "../../cms/media";
-import generateHref from "@/app/lib/generate-href";
+import generateHref from "@/app/lib/utils/generate-href";
 
 export default function BoardImage({data}: { data: PostProps[]; }) {
   const pathname = usePathname().split('/').slice(1, 2).toString();

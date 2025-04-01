@@ -1,6 +1,6 @@
 import BoardLayout from "../ui/board/layouts/board-layout";
-import { getUserMe } from "../lib/services/get-user-me";
-import { getBoardPosts } from "../lib/get-board-posts";
+import { getUserMe } from "../lib/api/get-user-me";
+import { getBoardPosts } from "../lib/api/get-board-posts";
 import WhatLayout from "../ui/board/layouts/what-layout";
 
 export default async function Page({children}: {children: React.ReactNode}) {

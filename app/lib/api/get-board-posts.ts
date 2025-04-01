@@ -1,5 +1,5 @@
 import { getCmsData } from "./get-cms-data";
-import { PostProps } from "./definitions";
+import { PostProps } from "../types";
 
 export async function getBoardPosts() {
   const [notices, events, exhibitions, clubs, kookmins] = await Promise.all([

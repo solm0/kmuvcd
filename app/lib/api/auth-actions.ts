@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from 'zod';
-import { registerUserService, loginUserService, forgotPasswordUserService, resetPasswordUserService, emailConfirmationUserService } from '@/app/lib/services/auth-service';
+import { registerUserService, loginUserService, forgotPasswordUserService, resetPasswordUserService, emailConfirmationUserService } from '@/app/lib/api/auth-service';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 

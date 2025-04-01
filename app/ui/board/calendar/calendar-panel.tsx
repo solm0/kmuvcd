@@ -1,6 +1,6 @@
 'use client'
 
-import { PostProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/types";
 import { useRef } from "react";
 import { GoToInputday, GoToToday } from "./calendar-controll";
 import CalendarWindow from "./calendar-window";

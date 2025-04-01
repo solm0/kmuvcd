@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import { forgotPasswordAction } from '@/app/lib/actions/auth-actions';
+import { forgotPasswordAction } from '@/app/lib/api/auth-actions';
 import { useActionState } from 'react';
 import { ZodErrors } from '@/app/ui/auth/zod-errors';
 import { StrapiErrors } from '@/app/ui/auth/strapi-errors';

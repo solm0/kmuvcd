@@ -1,6 +1,6 @@
 'use client'
 
-import { PostProps } from "@/app/lib/definitions";
+import { PostProps } from "@/app/lib/types";
 import { useState } from "react";
 import { ImageMedia } from "../cms/media";
 import Website from "../cms/website";
