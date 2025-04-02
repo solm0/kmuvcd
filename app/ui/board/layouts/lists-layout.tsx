@@ -5,7 +5,7 @@ import DetailWindow from "../detail-window";
 
 export default function ListsLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps}) {
   return (
-    <div className="w-full overflow-x-auto flex">
+    <div className="flex-1 overflow-x-auto flex flex-col md:flex-row">
       <Filter login={user ? true : false} />
       <div className="w-full h-full overflow-x-auto p-4">
         <div className="w-full overflow-x-auto text-sm">{`필터링 결과 ${posts.length}건`}</div>

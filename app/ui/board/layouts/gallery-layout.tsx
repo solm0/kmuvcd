@@ -5,7 +5,7 @@ import DetailWindow from "../detail-window";
 
 export default function GalleryLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps}) {
   return (
-    <div className="flex-1 overflow-hidden flex">
+    <div className="flex-1 overflow-hidden flex flex-col md:flex-row">
       <Filter login={user ? true : false} />
       <div className="w-full flex h-full">
         <div className="flex-1 overflow-x-auto p-4">
