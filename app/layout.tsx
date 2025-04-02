@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className="h-full">
         <div className="flex flex-col h-full overflow-hidden">
           <HeaderSection />
-          <div className="px-4 pb-4 md:flex fixed w-full top-16 h-[calc(100%-6rem)] md:h-[calc(100%-4rem)]">
+          <section className="relative px-4 pb-4 md:flex w-full h-auto overflow-x-auto">
             <LeftSection>
               <Docs>
                 <DocPage />
@@ -29,7 +29,7 @@ export default function RootLayout({
             <RightSection>
               {children}
             </RightSection>
-          </div>
+          </section>
         </div>
       </body>
     </html>

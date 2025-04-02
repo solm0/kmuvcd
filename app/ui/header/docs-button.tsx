@@ -32,8 +32,8 @@ export default function DocsButton() {
     <>
       <div
         className={clsx(
-          "w-auto h-8 bg-gray-100 transition-colors duration-300 hover:text-gray-400",
-          isOpen && "md:w-[52rem] !h-12"
+          "fixed w-52 h-8 bg-gray-100 transition-colors duration-300 hover:text-gray-400",
+          isOpen && "md:w-[52rem] md:!h-12"
         )}
         onClick={handleOpen}
       >
@@ -41,7 +41,7 @@ export default function DocsButton() {
           <p className="break-keep text-sm top-0">국민대학교 시각디자인학과</p>
           <PanelLeft className={clsx(
             'w-[15px] h-[15px] ml-auto',
-            isOpen && 'mr-2'
+            isOpen && 'md:mr-2'
           )} />
         </div>
       </div>

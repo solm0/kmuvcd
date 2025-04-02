@@ -23,7 +23,7 @@ export default function Docs({children}: {children: React.ReactNode}) {
       <div
         className={clsx(
           "relative w-full h-12 md:h-full md:w-0 transition-[width, height, colors] duration-300 z-10",
-          isOpen && "h-[90vh] md:w-[52rem] md:mr-4"
+          isOpen && "h-[calc(100vh-4rem)] md:w-[52rem] md:mr-4"
         )}
         
       >
@@ -35,7 +35,7 @@ export default function Docs({children}: {children: React.ReactNode}) {
             <div className={clsx("w-full h-full p-4 overflow-x-auto", {"hidden": !isOpen})}>
               {children}
             </div>
-            <div className="fixed top-0 left-0 w-[53rem] h-screen bg-gray-100 -z-10"></div>
+            <div className="hidden md:block md:fixed md:top-0 md:left-0 md:w-[53rem] md:h-screen md:bg-gray-100 md:-z-10"></div>
           </div>
         }
       </div>

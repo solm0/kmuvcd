@@ -7,12 +7,14 @@ import { Suspense } from 'react';
 export default async function HeaderSection() {
   return (
     <section
-      className="fixed w-screen h-16 flex z-20 p-4 gap-4"
+      className="relative w-screen flex h-auto z-40 p-4"
     >
       <Suspense>
         <DocsButton />
-        <ViewButton />
-        <CategoryButton />
+        <div className='mt-12 md:mt-0 md:ml-56 flex flex-wrap gap-4'>
+          <ViewButton />
+          <CategoryButton />
+        </div>
         <DashboardButton />
       </Suspense>
     </section>
