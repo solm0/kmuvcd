@@ -6,6 +6,7 @@ import LeftSection from "./ui/left-section";
 import RightSection from "./ui/right-section";
 import Docs from "./ui/docs/docs";
 import DocPage from "./ui/docs/doc-page";
+import { Suspense } from "react";
 
 export default function RootLayout({
   children
@@ -19,7 +20,9 @@ export default function RootLayout({
       </head>
       <body className="h-full">
         <div className="flex flex-col h-full overflow-hidden">
-          <HeaderSection />
+          <Suspense>
+            <HeaderSection />
+          </Suspense>
           <section className="relative px-4 pb-4 md:flex w-full h-auto overflow-x-auto">
             <LeftSection>
               <Docs>
