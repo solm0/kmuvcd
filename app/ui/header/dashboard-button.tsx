@@ -15,10 +15,10 @@ export default function DashboardButton() {
       if (window.history.length > 1) {
         router.back();
       } else {
-        router.push('/');
+        window.location.href = '/';
       }
     } else {
-      router.push('/user/dashboard');
+      window.location.href = '/user/dashboard';
     }
   }
 
