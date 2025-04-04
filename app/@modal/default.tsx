@@ -1,5 +1,3 @@
 export default function Layout() {
-  return(
-    <></>
-  );
+  return null;
 }
