@@ -14,7 +14,7 @@ export default async function Page() {
 
   if (user?.ok === false) {
     console.log("Redirecting to signin...", user);
-    redirect("/signin");
+    redirect("/user/signin");
   }
 
   return (

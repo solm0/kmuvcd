@@ -1,5 +1,3 @@
-'use cilent'
-
 import "./globals.css";
 import HeaderSection from "./ui/header-section";
 import LeftSection from "./ui/left-section";
@@ -9,10 +7,13 @@ import DocPage from "./ui/docs/doc-page";
 import { Suspense } from "react";
 
 export default function RootLayout({
-  children
+  children,
+  modal
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" className="h-full scroll-smooth">
       <head>
@@ -32,6 +33,8 @@ export default function RootLayout({
             <RightSection>
               {children}
             </RightSection>
+            
+            {modal}
           </section>
         </div>
       </body>
