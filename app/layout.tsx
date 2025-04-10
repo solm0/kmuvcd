@@ -34,7 +34,7 @@ export default function RootLayout({
               {children}
             </RightSection>
             
-            {modal || null}
+            {modal}
           </section>
         </div>
       </body>
