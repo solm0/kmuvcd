@@ -7,6 +7,7 @@ import { ZodErrors } from "../zod-errors";
 import { StrapiErrors } from "../strapi-errors";
 import { SubmitButton } from "../submit-button";
 import { Eye, EyeOff } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 const INITIAL_STATE = {
   zodErrors: null,
@@ -16,7 +17,12 @@ const INITIAL_STATE = {
 };
 
 export function SigninForm() {
-  const [formState, formAction] = useActionState(loginUserAction, INITIAL_STATE);
+  const searchParams = useSearchParams();
+
+  const wrappedAction = async (prevState: any, formData: FormData) => { // eslint-disable-line @typescript-eslint/no-explicit-any
+    return loginUserAction(prevState, formData, searchParams.toString());
+  }
+  const [formState, formAction] = useActionState(wrappedAction, INITIAL_STATE);
 
   const [values, setValues] = useState({
     email: "",

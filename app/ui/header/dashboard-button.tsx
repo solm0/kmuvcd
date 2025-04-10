@@ -3,10 +3,12 @@
 import { usePathname, useRouter } from "next/navigation";
 import { UserRound } from "lucide-react";
 import clsx from "clsx";
+import { useSearchParams } from "next/navigation";
 
 export default function DashboardButton() {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
   
   const isModal = pathname.startsWith('/user/');
 
@@ -15,10 +17,10 @@ export default function DashboardButton() {
       if (window.history.length > 1) {
         router.back();
       } else {
-        window.location.href = '/';
+        router.push(`/?${searchParams.toString()}`);
       }
     } else {
-      window.location.href = '/user/dashboard';
+      router.push(`/user/dashboard?${searchParams.toString()}`);
     }
   }
 

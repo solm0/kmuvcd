@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { Suspense } from "react";
 
 export default function Layout({children}: {children: React.ReactNode}) {
   const router = useRouter();
@@ -15,17 +16,19 @@ export default function Layout({children}: {children: React.ReactNode}) {
   }, [router])
 
   return(
-    <div
-      className="fixed inset-0 bg-black/20 p-4 flex items-center justify-center z-50"
-      onClick={() => router.back()}
-    >
-      <dialog
-        open
-        className="w-[44rem] h-[32rem] bg-white p-4"
-        onClick={e => e.stopPropagation()}
+    <Suspense>
+      <div
+        className="fixed inset-0 bg-black/20 p-4 flex items-center justify-center z-50"
+        onClick={() => router.back()}
       >
-        {children}
-      </dialog>
-    </div>
+        <dialog
+          open
+          className="w-[44rem] h-[32rem] bg-white p-4"
+          onClick={e => e.stopPropagation()}
+        >
+          {children}
+        </dialog>
+      </div>
+    </Suspense>
   );
 }

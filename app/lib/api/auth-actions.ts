@@ -82,7 +82,8 @@ const schemaLogin = z.object({
 
 export async function loginUserAction(
   prevState: any, // eslint-disable-line @typescript-eslint/no-explicit-any
-  formData: FormData
+  formData: FormData,
+  searchParams: string,
 ) {
   const email = formData.get("email");
   const affixedEmail = email && `${email}@kookmin.ac.kr`;
@@ -124,14 +125,14 @@ export async function loginUserAction(
   const cookieStore = await cookies();
   cookieStore.set("jwt", responseData.jwt, config);
 
-  redirect("/user/dashboard");
+  redirect(`/user/dashboard?${searchParams}`);
 }
 
-export async function logoutAction() {
+export async function logoutAction(searchParams: string) {
   const cookieStore = await cookies();
   cookieStore.set("jwt", "", { ...config, maxAge: 0 });
   cookieStore.set("username", "", { ...config, maxAge: 0 });
-  redirect("/");
+  redirect(`/?${searchParams}`);
 }
 
 const schemaForgotPassword = z.object({

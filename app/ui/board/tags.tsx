@@ -48,14 +48,6 @@ export default function Tags({category}: {category: string}) {
   const [currentTag, setCurrentTag] = useState('*');
   const param = searchParams.get('tag');
 
-  useEffect(() => {
-    if (!param) {
-      const newParams = new URLSearchParams(searchParams.toString());
-      newParams.set("tag", '*');
-      router.push(`${pathname}?${newParams.toString()}`);
-    }
-  }, []);
-
   const handleTag = (query: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("tag", query.toString());
