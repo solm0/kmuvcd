@@ -13,16 +13,19 @@ export default function DashboardButton() {
   const isModal = pathname.startsWith('/user/');
 
   const handleClick = () => {
+    const paramString = searchParams.toString();
+    const hasParams = paramString.length > 0;
+
     if (isModal) {
       if (window.history.length > 1) {
         router.back();
       } else {
-        router.push(`/?${searchParams.toString()}`);
+        router.push(hasParams ? `/?${paramString}` : '/');
       }
     } else {
-      router.push(`/user/dashboard?${searchParams.toString()}`);
+      router.push(hasParams ? `/user/dashboard?${paramString}` : '/user/dashboard');
     }
-  }
+  };
 
   return (
     <div className="fixed w-8 h-8 right-4">
