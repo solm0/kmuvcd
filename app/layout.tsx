@@ -5,6 +5,7 @@ import RightSection from "./ui/right-section";
 import Docs from "./ui/docs/docs";
 import DocPage from "./ui/docs/doc-page";
 import { Suspense } from "react";
+import ModalWrapper from "./ui/modal-wrapper";
 
 export default function RootLayout({
   children,
@@ -13,7 +14,6 @@ export default function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }>) {
-
   return (
     <html lang="en" className="h-full scroll-smooth">
       <head>
@@ -34,7 +34,9 @@ export default function RootLayout({
               {children}
             </RightSection>
             
-            {modal}
+            <ModalWrapper>
+              {modal}
+            </ModalWrapper>
           </section>
         </div>
       </body>
