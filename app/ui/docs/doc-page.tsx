@@ -6,6 +6,7 @@ import { ImageMedia } from '@/app/ui/cms/media';
 import CopyURLButton from './copy-url-button';
 import ProfessorTable from './professor-table';
 import CourseTable from './course-table';
+import Map from './map';
 
 const Head = ({id, text}: {id: string, text: string}) => {
     return (
@@ -81,6 +82,7 @@ export default async function DocPage() {
             ))}
 
             <Head id='facility' text='시설' />
+            <Map />
             <p>&apos;로그인 후 신청하러 가기&apos; 버튼, 로그인/회원가입 페이지로 리다이렉트</p>
             {data0303.map((post: PostProps) => (
                 <div key={post.documentId} className="rounded-lg bg-gray-100 p-8 mb-4">

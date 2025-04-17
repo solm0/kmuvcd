@@ -28,14 +28,14 @@ export default function Docs({children}: {children: React.ReactNode}) {
         
       >
         {isOpen &&
-          <div className="flex h-full bg-gray-100">
+          <div className="flex h-full bg-white border-r border-gray-300">
             <div className={clsx("hidden md:block w-full md:w-28", isOpen ? "md:w-56" : "overflow-hidden" )}>
               <DocIndex />
             </div>
             <div className={clsx("w-full h-full p-4 overflow-x-auto", {"hidden": !isOpen})}>
               {children}
             </div>
-            <div className="hidden md:block md:fixed md:top-0 md:left-0 md:w-[53rem] md:h-screen md:bg-gray-100 md:-z-10"></div>
+            <div className="hidden md:block md:fixed md:top-0 md:left-0 md:w-[53rem] md:h-screen md:-z-10 border-r border-gray-300"></div>
           </div>
         }
       </div>
