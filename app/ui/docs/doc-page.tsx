@@ -2,7 +2,6 @@ import { getCmsData } from '@/app/lib/api/get-cms-data';
 import { PostProps } from '@/app/lib/types';
 import MdText from '@/app/ui/cms/md-text';
 import Website from '@/app/ui/cms/website';
-import { ImageMedia } from '@/app/ui/cms/media';
 import CopyURLButton from './copy-url-button';
 import ProfessorTable from './professor-table';
 import CourseTable from './course-table';
@@ -83,19 +82,6 @@ export default async function DocPage() {
 
             <Head id='facility' text='시설' />
             <Map />
-            <p>&apos;로그인 후 신청하러 가기&apos; 버튼, 로그인/회원가입 페이지로 리다이렉트</p>
-            {data0303.map((post: PostProps) => (
-                <div key={post.documentId} className="rounded-lg bg-gray-100 p-8 mb-4">
-                    <p>name: {post.name}</p>
-                    <p>room_number: {post.room_number}</p>
-                    <MdText markdown={post.text ?? " "} />
-                    <div>photo:
-                        {post.photo?.map((photo) => (
-                            <ImageMedia key={photo.id} media={photo} size='medium' />
-                        ))}
-                    </div>
-                </div>
-            ))}
 
             <Head id='graduation' text='졸업 요건' />
             <MdText markdown={data0401.text ?? " "} />
