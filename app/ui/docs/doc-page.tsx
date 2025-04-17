@@ -25,7 +25,7 @@ export default async function DocPage() {
   // const data0205 = await getCmsData<PostProps[]>('') as PostProps[];
   const data0301 = await getCmsData<PostProps>('student-councils') as PostProps[];
   const data0302 = await getCmsData<PostProps>('staffs') as PostProps[];
-  const data0303 = await getCmsData<PostProps>('facility-overviews?populate=thumbnail&populate=photo') as PostProps[];
+//   const data0303 = await getCmsData<PostProps>('facility-overviews?populate=thumbnail&populate=photo') as PostProps[];
   const data0401 = await getCmsData<PostProps>('graduation-requirement') as PostProps;
   const data0402 = await getCmsData<PostProps>('double-major-and-minor') as PostProps;
 
