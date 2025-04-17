@@ -28,7 +28,7 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
 
   return (
       <div className={clsx(
-        "absolute right-0 top-0 bg-white/20 backdrop-blur-md border border-gray-500 w-full h-full md:w-1/2 md:h-auto max-h-full z-10 overflow-x-auto",
+        "absolute right-0 top-0 bg-gray-100  w-full h-full md:w-1/2 md:h-auto max-h-full z-10 overflow-x-auto",
         isOpen && "md:w-[100%] md:h-[100%]",
         isCleanPath && "hidden"
         )}

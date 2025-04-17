@@ -24,7 +24,7 @@ export default function RootLayout({
           <Suspense>
             <HeaderSection />
           </Suspense>
-          <section className="relative px-4 pb-4 md:flex w-full h-auto overflow-x-auto">
+          <section className="relative px-4 flex-1 md:flex w-full h-auto overflow-x-auto">
             <LeftSection>
               <Docs>
                 <DocPage />

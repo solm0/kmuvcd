@@ -14,9 +14,11 @@ export function queryFilter(
   if (category === '*') {
     categoryFiltered = data;
   } else {
-    categoryFiltered = data.filter((entry) => {
-      return category && entry.category === category;
-    })
+    // 카테고리 필터 일단 중지
+    // categoryFiltered = data.filter((entry) => {
+    //   return category && entry.category === category;
+    // })
+    categoryFiltered = data;
   }
 
   // console.log("categoryFiltered", categoryFiltered)

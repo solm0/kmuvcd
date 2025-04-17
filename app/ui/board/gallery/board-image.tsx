@@ -12,7 +12,7 @@ export default function BoardImage({data}: { data: PostProps[]; }) {
   const searchParams = useSearchParams();
 
    return (
-    <div className="flex gap-4">
+    <div className="flex flex-wrap gap-4">
       {data.map((entry: PostProps) => (
         <div key={entry.documentId} className="max-w-96 min-w-48">
           {entry.documentId && entry.thumbnail ?

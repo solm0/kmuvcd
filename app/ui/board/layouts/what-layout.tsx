@@ -67,9 +67,10 @@ export default function WhatLayout({children, posts, user}: {children: React.Rea
 
   // gallery data
 
-  // dynamic zone -> image_block이 있는것만 filter
-  const g_filteredPosts = posts
-    .filter(post => post.dynamic?.some(item => "image_block" in item));
+  // dynamic zone -> image_block이 있는것만 filter -> 일단 삭제
+  // const g_filteredPosts = posts
+  //   .filter(post => post.dynamic?.some(item => "image_block" in item));
+  const g_filteredPosts = posts;
 
   // image_block을 thumbnail로.
   const thumbnailPosts = g_filteredPosts

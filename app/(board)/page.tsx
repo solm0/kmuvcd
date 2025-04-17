@@ -1,5 +1,5 @@
 export default async function Page() {
   return(
-    <div>(board)의 page.tsx</div>
+    <div className="hidden">(board)의 page.tsx</div>
   );
 }

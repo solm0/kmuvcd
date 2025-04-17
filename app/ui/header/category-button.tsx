@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
+import Tags from "../board/tags";
 
 const categories = [
   { name: '공지', query: 'notices', },
@@ -16,49 +17,45 @@ export default function CategoryButton() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [currentCategory, setCurrentCategory] = useState('*');
-  const param = searchParams.get('category');
+  const param = searchParams.get('view');
+  const [isSelected, setIsSelected] = useState<string[]>([]);
 
   useEffect(() => {
     if (!param) {
       const newParams = new URLSearchParams(searchParams.toString());
-      newParams.set("category", '*');
+      newParams.set("view", 'calendar');
       newParams.set("tag", '*');
-      newParams.set("view", "calendar");
       router.push(`${pathname}?${newParams.toString()}`);
     }
   }, []);
 
   const handleCategory = (query: string) => {
+    if (isSelected.includes(query)) {
+      setIsSelected(prev => prev.filter(item => item !== query))
+    } else {
+      setIsSelected(prev => [...prev, query])
+    }
+
     const newParams = new URLSearchParams(searchParams.toString());
-    newParams.set("category", query);
     newParams.set("tag", '*');
     router.push(`${pathname}?${newParams.toString()}`);
   }
 
-  useEffect(() => {
-    if (param && param !== currentCategory) {
-      setCurrentCategory(param);
-    }
-  }, [searchParams]);
-
   return (
     <>
-      <nav className="w-auto h-8 p-4 text-sm bg-gray-100 flex items-center gap-4">
-        <button
-          onClick={() => handleCategory('*')}
-          className={clsx("hover:text-gray-400", {"text-gray-400": currentCategory === '*'})}
-        >
-          전체
-        </button>
+      <nav className="w-auto h-auto p-4 text-sm bg-gray-100 flex flex-wrap items-center gap-4">
         {categories.map((category) => (
-          <button
-            key={category.name}
-            onClick={() => handleCategory(category.query)}
-            className={clsx("hover:text-gray-400", {"text-gray-400": currentCategory === category.query})}
-          >
-            {category.name}
-          </button>
+          <div key={category.name}>
+            <button
+              onClick={() => handleCategory(category.query)}
+              className={clsx("hover:text-gray-400", {"text-gray-400": isSelected.includes(category.query)})}
+            >
+              {category.name}
+            </button>
+            {isSelected.includes(category.query) &&
+              <Tags category={category.query} />
+            }
+          </div>
         ))}
       </nav>
     </>
