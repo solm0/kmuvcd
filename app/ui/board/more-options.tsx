@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import clsx from "clsx";
-import { BookmarkIcon } from "@heroicons/react/24/outline";
 
 export default function MoreOptions({ login }: { login: boolean }) {
   const router = useRouter();
@@ -29,14 +27,18 @@ export default function MoreOptions({ login }: { login: boolean }) {
   return (
     <div className="h-8 text-sm flex items-center gap-4">
       {login && (
-        <button
-          onClick={handleFilter}
-          className={clsx( isClicked ? "text-blue-600" : "text-gray-400", "hover:text-blue-400 flex items-center gap-1"
-          )}
+        <label
+          htmlFor="bookmark"
+          className="text-gray-800 flex items-center gap-2 cursor-pointer"
         >
-          <BookmarkIcon className="w-[16px] h-[16px]" />
-          내 북마크
-        </button>
+          <input
+            id="bookmark"
+            type="checkbox"
+            checked={isClicked}
+            onChange={handleFilter}
+          />
+          내가 북마크한 것만 보기
+        </label>
       )}
     </div>
   );

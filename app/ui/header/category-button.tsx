@@ -7,10 +7,10 @@ import Tags from "../board/tags";
 
 const categories = [
   { name: '공지', query: 'notices', },
-  { name: '이벤트', query: 'events', },
+  { name: '행사', query: 'events', },
   { name: '전시', query: 'exhibitions', },
   { name: '활동', query: 'clubs', },
-  { name: '국민대', query: 'kookmins', },
+  { name: '학사일정', query: 'kookmins', },
 ]
 
 export default function CategoryButton() {
