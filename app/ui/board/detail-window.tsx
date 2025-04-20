@@ -4,7 +4,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { X } from "lucide-react";
 import Link from "next/link";
 import clsx from "clsx";
-import { useState, useEffect } from "react";
+import { useIsOpen } from "@/app/lib/utils/use-is-open";
 
 export default function DetailWindow({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
@@ -15,16 +15,7 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
     return `/?${searchParams}`;
   }
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    if (searchParams.get("expand") === "true") {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-      // console.log('closed', isOpen)
-    }
-  }, [searchParams]);
+  const isOpen = useIsOpen();
 
   return (
       <div className={clsx(

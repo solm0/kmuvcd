@@ -1,22 +1,11 @@
 'use client';
 
 import clsx from "clsx";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import DocIndex from "./doc-index";
+import { useIsOpen } from "@/app/lib/utils/use-is-open";
 
 export default function Docs({children}: {children: React.ReactNode}) {
-  const searchParams = useSearchParams()
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    if (searchParams.get("expand") === "true") {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-      // console.log('closed', isOpen)
-    }
-  }, [searchParams]);
+  const isOpen = useIsOpen();
 
   return (
     <nav className="w-full h-auto md:h-full md:w-auto md:flex">

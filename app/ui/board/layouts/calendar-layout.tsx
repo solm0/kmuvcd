@@ -4,22 +4,11 @@ import { PostProps, UserDataProps} from "../../../lib/types";
 import Filter from "../filter";
 import CalendarPanel from "../calendar/calendar-panel";
 import DetailWindow from "@/app/ui/board/detail-window";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import clsx from 'clsx';
+import { useIsOpen } from "@/app/lib/utils/use-is-open";
 
 export default function CalendarLayout({children, posts, filteredPosts, user}: {children: React.ReactNode; posts: PostProps[]; filteredPosts: PostProps[]; user: UserDataProps}) {
-  const searchParams = useSearchParams()
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    if (searchParams.get("expand") === "true") {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-      // console.log('closed', isOpen)
-    }
-  }, [searchParams]);
+  const isOpen = useIsOpen();
 
   return (
     <div className={clsx("flex-1 overflow-hidden flex flex-col md:flex-row", isOpen && "md:flex-col")}>

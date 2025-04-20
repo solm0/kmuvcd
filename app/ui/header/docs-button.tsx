@@ -2,14 +2,14 @@
 
 import { PanelLeft, ArrowLeft, X } from 'lucide-react';
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import clsx from 'clsx';
+import { useIsOpen } from '@/app/lib/utils/use-is-open';
 
 export default function DocsButton() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams()
-  const [isOpen, setIsOpen] = useState(false);
   const [isTooltip, setIsTooltip] = useState(true);
 
   const handleOpen = () => {
@@ -22,14 +22,7 @@ export default function DocsButton() {
     router.push(`${pathname}?${newParams.toString()}`);
   };
   
-  useEffect(() => {
-    if (searchParams.get("expand") === "true") {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-      // console.log('closed', isOpen)
-    }
-  }, [searchParams]);
+  const isOpen = useIsOpen();
 
   return (
     <>
