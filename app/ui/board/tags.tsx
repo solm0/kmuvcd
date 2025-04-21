@@ -3,43 +3,7 @@
 import { useState } from "react"
 import { useSearchParams, usePathname, useRouter } from "next/navigation"
 import clsx from "clsx"
-
-const tags = [
-  { category: 'notices',
-    tags: [
-      { name: '학과 공지'},
-      { name: '채용공고'},
-      { name: '뉴스'},
-    ],
-  },
-  { category: 'events',
-    tags: [
-      { name: '공연'},
-      { name: '특강'},
-      { name: '워크숍'},
-      { name: '간식행사'},
-      { name: '무비나잇'},
-      { name: '조형인의 밤'},
-    ],
-  },
-  { category: 'exhibitions',
-    tags: [
-      { name: '개인전'},
-      { name: '단체전'},
-      { name: '조형전'},
-      { name: '과제전'},
-    ],
-  },
-  { category: 'clubs',
-    tags: [
-      { name: '동아리'},
-      { name: '서클'},
-    ],
-  },
-  { category: 'kookmins',
-    tags: [],
-  },
-]
+import { tags } from "@/app/lib/data/tags"
 
 export default function Tags({category}: {category: string}) {
   const router = useRouter();
@@ -86,10 +50,10 @@ export default function Tags({category}: {category: string}) {
 
   // console.log("tag by url", currentTag)
 
-  const currentCategory = tags.find((element) => element.category === category);
+  const currentCategory = tags.find((element) => element.tag === category);
   let tagSet
-  if (currentCategory?.tags) {
-    tagSet = currentCategory?.tags;
+  if (currentCategory?.sub_tags) {
+    tagSet = currentCategory?.sub_tags;
   } else {
     tagSet = null;
   }

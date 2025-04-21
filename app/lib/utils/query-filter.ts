@@ -1,35 +1,20 @@
 import { PostProps, UserDataProps } from '../types';
 import Fuse from 'fuse.js'
+import { tags } from '../data/tags';
 
 export function queryFilter(
   data: PostProps[],
-  category: string | null,
   tag: string | null,
   search: string | null,
 ) {
-
-  // 카테고리 필터링
-  let categoryFiltered;
-
-  if (category === '*') {
-    categoryFiltered = data;
-  } else {
-    // 카테고리 필터 일단 중지
-    // categoryFiltered = data.filter((entry) => {
-    //   return category && entry.category === category;
-    // })
-    categoryFiltered = data;
-  }
-
-  // console.log("categoryFiltered", categoryFiltered)
 
   // 태그 필터링
   let tagFiltered;
 
   if (tag === '*') {
-    tagFiltered = categoryFiltered;
+    tagFiltered = data;
   } else {
-    tagFiltered = categoryFiltered.filter((entry) => {
+    tagFiltered = data.filter((entry) => {
       return tag && Array.isArray(entry.tags) && entry.tags.some(t => t.name === tag);
     })
   }
@@ -61,11 +46,11 @@ export function queryFilter(
 export function bookmarkFilter(data: PostProps[], bookmark: string | null, user: UserDataProps) {
   let bookmarkFiltered;
 
-  if (user) {
-    const categories = ["clubs", "events", "exhibitions", "notices", "kookmins"];
+  const tagNames = tags.map(tag => tag.name)
 
-    const allPostIds = categories.flatMap(
-      (category) => ((user as unknown as Record<string, PostProps[]>)[category] || [])
+  if (user) {
+    const allPostIds = tagNames.flatMap(
+      (tag) => ((user as unknown as Record<string, PostProps[]>)[tag] || [])
         .map((post) => post.documentId)
     );
 
