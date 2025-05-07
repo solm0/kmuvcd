@@ -12,7 +12,7 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
   const isCleanPath = pathname === "/";
 
   const generateHref = (searchParams: string) => {
-    return `/?${searchParams}`;
+    return `/bulletin/?${searchParams}`; // TODO: 지우는거 없애야하나? 고정창이면?
   }
 
   const isOpen = useIsOpen();
@@ -21,7 +21,7 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
       <div className={clsx(
         "absolute right-0 top-0 bg-gray-100  w-full h-full md:w-1/2 md:h-auto max-h-full z-10 overflow-x-auto",
         isOpen && "md:w-[100%] md:h-[100%]",
-        isCleanPath && "hidden"
+        isCleanPath && "hidden" // TODO
         )}
       >
         <div className="h-12 p-4 flex absolute w-full items-center">

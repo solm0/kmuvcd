@@ -6,8 +6,8 @@ export default function generateHref (
   const newParams = new URLSearchParams(searchParams.toString());
 
   if (pathname !== documentId) {
-    return `/${documentId}?${newParams.toString()}`;
+    return `/bulletin/${documentId}?${newParams.toString()}`;
   } else {
-    return `/?${newParams.toString()}`;
+    return `/bulletin/?${newParams.toString()}`;
   }
 }

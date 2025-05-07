@@ -1,5 +1,6 @@
 import DashboardButton from './header/dashboard-button';
 import DocsButton from './header/docs-button';
+import MenuButton from './header/menu-button';
 import { Suspense } from 'react';
 
 export default function HeaderSection() {
@@ -9,6 +10,7 @@ export default function HeaderSection() {
     >
       <Suspense>
         <DocsButton />
+        <MenuButton />
         <DashboardButton />
       </Suspense>
     </section>
