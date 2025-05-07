@@ -19,7 +19,7 @@ export const tags = [
     ],
   },
   { tag: 'exhibitions',
-    name: '전시',
+    name: '전시 일정',
     sub_tags: [
       { name: '개인전'},
       { name: '단체전'},
@@ -27,15 +27,8 @@ export const tags = [
       { name: '과제전'},
     ],
   },
-  { tag: 'clubs',
-    name: '모임',
-    sub_tags: [
-      { name: '동아리'},
-      { name: '서클'},
-    ],
-  },
   { tag: 'kookmins',
-    name: '학사일정',
+    name: '학사 일정',
     sub_tags: [],
   },
 ]

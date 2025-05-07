@@ -11,6 +11,7 @@ import generateHref from "@/app/lib/utils/generate-href";
 export default function BoardList({ data }: { data: PostProps[]; }) {
   const pathname = usePathname().split('/').slice(1, 2).toString();
   const searchParams = useSearchParams();
+  const subPathname = usePathname().split('/').slice(2, 3).toString();
 
   return (
     <>
@@ -20,7 +21,7 @@ export default function BoardList({ data }: { data: PostProps[]; }) {
             key={entry.documentId}
             onClick={() => redirect(generateHref(pathname, searchParams.toString(), entry?.documentId))}
             className={clsx(
-              pathname === entry?.documentId && "bg-gray-100",
+              subPathname === entry?.documentId && "bg-gray-100",
               "h-12 hover:bg-gray-100"
             )}
           >
@@ -28,10 +29,9 @@ export default function BoardList({ data }: { data: PostProps[]; }) {
                 <td className="pr-4">
                   <div
                     className={clsx(
-                      {"bg-[#000000] text-[#ffffff]": entry.category === "notices"},
+                      {"bg-[#00ffff]": entry.category === "notices"},
                       {"bg-[#ffff00]": entry.category === "events"},
                       {"bg-[#ff00ff]": entry.category === "exhibitions"},
-                      {"bg-[#00ffff]": entry.category === "clubs"},
                       {"bg-[#eeeeee]": entry.category === "kookmins"},
                       "p-2 rounded-full text-center text-sm"
                     )}

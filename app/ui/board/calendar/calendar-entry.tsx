@@ -27,10 +27,9 @@ export default function CalendarEntry({ entryPosition, index, data }: { entryPos
           className={clsx(
             pathname === data?.documentId ? "opacity-50 hover:!bg-opacity-100" : "hover:bg-opacity-50",
             "flex items-center h-8 z-10",
-            {"bg-[#000000] text-[#ffffff]": data.category === "notices"},
+            {"bg-[#00ffff]": data.category === "notices"},
             {"bg-[#ffff00]": data.category === "events"},
             {"bg-[#ff00ff]": data.category === "exhibitions"},
-            {"bg-[#00ffff]": data.category === "clubs"},
             {"bg-[#eeeeee]": data.category === "kookmins"},
           )}
           style={{
