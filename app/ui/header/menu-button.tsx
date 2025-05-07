@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";
 
 export const menus = [
@@ -29,11 +29,26 @@ export const menus = [
 
 export default function MenuButton() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const handleClick = (src: string, searchParams: string) => {
+    if (pathname === src) {
+      return `${src}/?${searchParams}`;
+    } else {
+      return `${src}`;
+    }
+  }
 
   return (
     <nav className="fixed right-16 w-auto h-8 text-sm p-4 flex items-center gap-4">
       {menus.map((menu) => (
-        <Link key={menu.src} href={menu.src} className={clsx("hover:text-gray-400", {"text-gray-400": pathname === menu.src})}>{menu.menu}</Link>
+        <Link
+          key={menu.src}
+          href={handleClick(menu.src, searchParams.toString())}
+          className={clsx("hover:text-gray-400", {"text-gray-400": pathname === menu.src})}
+        >
+          {menu.menu}
+        </Link>
       ))}
     </nav>
   )
