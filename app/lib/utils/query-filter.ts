@@ -46,7 +46,7 @@ export function queryFilter(
 export function bookmarkFilter(data: PostProps[], bookmark: string | null, user: UserDataProps) {
   let bookmarkFiltered;
 
-  const tagNames = tags.map(tag => tag.name)
+  const tagNames = tags.map(tag => tag.tag)
 
   if (user) {
     const allPostIds = tagNames.flatMap(
@@ -65,6 +65,6 @@ export function bookmarkFilter(data: PostProps[], bookmark: string | null, user:
     bookmarkFiltered = data;
   }
 
-  // console.log("bookmarkFiltered", bookmarkFiltered)
+  console.log("bookmarkFiltered", data, bookmark, user, bookmarkFiltered)
   return bookmarkFiltered;
 }
