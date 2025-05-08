@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";
+import { useState } from "react";
+import { AlignJustify } from 'lucide-react';
 
 export const menus = [
   {
@@ -39,23 +41,39 @@ export default function MenuButton() {
     }
   }
 
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+
   return (
-    <nav className="fixed right-16 w-auto h-8 text-sm p-4 flex items-center gap-4">
-      {menus.map((menu) => (
-        <Link
-          key={menu.src}
-          href={handleClick(menu.src, searchParams.toString())}
-          className={clsx(
-            "hover:text-gray-400",
-            {
-              "text-gray-400": menu.src === '/'
-              ? pathname === '/'
-              : pathname.startsWith(menu.src)}
-          )}
-        >
-          {menu.menu}
-        </Link>
-      ))}
-    </nav>
+    <>
+      <button
+        className={clsx("fixed right-16 h-8 md:hidden")}
+        onClick={() => {setIsHamburgerOpen(!isHamburgerOpen); console.log(isHamburgerOpen)}}
+      >
+        <AlignJustify className={clsx("flex items-center w-6 h-6 hover:text-gray-500 transition-colors", isHamburgerOpen ? "text-gray-400" : "text-black")} />
+      </button>
+      <nav className={clsx(
+        "fixed right-16 w-auto h-8 text-sm p-4 items-start md:items-center gap-4",
+        {
+          "hidden md:flex md:flex-row": !isHamburgerOpen,
+          "flex flex-col top-12": isHamburgerOpen,
+        }
+      )}>
+        {menus.map((menu) => (
+          <Link
+            key={menu.src}
+            href={handleClick(menu.src, searchParams.toString())}
+            className={clsx(
+              "hover:text-gray-400",
+              {
+                "text-gray-400": menu.src === '/'
+                ? pathname === '/'
+                : pathname.startsWith(menu.src)}
+            )}
+          >
+            {menu.menu}
+          </Link>
+        ))}
+      </nav>
+    </>
   )
 }
