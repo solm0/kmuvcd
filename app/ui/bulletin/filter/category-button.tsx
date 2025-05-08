@@ -46,7 +46,7 @@ export default function CategoryButton() {
               {tag.name}
             </button>
             {isTagOpen[tag.tag as keyof typeof isTagOpen] &&
-              <Tags category={tag.tag} />
+              <Tags tag={tag.tag} />
             }
           </div>
         ))}
