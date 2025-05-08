@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { queryFilter, bookmarkFilter } from "@/app/lib/utils/query-filter";
 
 export function filter(posts: PostProps[], user: UserDataProps, searchParams: URLSearchParams) {
-  const tag = searchParams.get('tag');
+  const tag = searchParams.getAll('tag');
   const search = searchParams.get('search');
   const bookmark = searchParams.get('bookmark');
   const filteredEntries = queryFilter(posts, tag, search);

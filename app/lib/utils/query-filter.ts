@@ -4,7 +4,7 @@ import { tags } from '../data/tags';
 
 export function queryFilter(
   data: PostProps[],
-  tag: string | null,
+  tag: string[],
   search: string | null,
 ) {
 
@@ -15,11 +15,11 @@ export function queryFilter(
     tagFiltered = data;
   } else {
     tagFiltered = data.filter((entry) => {
-      return tag && Array.isArray(entry.tags) && entry.tags.some(t => t.name === tag);
+      return tag && Array.isArray(entry.tags) && entry.tags.some(t => tag.includes(t.name));
     })
   }
 
-  // console.log("tagFiltered", tagFiltered)
+  console.log("tagFiltered", tagFiltered)
 
   // 검색 필터링
   const options = {
@@ -65,6 +65,5 @@ export function bookmarkFilter(data: PostProps[], bookmark: string | null, user:
     bookmarkFiltered = data;
   }
 
-  console.log("bookmarkFiltered", data, bookmark, user, bookmarkFiltered)
   return bookmarkFiltered;
 }
