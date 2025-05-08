@@ -33,4 +33,4 @@ export const tags = [
       { name: '학사 일정'},
     ],
   },
-]
+] 
