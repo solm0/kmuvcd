@@ -11,7 +11,6 @@ export default function CategoryButton() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const param = searchParams.get('view');
-  const [isSelected, setIsSelected] = useState<string[]>([]);
 
   useEffect(() => {
     if (!param) {
@@ -22,17 +21,23 @@ export default function CategoryButton() {
     }
   }, []);
 
-  const handleCategory = (query: string) => {
-    if (isSelected.includes(query)) {
-      setIsSelected(prev => prev.filter(item => item !== query))
-    } else {
-      setIsSelected(prev => [...prev, query])
-    }
+  const [isTagOpen, setIsTagOpen] = useState({
+    notices: false,
+    events: false,
+    exhibitions: false,
+    kookmins: false,
+  });
 
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.set("tag", '*');
-    router.push(`${pathname}?${newParams.toString()}`);
-  }
+  console.log(isTagOpen)
+
+  const toggleTag = (tag: string, value: boolean) => {
+    console.log(tag, value);
+
+    setIsTagOpen(prev => ({
+      ...prev,
+      [tag]: value,
+    }));
+  };
 
   return (
     <>
@@ -40,12 +45,12 @@ export default function CategoryButton() {
         {tags.map((tag) => (
           <div key={tag.name}>
             <button
-              onClick={() => handleCategory(tag.tag)}
-              className={clsx("hover:text-gray-400", {"text-gray-400": isSelected.includes(tag.tag)})}
+              onClick={() => toggleTag(tag.tag, !isTagOpen[tag.tag as keyof typeof isTagOpen])}
+              className={clsx("hover:text-gray-400", { "text-gray-400": isTagOpen[tag.tag as keyof typeof isTagOpen] })}
             >
               {tag.name}
             </button>
-            {isSelected.includes(tag.tag) &&
+            {isTagOpen[tag.tag as keyof typeof isTagOpen] &&
               <Tags category={tag.tag} />
             }
           </div>
