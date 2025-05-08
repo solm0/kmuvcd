@@ -9,7 +9,7 @@ import { useIsOpen } from "@/app/lib/utils/use-is-open";
 export default function DetailWindow({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const isCleanPath = pathname === "/";
+  const isCleanPath = pathname === "/bulletin";
 
   const generateHref = (searchParams: string) => {
     return `/bulletin/?${searchParams}`; // TODO: 지우는거 없애야하나? 고정창이면?
@@ -18,10 +18,14 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
   const isOpen = useIsOpen();
 
   return (
+    <div className={clsx(
+      "absolute right-0 top-0 w-full h-full md:w-1/2 md:h-auto max-h-full z-10 overflow-auto scrollbar-hide bg-white bg-opacity-80",
+      isOpen && "md:w-full md:h-[calc(100% - 24rem)]",
+      isCleanPath && "hidden" // TODO
+    )}>
       <div className={clsx(
-        "absolute right-0 top-0 bg-gray-100  w-full h-full md:w-1/2 md:h-auto max-h-full z-10 overflow-x-auto",
-        isOpen && "md:w-[100%] md:h-[100%]",
-        isCleanPath && "hidden" // TODO
+        "bg-gray-100 mt-96 sticky top-0 min-h-screen",
+        !isOpen && "md:mt-0 md:min-h-full"
         )}
       >
         <div className="h-12 p-4 flex absolute w-full items-center">
@@ -36,5 +40,6 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
           {children}
         </div>
       </div>
+    </div>
   );
 }
