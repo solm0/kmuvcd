@@ -29,7 +29,7 @@ export default function DashboardButton() {
     <div className="fixed w-8 h-8 right-4">
       <button
         onClick={handleOpenModal}
-        className={clsx("w-full h-full flex items-center justify-center rounded-full bg-gray-200 hover:text-gray-400 transition-colors", isModal && "bg-gray-900 text-gray-100")}
+        className={clsx("w-full h-full flex items-center justify-center  bg-gray-200 hover:text-gray-400 transition-colors", isModal && "bg-gray-900 text-gray-100")}
       >
         <UserRound className="w-[20px] h-[20px]" />
       </button>

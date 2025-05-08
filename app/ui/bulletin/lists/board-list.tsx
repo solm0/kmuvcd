@@ -33,7 +33,7 @@ export default function BoardList({ data }: { data: PostProps[]; }) {
                       {"bg-[#ffff00]": entry.category === "events"},
                       {"bg-[#ff00ff]": entry.category === "exhibitions"},
                       {"bg-[#eeeeee]": entry.category === "kookmins"},
-                      "p-2 rounded-full text-center text-sm"
+                      "p-2 text-center text-sm"
                     )}
                   >
                     {entry.category && entry?.category}

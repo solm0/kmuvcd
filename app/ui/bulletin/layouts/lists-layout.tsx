@@ -14,7 +14,7 @@ export default function ListsLayout({children, posts, user}: {children: React.Re
           <thead>
             <tr className="h-12">
               <th>제목</th>
-              <th>카테고리</th>
+              <th>태그</th>
               <th>작성자</th>
               <th>날짜</th>
             </tr>

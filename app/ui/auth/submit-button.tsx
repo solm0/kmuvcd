@@ -31,7 +31,7 @@ export function SubmitButton({
       type="submit"
       aria-disabled={status.pending || loading}
       disabled={status.pending || loading}
-      className="flex px-5 py-2 bg-neutral-950 text-white text-sm rounded-full hover:bg-neutral-700 transition-colors"
+      className="flex px-5 py-2 bg-neutral-950 text-white text-sm hover:bg-neutral-700 transition-colors"
     >
       {status.pending || loading ? <Loader text={loadingText} /> : text}
     </button>

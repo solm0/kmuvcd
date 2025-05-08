@@ -51,7 +51,7 @@ export default function CalendarHead({calendarEntries, columnWidth}: {calendarEn
       >
         {hoveredDate ? (
           <div
-            className="relative bg-gray-100 mix-blend-multiply w-auto rounded-full h-8"
+            className="relative bg-gray-100 mix-blend-multiply w-auto h-8"
             style={{
               gridRow: `1 / span ${entry_count}`,
               gridColumnStart: (+new Date(hoveredDate.startDate) - +new Date(calendarEntries[0].startDate)) / (1000 * 60 * 60 * 24)+1,

@@ -40,7 +40,7 @@ export default function Map() {
     </svg>
     {hoveredRoom && rooms.find(room => room.id === hoveredRoom)?.href &&
       <div
-        className="fixed z-80 h-8 w-auto flex items-center px-4 bg-gray-100 text-sm rounded-full top-0 left-0"
+        className="fixed z-80 h-8 w-auto flex items-center px-4 bg-gray-100 text-sm top-0 left-0"
         style={{
           position: 'fixed',
           top: mousePos.y - 30,

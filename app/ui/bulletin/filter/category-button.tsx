@@ -36,12 +36,18 @@ export default function CategoryButton() {
 
   return (
     <>
-      <nav className="w-auto h-auto p-4 text-sm bg-gray-100 flex flex-wrap items-center gap-4">
+      <nav className="w-auto h-auto text-sm flex flex-wrap items-center">
         {tags.map((tag) => (
-          <div key={tag.name}>
+          <div key={tag.name} className="flex flex-row">
             <button
               onClick={() => toggleTag(tag.tag, !isTagOpen[tag.tag as keyof typeof isTagOpen])}
-              className={clsx("hover:text-gray-400", { "text-gray-400": isTagOpen[tag.tag as keyof typeof isTagOpen] })}
+              className={clsx(
+                "hover:opacity-70 inline-flex items-center h-8 px-3 break-keep transition-all",
+                {"bg-[#00ffff]": tag.tag === "notices"},
+                {"bg-[#ffff00]": tag.tag === "events"},
+                {"bg-[#ff00ff]": tag.tag === "exhibitions"},
+                {"bg-[#000000] text-gray-100": tag.tag === "kookmins"},
+              )}
             >
               {tag.name}
             </button>

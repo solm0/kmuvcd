@@ -34,7 +34,7 @@ export function RegisterButton({
       aria-disabled={status.pending || loading}
       disabled={!strengthPass || status.pending || (passwordConfirmation === false) || loading}
       className={clsx(
-        "flex px-5 py-2 bg-neutral-950 text-white text-sm rounded-full hover:bg-neutral-700 transition-colors",
+        "flex px-5 py-2 bg-neutral-950 text-white text-sm hover:bg-neutral-700 transition-colors",
         {
           "opacity-50 pointer-events-none": !strengthPass || (passwordConfirmation === false),
         },

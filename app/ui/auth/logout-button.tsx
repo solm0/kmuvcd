@@ -20,7 +20,7 @@ export function LogoutButton() {
         type="submit"
         aria-disabled={status.pending}
         disabled={status.pending}
-        className="flex px-5 py-2 bg-neutral-950 text-white text-sm rounded-full hover:bg-neutral-700 transition-colors"
+        className="flex px-5 py-2 bg-neutral-950 text-white text-sm hover:bg-neutral-700 transition-colors"
       >
         {status.pending ?
           <Loader text="Loading" />

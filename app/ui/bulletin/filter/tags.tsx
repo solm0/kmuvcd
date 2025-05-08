@@ -84,10 +84,17 @@ export default function Tags({tag}: {tag: string}) {
   return (
     <>
       {subTags && (
-        <div className="h-auto text-sm flex items-center gap-3 flex-wrap">
+        <div className="h-auto text-sm inline-flex items-center flex-wrap">
           <button
             onClick={handleAll}
-            className={clsx("hover:text-gray-400 h-6 w-auto px-3 break-keep border border-black", {"bg-gray-200": isAllSelected} )}
+            className={clsx(
+              "hover:text-gray-400 h-8 w-auto px-3 break-keep transition-all",
+              {"bg-[#00ffff55]": tag === "notices"},
+              {"bg-[#ffff0055]": tag === "events"},
+              {"bg-[#ff00ff55]": tag === "exhibitions"},
+              {"bg-[#00000055]": tag === "kookmins"},
+              {"!bg-gray-200": isAllSelected},
+            )}
           >
             전체
           </button>
@@ -95,7 +102,7 @@ export default function Tags({tag}: {tag: string}) {
             <button
               key={tag.name}
               onClick={() => handleOne(tag.name)}
-              className={clsx("hover:text-gray-400 h-6 w-auto px-3 break-keep border border-black", {"bg-gray-200": isTagSelected(tag.name)})}
+              className={clsx("hover:text-gray-400 h-8 w-auto px-3 break-keep", {"bg-gray-200": isTagSelected(tag.name)})}
             >
               {tag.name}
             </button>

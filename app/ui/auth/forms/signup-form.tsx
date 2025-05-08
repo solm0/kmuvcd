@@ -141,7 +141,7 @@ export function SignupForm() {
           </button>
         </div>
         <div
-          className="h-1 w-full bg-gray-200 rounded-full overflow-hidden mb-4"
+          className="h-1 w-full bg-gray-200 overflow-hidden mb-4"
           role="progressbar"
           aria-valuenow={strengthScore}
           aria-valuemin={0}

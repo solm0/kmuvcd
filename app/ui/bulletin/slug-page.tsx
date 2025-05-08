@@ -24,7 +24,7 @@ export default async function SlugPage({slug, token, user, posts} : {slug: strin
       <p>제목: {post.name}</p>
       <p>작성자: {post.author}</p>
       <p>작성일: {post.publishedAt?.slice(0,10)}</p>
-      <p>카테고리: {post.category}</p>
+      <p>태그: {post.category}</p>
       {post.startDate && <p>기간: {post.startDate}{post.endDate && `-${post.endDate}`}</p>}
       {post.location && <p>장소: {post.location}</p>}
       {post.tags && <div className="flex gap-2">태그: {post.tags.map(tag => (<div key={tag.documentId} className="bg-gray-200 text-gray-900 px-2 text-sm py-1 rounded-lg">{tag.name}</div>))}</div>}
