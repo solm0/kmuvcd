@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { PostProps } from "@/app/lib/types";
-import { scrollToDay } from "@/app/ui/board/calendar/calendar-controll";
+import { scrollToDay } from "@/app/ui/bulletin/calendar/calendar-controll";
 
 export function useCalendarData(
   calendarEntries: PostProps[],

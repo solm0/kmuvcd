@@ -3,8 +3,8 @@
 import { Search } from "./search";
 import MoreOptions from "./more-options";
 import clsx from 'clsx';
-import ViewButton from "../header/view-button";
-import CategoryButton from "../header/category-button";
+import ViewButton from "./view-button";
+import CategoryButton from "./category-button";
 import { useIsOpen } from "@/app/lib/utils/use-is-open";
 
 export default function Filter({login}: {login: boolean }) {

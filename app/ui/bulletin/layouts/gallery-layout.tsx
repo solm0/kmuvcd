@@ -1,5 +1,5 @@
 import { PostProps, UserDataProps } from "../../../lib/types";
-import Filter from "../filter";
+import Filter from "../filter/filter";
 import BoardImage from "../gallery/board-image";
 import DetailWindow from "../detail-window";
 import clsx from 'clsx';

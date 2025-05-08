@@ -1,9 +1,9 @@
 'use client'
 
 import { PostProps, UserDataProps} from "../../../lib/types";
-import Filter from "../filter";
+import Filter from "../filter/filter";
 import CalendarPanel from "../calendar/calendar-panel";
-import DetailWindow from "@/app/ui/board/detail-window";
+import DetailWindow from "../detail-window";
 import clsx from 'clsx';
 
 export default function CalendarLayout({children, posts, filteredPosts, user}: {children: React.ReactNode; posts: PostProps[]; filteredPosts: PostProps[]; user: UserDataProps}) {

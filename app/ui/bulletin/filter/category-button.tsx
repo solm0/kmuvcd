@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
-import Tags from "../board/tags";
+import Tags from "./tags";
 import { tags } from "@/app/lib/data/tags";
 
 export default function CategoryButton() {
@@ -16,7 +16,7 @@ export default function CategoryButton() {
   useEffect(() => {
     if (!param) {
       const newParams = new URLSearchParams(searchParams.toString());
-      newParams.set("view", 'calendar');
+      newParams.set("view", 'lists');
       newParams.set("tag", '*');
       router.push(`${pathname}?${newParams.toString()}`);
     }
