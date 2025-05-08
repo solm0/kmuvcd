@@ -29,6 +29,8 @@ export const tags = [
   },
   { tag: 'kookmins',
     name: '학사 일정',
-    sub_tags: [],
+    sub_tags: [
+      { name: '학사 일정'},
+    ],
   },
 ]
