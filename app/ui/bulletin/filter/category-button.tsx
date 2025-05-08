@@ -16,7 +16,6 @@ export default function CategoryButton() {
     if (!param) {
       const newParams = new URLSearchParams(searchParams.toString());
       newParams.set("view", 'lists');
-      newParams.set("tag", '*');
       router.push(`${pathname}?${newParams.toString()}`);
     }
   }, []);
@@ -28,11 +27,7 @@ export default function CategoryButton() {
     kookmins: false,
   });
 
-  console.log(isTagOpen)
-
   const toggleTag = (tag: string, value: boolean) => {
-    console.log(tag, value);
-
     setIsTagOpen(prev => ({
       ...prev,
       [tag]: value,

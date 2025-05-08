@@ -11,7 +11,7 @@ export function queryFilter(
   // 태그 필터링
   let tagFiltered;
 
-  if (tag === '*') {
+  if (tag === null) {
     tagFiltered = data;
   } else {
     tagFiltered = data.filter((entry) => {

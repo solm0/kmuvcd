@@ -15,17 +15,10 @@ export default function Tags({category}: {category: string}) {
     const newParams = new URLSearchParams(searchParams.toString());
     const existingTags = newParams.getAll("tag");
 
-    if (existingTags.includes('*')) {
-      newParams.delete("tag");
-    }
-
     if (existingTags.includes(query)) {
       const updatedTags = existingTags.filter(tag => tag !== query);
       newParams.delete("tag");
 
-      if (updatedTags.length === 0) {
-        newParams.set("tag", '*');
-      }
       updatedTags.forEach(tag => newParams.append("tag", tag));
     } else {
       newParams.append("tag", query);
@@ -36,11 +29,7 @@ export default function Tags({category}: {category: string}) {
 
   const handleAllTag = (queries: {name: string}[]) => {
     const newParams = new URLSearchParams(searchParams.toString());
-    const existingTags = newParams.getAll("tag");
-
-    if (existingTags.includes('*')) {
-      newParams.delete("tag");
-    }
+    // const existingTags = newParams.getAll("tag");
 
     queries.forEach(query => newParams.append("tag", query.name.toString()));
     router.push(`${pathname}?${newParams.toString()}`);
