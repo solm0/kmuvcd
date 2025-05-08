@@ -85,6 +85,9 @@ class EventScraper:
                     "category": "kookmins",
                     "startDate": event["startDate"],
                     "endDate": event["endDate"],
+                    "tags": {
+                        "connect": ["gyogqkpt5irzvaq107xu22de"],
+                    }
                 }
             }
 
