@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const posts = await getBoardPosts();
 
   return (
-    <Suspense fallback={<div className="w-full">Loading post...</div>}>
+    <Suspense fallback={<div className="w-full p-4">Loading post...</div>}>
       <SlugPage slug={slug} token={token} user={user.data} posts={posts} />
     </Suspense>
   )

@@ -34,15 +34,15 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
       }}
     >
       <div className={clsx(
-        "bg-gray-100 mt-96 sticky top-0 min-h-screen",
+        "bg-white mt-96 sticky top-0 min-h-screen border border-gray-200",
         !isOpen && "md:mt-0 md:min-h-full",
         )}
       >
-        <div className="h-12 p-4 flex absolute w-full items-center">
+        <div className="h-12 sticky top-0 w-12 ml-auto pt-4">
           {!isCleanPath &&
             <Link
               href={generateHref(searchParams.toString())}
-              className="ml-auto text-gray-600 hover:text-gray-900 z-30 transition-colors"
+              className="flex items-center justify-center text-gray-600 hover:text-gray-900 z-30 transition-colors"
             >
               <X />
             </Link>
@@ -51,7 +51,7 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
         {isCleanPath ?
           <div className="p-4 flex items-center justify-center">아무거나 선택하세요...</div>
           :
-          <div>{children}</div>
+          <div className="relative -top-12 w-[calc(100%-3rem)]">{children}</div>
         }
       </div>
     </div>

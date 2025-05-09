@@ -14,14 +14,14 @@ export default function BoardImage({data}: { data: PostProps[]; }) {
    return (
     <div className="flex flex-wrap gap-4">
       {data.map((entry: PostProps) => (
-        <div key={entry.documentId} className="max-w-96 min-w-48">
+        <div key={entry.documentId} className="max-w-64 min-w-48">
           {entry.documentId && entry.thumbnail ?
             <Link href={generateHref(pathname, searchParams.toString(), entry?.documentId)}>
-              <div className={clsx("mb-4 hover:opacity-50", {"opacity-50": (pathname === entry?.documentId)})}>
+              <div className={clsx("mb-4 hover:opacity-50 transition-opacity", {"opacity-50": (pathname === entry?.documentId)})}>
                 <div>
                   <ImageMedia media={entry?.thumbnail} size="medium" />
                 </div>
-                <p className="text-sm">{entry?.name}</p>
+                <p className="text-sm mt-2 text-gray-700">{entry?.name}</p>
               </div>
             </Link>
             : <div className="p-4 mt-4 bg-gray-100">no documentId or thumbnail</div>
