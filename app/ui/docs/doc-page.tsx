@@ -71,7 +71,7 @@ export default async function DocPage() {
 
             <Head id='staffs' text='교직원' />
             {data0302.map((post: PostProps) => (
-                <div key={post.documentId} className="rounded-lg bg-gray-100 p-8 mb-4">
+                <div key={post.documentId} className="bg-gray-100 p-8 mb-4">
                     <p>name: {post.name}</p>
                     <p>location: {post.location}</p>
                     <p>phone: {post.phone}</p>

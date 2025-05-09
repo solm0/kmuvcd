@@ -22,7 +22,7 @@ export function Search() {
   }, 300);
 
   return (
-    <div className="h-8 w-3/5 text-sm flex items-center gap-1">
+    <div className="h-4 w-40 text-sm flex items-center gap-1">
       <input
         type="text"
         onChange={(e) => handleSearch(e.target.value)}

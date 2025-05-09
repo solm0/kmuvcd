@@ -100,7 +100,7 @@ export function ResetPasswordForm() {
   }
 
   return (
-    <div className='rounded-lg bg-gray-100 p-8'>
+    <div className='bg-gray-100 p-8'>
       <form
         className="flex flex-col gap-2 items-start"
         action={formAction}
@@ -114,7 +114,7 @@ export function ResetPasswordForm() {
             name="code"
             value={values.code}
             onChange={handleChange}
-            className="rounded-lg px-5 py-2"
+            className="px-5 py-2"
             placeholder="Code"
             required
           />
@@ -129,13 +129,13 @@ export function ResetPasswordForm() {
             name="password"
             value={values.password}
             onChange={handleChange}
-            className="rounded-lg px-5 py-2"
+            className="px-5 py-2"
             placeholder="New password"
             aria-label="Password"
             required
           />
           <button
-            className="cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus-visible:text-indigo-500 hover:text-gray-500 transition-colors"
+            className="cursor-pointer text-gray-400 focus:outline-none focus-visible:text-indigo-500 hover:text-gray-500 transition-colors"
             type="button"
             onClick={() => toggleVisibility("password")}
             aria-label={isVisible ? "Hide password" : "Show password"}
@@ -206,7 +206,7 @@ export function ResetPasswordForm() {
             onChange={handleChange}
             onKeyUp={handleConfirmation}
             className={clsx (
-              "rounded-lg px-5 py-2 focus:outline-none focus-visible:outline-none",
+              "px-5 py-2 focus:outline-none focus-visible:outline-none",
               {
                 "border-2 border-red-500": (isEqual === false),
               },
@@ -218,7 +218,7 @@ export function ResetPasswordForm() {
             required
           />
           <button
-            className="cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus-visible:text-indigo-500 hover:text-gray-500 transition-colors"
+            className="cursor-pointer text-gray-400 focus:outline-none focus-visible:text-indigo-500 hover:text-gray-500 transition-colors"
             type="button"
             onClick={() => toggleVisibility("passwordConfirmation")}
             aria-label={isVisible ? "Hide password" : "Show password"}

@@ -35,7 +35,7 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <div className='rounded-lg bg-gray-100 p-8'>
+    <div className='bg-gray-100 p-8'>
       <form
         className="flex flex-col gap-2 items-start"
         action={formAction}
@@ -50,7 +50,7 @@ export function ForgotPasswordForm() {
             name="email"
             value={values.email}
             onChange={handleChange}
-            className="rounded-lg px-5 py-2"
+            className="px-5 py-2"
             placeholder="email"
             required
           />

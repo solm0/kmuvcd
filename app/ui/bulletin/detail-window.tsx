@@ -26,9 +26,11 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
         isCleanPath && isOpen && "hidden",
         isCleanPath && !isOpen && "hidden md:block",
       )}
-      onClick={() => {
-        const href = generateHref(searchParams.toString());
-        router.push(href);
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          const href = generateHref(searchParams.toString());
+          router.push(href);
+        }
       }}
     >
       <div className={clsx(

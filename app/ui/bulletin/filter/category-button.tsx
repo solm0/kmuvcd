@@ -46,7 +46,7 @@ export default function CategoryButton() {
                 {"bg-[#00ffff]": tag.tag === "notices"},
                 {"bg-[#ffff00]": tag.tag === "events"},
                 {"bg-[#ff00ff]": tag.tag === "exhibitions"},
-                {"bg-[#000000] text-gray-100": tag.tag === "kookmins"},
+                {"bg-[#000000] text-gray-200": tag.tag === "kookmins"},
               )}
             >
               {tag.name}

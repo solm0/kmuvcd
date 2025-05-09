@@ -17,7 +17,7 @@ export default function CalendarLayout({children, posts, filteredPosts, user}: {
         "w-full md:w-1/2 h-full overflow-x-auto flex flex-col gap-4 items-start",
         isOpen && '!w-full'
       )}>
-        <div className="w-full pr-4 text-sm h-8 flex items-center">{`필터링 결과 ${filteredPosts.length}건`}</div>
+        <div className="w-full pr-4 text-sm h-8 flex items-center text-slate-600 pb-4">{`필터링 결과 ${filteredPosts.length}건`}</div>
         <CalendarPanel
           calendarEntries={posts}
           filteredEntries={filteredPosts}

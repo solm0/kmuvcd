@@ -73,7 +73,7 @@ export function SignupForm() {
   }
 
   return (
-    <div className='rounded-lg bg-gray-100 p-8'>
+    <div className='bg-gray-100 p-8'>
       <form
         className="flex flex-col gap-2 items-start"
         action={formAction}
@@ -88,7 +88,7 @@ export function SignupForm() {
           aria-describedby="realname-description"
           value={values.realname}
           onChange={handleChange}
-          className="rounded-lg px-5 py-2"
+          className="px-5 py-2"
           placeholder="realname"
           required
         />
@@ -104,7 +104,7 @@ export function SignupForm() {
             aria-describedby="email-description"
             value={values.email}
             onChange={handleChange}
-            className="rounded-lg px-5 py-2"
+            className="px-5 py-2"
             placeholder="email"
             required
           />
@@ -120,13 +120,13 @@ export function SignupForm() {
             name="password"
             value={values.password}
             onChange={handleChange}
-            className="rounded-lg px-5 py-2"
+            className="px-5 py-2"
             placeholder="password"
             aria-label="Password"
             required
           />
           <button
-            className="cursor-pointer text-gray-400 rounded-e-md focus:outline-none focus-visible:text-indigo-500 hover:text-gray-500 transition-colors"
+            className="cursor-pointer text-gray-400 focus:outline-none focus-visible:text-indigo-500 hover:text-gray-500 transition-colors"
             type="button"
             onClick={toggleVisibility}
             aria-label={isVisible ? "Hide password" : "Show password"}

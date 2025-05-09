@@ -19,7 +19,7 @@ export const tags = [
     ],
   },
   { tag: 'exhibitions',
-    name: '전시 일정',
+    name: '전시',
     sub_tags: [
       { name: '개인전'},
       { name: '단체전'},

@@ -25,24 +25,21 @@ export default function BoardList({ data }: { data: PostProps[]; }) {
               "h-12 hover:bg-gray-100 transition-colors"
             )}
           >
-                <td className="pr-4">{entry?.name}</td>
-                <td className="pr-4">
-                  <div
-                    className={clsx(
-                      {"bg-[#00ffff]": entry.category === "notices"},
-                      {"bg-[#ffff00]": entry.category === "events"},
-                      {"bg-[#ff00ff]": entry.category === "exhibitions"},
-                      {"bg-[#eeeeee]": entry.category === "kookmins"},
-                      "p-2 text-center text-sm"
-                    )}
-                  >
-                    {entry.category && entry?.category}
-                  </div>
-                </td>
-                {/* <td>{entry.startDate && <p>{entry.startDate}{entry.endDate && `-${entry.endDate}`}</p>}</td> */}
-                <td className="pr-4">{entry.author && entry?.author}</td>
-                <td>{entry?.publishedAt?.slice(0,10)}</td>
-
+            <td className="flex items-center break-keep h-12">
+              <div
+                className={clsx(
+                  {"bg-[#00ffff]": entry.category === "notices"},
+                  {"bg-[#ffff00]": entry.category === "events"},
+                  {"bg-[#ff00ff]": entry.category === "exhibitions"},
+                  {"bg-[#000000] text-gray-200": entry.category === "kookmins"},
+                  "h-8 flex items-center text-sm px-3"
+                )}
+              >
+                {entry.tags[0].name}
+              </div>
+              {(entry.tags?.length > 1) ? <span className="pl-2">{`외 ${entry.tags?.length - 1}`}</span> : null}
+            </td>
+            <td>{entry?.name}</td>
           </tr>
       )})}
     </>

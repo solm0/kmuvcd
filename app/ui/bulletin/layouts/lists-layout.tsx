@@ -15,14 +15,12 @@ export default function ListsLayout({children, posts, user}: {children: React.Re
         "w-full md:w-1/2 h-full overflow-x-auto pr-4",
         isOpen && '!w-full'
       )}>
-        <div className="w-full overflow-x-auto text-sm">{`필터링 결과 ${posts.length}건`}</div>
-        <table className="table-auto text-left w-full text-sm">
+        <div className="w-full overflow-x-auto text-sm text-slate-600 pb-4">{`필터링 결과 ${posts.length}건`}</div>
+        <table className="text-left w-full text-sm">
           <thead>
             <tr className="h-12">
+              <th className="w-28">태그</th>
               <th>제목</th>
-              <th>태그</th>
-              <th>작성자</th>
-              <th>날짜</th>
             </tr>
           </thead>
           <tbody>
