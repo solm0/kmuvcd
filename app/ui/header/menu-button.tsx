@@ -63,7 +63,7 @@ export default function MenuButton() {
             key={menu.src}
             href={handleClick(menu.src, searchParams.toString())}
             className={clsx(
-              "hover:text-gray-400",
+              "hover:text-gray-400 transition-colors",
               {
                 "text-gray-400": menu.src === '/'
                 ? pathname === '/'

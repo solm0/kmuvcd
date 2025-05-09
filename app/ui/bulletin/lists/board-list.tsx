@@ -22,7 +22,7 @@ export default function BoardList({ data }: { data: PostProps[]; }) {
             onClick={() => redirect(generateHref(pathname, searchParams.toString(), entry?.documentId))}
             className={clsx(
               subPathname === entry?.documentId && "bg-gray-100",
-              "h-12 hover:bg-gray-100"
+              "h-12 hover:bg-gray-100 transition-colors"
             )}
           >
                 <td className="pr-4">{entry?.name}</td>

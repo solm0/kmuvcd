@@ -1,6 +1,6 @@
 'use client'
 
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import Link from "next/link";
 import clsx from "clsx";
@@ -9,6 +9,7 @@ import { useIsOpen } from "@/app/lib/utils/use-is-open";
 export default function DetailWindow({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const router = useRouter();
   const isCleanPath = pathname === "/bulletin";
 
   const generateHref = (searchParams: string) => {
@@ -18,12 +19,18 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
   const isOpen = useIsOpen();
 
   return (
-    <div className={clsx(
-      "absolute right-0 top-0 w-full h-full md:w-1/2 md:h-full pb-4 z-10 overflow-auto scrollbar-hide bg-white bg-opacity-80 block",
-      isOpen && "md:w-full md:h-[calc(100% - 24rem)]",
-      isCleanPath && isOpen && "hidden",
-      isCleanPath && !isOpen && "hidden md:block",
-    )}>
+    <div
+      className={clsx(
+        "absolute right-0 top-0 w-full h-full md:w-1/2 md:h-full pb-4 z-10 overflow-auto scrollbar-hide bg-white bg-opacity-80 block",
+        isOpen && "md:w-full md:h-[calc(100% - 24rem)]",
+        isCleanPath && isOpen && "hidden",
+        isCleanPath && !isOpen && "hidden md:block",
+      )}
+      onClick={() => {
+        const href = generateHref(searchParams.toString());
+        router.push(href);
+      }}
+    >
       <div className={clsx(
         "bg-gray-100 mt-96 sticky top-0 min-h-screen",
         !isOpen && "md:mt-0 md:min-h-full",
