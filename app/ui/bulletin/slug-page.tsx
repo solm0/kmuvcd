@@ -44,8 +44,7 @@ export default async function SlugPage({slug, token, user, posts} : {slug: strin
         {post.startDate && <p>기간: {post.startDate}{post.endDate && `-${post.endDate}`}</p>}
         {post.location && <p>장소: {post.location}</p>}
         {post.website && (post.website?.length !== 0) &&
-          <div className="flex gap-2">
-            링크
+          <div className="flex flex-col gap-3 pt-4">
             {post.website?.map(website => (
               <Website key={website.id} website={website} />
             ))}

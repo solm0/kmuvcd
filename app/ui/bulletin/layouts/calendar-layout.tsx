@@ -6,6 +6,7 @@ import CalendarPanel from "../calendar/calendar-panel";
 import DetailWindow from "../detail-window";
 import clsx from 'clsx';
 import { useIsOpen } from "@/app/lib/utils/use-is-open";
+import RemoveFilter from "../remove-filter";
 
 export default function CalendarLayout({children, posts, filteredPosts, user}: {children: React.ReactNode; posts: PostProps[]; filteredPosts: PostProps[]; user: UserDataProps}) {
   const isOpen = useIsOpen();
@@ -17,7 +18,7 @@ export default function CalendarLayout({children, posts, filteredPosts, user}: {
         "w-full md:w-1/2 h-full overflow-x-auto flex flex-col gap-4 items-start",
         isOpen && '!w-full'
       )}>
-        <div className="w-full pr-4 text-sm h-8 flex items-center text-slate-600 pb-4">{`필터링 결과 ${filteredPosts.length}건`}</div>
+        <RemoveFilter length={posts.length} />
         <CalendarPanel
           calendarEntries={posts}
           filteredEntries={filteredPosts}
