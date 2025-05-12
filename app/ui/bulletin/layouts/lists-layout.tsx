@@ -13,7 +13,7 @@ export default function ListsLayout({children, posts, user}: {children: React.Re
     <div className={clsx("flex-1 overflow-hidden flex flex-col")}>
       <Filter login={user ? true : false} />
       <div className={clsx(
-        "w-full md:w-1/2 h-full overflow-x-auto pr-4",
+        "w-full md:w-1/2 h-full overflow-x-auto pr-4 [&::-webkit-scrollbar]:w-4  [&::-webkit-scrollbar-thumb]:bg-gray-100",
         isOpen && '!w-full'
       )}>
         <RemoveFilter length={posts.length} />
