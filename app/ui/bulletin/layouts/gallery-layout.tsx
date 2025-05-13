@@ -6,18 +6,20 @@ import clsx from 'clsx';
 import { useIsOpen } from "@/app/lib/utils/use-is-open";
 import RemoveFilter from "../remove-filter";
 
-export default function GalleryLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps}) {
+export default function GalleryLayout({children, length, posts, user}: {children: React.ReactNode; length:number; posts: PostProps[]; user: UserDataProps}) {
   const isOpen = useIsOpen();
 
   return (
     <div className={clsx("flex-1 overflow-hidden flex flex-col")}>
-      <Filter login={user ? true : false} />
       <div className={clsx(
         "w-full md:w-1/2 flex h-full overflow-x-auto",
         isOpen && '!w-full'
       )}>
-        <RemoveFilter length={posts.length} />
-        <div className="flex-1 overflow-x-auto pr-4 mt-8">
+        <div className="fixed w-full">
+          <Filter login={user ? true : false} />
+          <RemoveFilter length={length} />
+        </div>
+        <div className="flex-1 overflow-x-auto pr-4 mt-72">
           <BoardImage
             data={posts}
           />

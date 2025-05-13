@@ -6,18 +6,20 @@ import clsx from 'clsx';
 import { useIsOpen } from "@/app/lib/utils/use-is-open";
 import RemoveFilter from "../remove-filter";
 
-export default function ListsLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps}) {
+export default function ListsLayout({children, length, posts, user}: {children: React.ReactNode; length:number; posts: PostProps[]; user: UserDataProps}) {
   const isOpen = useIsOpen();
 
   return (
-    <div className={clsx("flex-1 overflow-hidden flex flex-col")}>
-      <Filter login={user ? true : false} />
+    <div className="flex-1 overflow-hidden flex flex-col">
       <div className={clsx(
         "w-full md:w-1/2 h-full overflow-x-auto pr-4 [&::-webkit-scrollbar]:w-4  [&::-webkit-scrollbar-thumb]:bg-gray-100",
         isOpen && '!w-full'
       )}>
-        <RemoveFilter length={posts.length} />
-        <table className="text-left w-full text-sm mt-8">
+        <div className="fixed w-full md:w-1/2 pr-8">
+          <Filter login={user ? true : false} />
+          <RemoveFilter length={length} />
+        </div>
+        <table className="text-left w-full text-sm mt-72">
           <thead>
             <tr className="h-12">
               <th className="w-28">태그</th>

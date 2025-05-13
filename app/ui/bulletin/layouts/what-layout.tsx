@@ -1,12 +1,12 @@
 'use client'
 
 import { PostProps, UserDataProps } from "@/app/lib/types";
-import { useSearchParams } from "next/navigation";
-import CalendarLayout from "./calendar-layout";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import ListsLayout from "./lists-layout";
 import GalleryLayout from "./gallery-layout";
-import { useState, useEffect } from "react";
 import { queryFilter, bookmarkFilter, yearFilter } from "@/app/lib/utils/query-filter";
+import { useEffect } from "react";
+import ShowMore from "../show-more";
 
 export function filter(posts: PostProps[], user: UserDataProps, searchParams: URLSearchParams) {
   const tag = searchParams.getAll('tag');
@@ -20,84 +20,60 @@ export function filter(posts: PostProps[], user: UserDataProps, searchParams: UR
 }
 
 export default function WhatLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps;}) {
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [layout, setLayout] = useState("calendar");
+  const router = useRouter();
+  const view = searchParams.get("view");
 
   useEffect(() => {
-    const view = searchParams.get("view");
-
-    if (view) {
-      setLayout(view);
+    if (!view) {
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.set("view", 'lists');
+      newParams.set("year", '2025');
+      router.push(`${pathname}?${newParams.toString()}`);
     }
-  }, [searchParams]);
+  }, []);
 
   // calendar data
+  // const calendarPosts = posts
+  //   .filter(post => post.startDate !== null)
+  //   .map(post => ({
+  //     ...post,
+  //     endDate: post.endDate ?? post.startDate,
+  //   }))
 
-  // posts를 startDate가 있는것만 filter
-  const c_filteredPosts = posts
-    .filter(post => post.startDate !== null)
-
-  // 누락된 endDate 채우기, 시간순 sort
-  const calendarPosts = c_filteredPosts
-    .map(post => ({
-      ...post,
-      endDate: post.endDate ?? post.startDate,
-    }))
-    .sort(function(a: PostProps, b: PostProps) {
-      return (
-        new Date(a.startDate).getTime() - new Date(b.startDate).getTime() ||
-        new Date(a.endDate).getTime() - new Date(b.endDate).getTime()
-      );
-  });
-
-  const filteredCalendarPosts = filter(calendarPosts, user, searchParams);
+  // const filteredCalendarPosts = filter(calendarPosts, user, searchParams);
 
   // lists data
-
-  // publishedAt 정렬.
-  const listsPosts = posts
-    .sort((a: PostProps, b: PostProps) => {
-      return (
-        new Date(a.publishedAt ?? "9999-12-31T23:59:59Z").getTime() - new Date(b.publishedAt ?? "9999-12-31T23:59:59Z").getTime() ||
-        new Date(a.startDate)?.getTime() - new Date(b.startDate)?.getTime() ||
-        new Date(a.endDate)?.getTime() - new Date(b.endDate)?.getTime()
-      )
-    }) 
-
-  const filteredListsPosts = filter(listsPosts, user, searchParams);
+  const filteredListsPosts = filter(posts, user, searchParams);
 
   // gallery data
-
-  // dynamic zone -> image_block이 있는것만 filter
-  const g_filteredPosts = posts
-    .filter(post => post.dynamic?.some(item => "image_block" in item));
-
-  // image_block을 thumbnail로.
-  const thumbnailPosts = g_filteredPosts
+  const galleryPosts = posts
+    .filter(post => post.dynamic?.some(item => "image_block" in item))
     .map((post) => ({
       ...post,
       thumbnail: post.dynamic?.find(item => "image_block" in item)?.image_block?.[0],
     }))
-
-  // publishedAt sort
-  const galleryPosts = thumbnailPosts
-    .sort((a: PostProps, b: PostProps) => {
-      return (
-        new Date(a.publishedAt ?? "9999-12-31T23:59:59Z").getTime() - new Date(b.publishedAt ?? "9999-12-31T23:59:59Z").getTime() ||
-        new Date(a.startDate)?.getTime() - new Date(b.startDate)?.getTime() ||
-        new Date(a.endDate)?.getTime() - new Date(b.endDate)?.getTime()
-      );
-    });
-
+  
   const filteredGalleryPosts = filter(galleryPosts, user, searchParams);
 
   // 파라미터의 view에 따라 어떤 레이아웃 렌더링할지 정함
-  switch (layout) {
-    case "calendar":
-      return <CalendarLayout posts={calendarPosts} filteredPosts={filteredCalendarPosts} user={user}>{children}</CalendarLayout>;
+  switch (view) {
     case "lists":
-      return <ListsLayout posts={filteredListsPosts} user={user}>{children}</ListsLayout>;
+      return (
+        <ShowMore allPosts={filteredListsPosts}>
+          {(visiblePosts) => (
+            <ListsLayout posts={visiblePosts} length={filteredListsPosts.length} user={user}>{children}</ListsLayout>
+          )}
+        </ShowMore>
+      )
     case "gallery":
-      return <GalleryLayout posts={filteredGalleryPosts} user={user}>{children}</GalleryLayout>;
+      return (
+        <ShowMore allPosts={filteredGalleryPosts}>
+          {(visiblePosts) => (
+            <GalleryLayout posts={visiblePosts} length={filteredGalleryPosts.length} user={user}>{children}</GalleryLayout>
+          )}
+        </ShowMore>
+      )
   }
 }

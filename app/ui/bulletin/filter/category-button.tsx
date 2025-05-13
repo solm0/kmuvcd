@@ -1,24 +1,11 @@
 'use client'
 
-import { useEffect, useState } from "react";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 import clsx from "clsx";
 import Tags from "./tags";
 import { tags } from "@/app/lib/data/tags";
 
 export default function CategoryButton() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const param = searchParams.get('view');
-
-  useEffect(() => {
-    if (!param) {
-      const newParams = new URLSearchParams(searchParams.toString());
-      newParams.set("view", 'lists');
-      router.push(`${pathname}?${newParams.toString()}`);
-    }
-  }, []);
 
   const [isTagOpen, setIsTagOpen] = useState({
     notices: false,

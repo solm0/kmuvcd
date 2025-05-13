@@ -25,7 +25,7 @@ export default function ImageFilter() {
   return (
       <label
         htmlFor="box"
-        className="hover:text-gray-400 w-auto text-sm flex items-center gap-2"
+        className="w-auto text-sm flex items-center gap-2"
       >
         <input
             id="box"

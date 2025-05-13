@@ -1,19 +1,12 @@
 'use client'
 
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function YearFilter() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const year = searchParams.get("year");
-
-  useEffect(() => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.set("year", '2025');
-    router.push(`${pathname}/?${newParams.toString()}`);
-  }, [])
 
   const handleFilter = (newYear: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
