@@ -6,15 +6,17 @@ import CalendarLayout from "./calendar-layout";
 import ListsLayout from "./lists-layout";
 import GalleryLayout from "./gallery-layout";
 import { useState, useEffect } from "react";
-import { queryFilter, bookmarkFilter } from "@/app/lib/utils/query-filter";
+import { queryFilter, bookmarkFilter, yearFilter } from "@/app/lib/utils/query-filter";
 
 export function filter(posts: PostProps[], user: UserDataProps, searchParams: URLSearchParams) {
   const tag = searchParams.getAll('tag');
   const search = searchParams.get('search');
   const bookmark = searchParams.get('bookmark');
+  const year = searchParams.get('year');
   const filteredEntries = queryFilter(posts, tag, search);
   const bookmarkEntries = bookmarkFilter(filteredEntries, bookmark, user);
-  return bookmarkEntries;
+  const finalEntries = yearFilter(bookmarkEntries, year);
+  return finalEntries;
 }
 
 export default function WhatLayout({children, posts, user}: {children: React.ReactNode; posts: PostProps[]; user: UserDataProps;}) {

@@ -31,15 +31,14 @@ export default function RemoveFilter({ length }: { length: number }) {
     <div className="fixed w-full bg-white h-10">
       <button
         className={clsx(
-          "text-sm fixed text-gray-500 inline-flex gap-1 items-center transition-colors w-auto",
+          "text-sm fixed text-gray-500 transition-colors w-auto",
           isClean
             ? "bg-white cursor-default"
             : "px-3 py-1 rounded-full border bg-gray-50 border-gray-300 hover:bg-gray-100 hover:text-gray-600"
         )}
         onClick={!isClean ? handleRemove : undefined}
       >
-        {`필터링 결과 ${length}건`}
-        {!isClean && <X className="w-4 h-4" />}
+        {isClean ? `전체 ${length}건` : <p className="inline-flex gap-1 items-center">필터링 결과 {length}건 <X className="w-4 h-4" /></p>}
       </button>
     </div>
   );

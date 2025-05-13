@@ -67,3 +67,13 @@ export function bookmarkFilter(data: PostProps[], bookmark: string | null, user:
 
   return bookmarkFiltered;
 }
+
+export function yearFilter(data: PostProps[], year: string | null) {
+  // console.log(data[0].publishedAt?.slice(0,4), year, data[0].publishedAt?.slice(0,4) === year)
+
+  const thisyearFiltered = data.filter((entry) => {
+    return entry.publishedAt?.slice(0,4) === year;
+  })
+
+  return thisyearFiltered;
+}
