@@ -49,7 +49,7 @@ export default function WhatLayout({children, posts, user}: {children: React.Rea
 
   // gallery data
   const galleryPosts = posts
-    .filter(post => post.dynamic?.some(item => "image_block" in item))
+    // .filter(post => post.dynamic?.some(item => "image_block" in item))
     .map((post) => ({
       ...post,
       thumbnail: post.dynamic?.find(item => "image_block" in item)?.image_block?.[0],

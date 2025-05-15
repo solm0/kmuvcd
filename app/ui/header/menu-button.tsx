@@ -8,7 +8,7 @@ import { AlignJustify } from 'lucide-react';
 
 export const menus = [
   {
-    menu: '학과소개',
+    menu: '학과 소개',
     src: '/introduction',
   },
   {
