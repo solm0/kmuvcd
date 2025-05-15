@@ -9,12 +9,20 @@ import Map from './map';
 
 const Head = ({id, text}: {id: string, text: string}) => {
     return (
-        <h2 className='text-xl font-bold py-4 mb-4 flex items-center gap-2' id={id}>
+        <h2 className='text-xl font-bold py-4 mb-4 flex items-center gap-2 pl-4' id={id}>
             {text}
             <CopyURLButton url={id} />
         </h2>
     );
 };
+
+const Body = ({children}: {children: React.ReactNode}) => {
+    return (
+        <div className='pl-4 pb-4'>
+            {children}
+        </div>
+    )
+}
 
 export default async function DocPage() {
   const data0101 = await getCmsData<PostProps>('department-introduction?') as PostProps;
@@ -32,62 +40,93 @@ export default async function DocPage() {
     return (
         <div className='w-full break-keep'>
             <Head id='mission' text='학과 소개' />
-            <MdText markdown={data0101.text ?? " "} />
+            <Body>
+                <MdText markdown={data0101.text ?? " "} />
+            </Body>
+            <hr className='border-bottom border-slate-500' />
 
             <Head id='professors' text='교수진' />
-            <ProfessorTable data={data0201} />
+            <Body>
+                <ProfessorTable data={data0201} />
+            </Body>
+            <hr className='border-bottom border-slate-500' />
 
             <Head id='curriculum' text='커리큘럼' />
-            <MdText markdown={data0202.text ?? " "} />
-            <CourseTable data={data0203} />
+            <Body>
+                <MdText markdown={data0202.text ?? " "} />
+                <CourseTable data={data0203} />
+            </Body>
+            <hr className='border-bottom border-slate-500' />
 
             <Head id='grad_schools' text='대학원' />
-            <div className='flex flex-col gap-2 md:flex-row w-full'>
-                {data0204.map((post: PostProps) => (
-                    <div key={post.documentId} className="w-full md:w-1/3">
-                        <p>{post.name}</p>
-                        <MdText markdown={post.text ?? " "} />
-                        {post.website && post.website?.length > 0 && (
-                            <div>
-                                {post.website?.map((website) => (
-                                    <Website key={website.id} website={website} />
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                ))}
-            </div>
+            <Body>
+                <div className='flex flex-col gap-2 md:flex-row w-full'>
+                    {data0204.map((post: PostProps) => (
+                        <div key={post.documentId} className="w-full md:w-1/3">
+                            <p>{post.name}</p>
+                            <MdText markdown={post.text ?? " "} />
+                            {post.website && post.website?.length > 0 && (
+                                <div>
+                                    {post.website?.map((website) => (
+                                        <Website key={website.id} website={website} />
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </Body>
+            <hr className='border-bottom border-slate-500' />
 
             <Head id='international' text='국제교류' />
+            <Body>
+                <MdText markdown='국제교류 정보.' />
+            </Body>
+            <hr className='border-bottom border-slate-500' />
 
             <Head id='student_councils' text='학생회'/>
-            {data0301.map((post: PostProps) => (
-                <div key={post.documentId}>
-                    <p className='font-bold'>{post.name} {post.semester}</p>
-                    <MdText markdown={post.text ?? " "} />
-                </div>
-            ))}
-            <button className='bg-gray-100 px-2 py-1 hover:shadow-lg'>이전 학기 보기</button>
+            <Body>
+                {data0301.map((post: PostProps) => (
+                    <div key={post.documentId}>
+                        <p className='font-bold'>{post.name} {post.semester}</p>
+                        <MdText markdown={post.text ?? " "} />
+                    </div>
+                ))}
+                <button className='bg-gray-100 px-2 py-1 hover:shadow-lg'>이전 학기 보기</button>
+            </Body>
+            <hr className='border-bottom border-slate-500' />
 
             <Head id='staffs' text='교직원' />
-            {data0302.map((post: PostProps) => (
-                <div key={post.documentId} className="bg-gray-100 p-8 mb-4">
-                    <p>name: {post.name}</p>
-                    <p>location: {post.location}</p>
-                    <p>phone: {post.phone}</p>
-                    <p>email: {post.email}</p>
-                    <MdText markdown={post.text ?? " "} />
-                </div>
-            ))}
+            <Body>
+                {data0302.map((post: PostProps) => (
+                    <div key={post.documentId} className="bg-gray-100 p-8 mb-4">
+                        <p>name: {post.name}</p>
+                        <p>location: {post.location}</p>
+                        <p>phone: {post.phone}</p>
+                        <p>email: {post.email}</p>
+                        <MdText markdown={post.text ?? " "} />
+                    </div>
+                ))}
+            </Body>
+            <hr className='border-bottom border-slate-500' />
 
             <Head id='facility' text='시설' />
-            <Map />
+            <Body>
+                <Map />
+            </Body>
+            <hr className='border-bottom border-slate-500' />
 
             <Head id='graduation' text='졸업 요건' />
-            <MdText markdown={data0401.text ?? " "} />
+            <Body>
+                <MdText markdown={data0401.text ?? " "} />
+            </Body>
+            <hr className='border-bottom border-slate-500' />
 
             <Head id='major' text='복수/부전공' />
-            <MdText markdown={data0402.text ?? " "} />
+            <Body>
+                <MdText markdown={data0402.text ?? " "} />
+            </Body>
+            <hr className='border-bottom border-slate-500' />
         </div>
     );
 }

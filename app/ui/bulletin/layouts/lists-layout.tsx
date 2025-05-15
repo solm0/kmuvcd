@@ -2,19 +2,12 @@ import { PostProps, UserDataProps } from "../../../lib/types";
 import Filter from "../filter/filter";
 import BoardList from "../lists/board-list";
 import DetailWindow from "../detail-window";
-import clsx from 'clsx';
-import { useIsOpen } from "@/app/lib/utils/use-is-open";
 import RemoveFilter from "../remove-filter";
 
 export default function ListsLayout({children, length, posts, user}: {children: React.ReactNode; length:number; posts: PostProps[]; user: UserDataProps}) {
-  const isOpen = useIsOpen();
-
   return (
     <div className="flex-1 overflow-hidden flex flex-col">
-      <div className={clsx(
-        "w-full md:w-1/2 h-full overflow-x-auto pr-4 [&::-webkit-scrollbar]:w-4  [&::-webkit-scrollbar-thumb]:bg-gray-100",
-        isOpen && '!w-full'
-      )}>
+      <div className="w-full md:w-1/2 h-full overflow-x-auto pr-4 [&::-webkit-scrollbar]:w-4  [&::-webkit-scrollbar-thumb]:bg-gray-100">
         <div className="fixed w-full md:w-1/2 pr-8">
           <Filter login={user ? true : false} />
           <RemoveFilter length={length} />

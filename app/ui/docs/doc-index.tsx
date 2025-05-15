@@ -37,7 +37,6 @@ export default function DocIndex() {
                     onClick={() => {
                       if (hash !== `#${link.href}`) setHash(`#${link.href}`);
                       document.getElementById(link.href)?.scrollIntoView({
-                        behavior: "smooth",
                         block: "start",
                       });
                       router.replace(`${pathname}?${searchParams}#${link.href}`, { scroll: false });
