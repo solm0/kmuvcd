@@ -9,7 +9,7 @@ export default function ListsLayout({children, length, posts, user}: {children: 
   return (
       <div className="flex-1 overflow-y-hidden flex gap-4 w-auto flex-shrink">
         <div className="w-full md:w-96 h-full overflow-y-auto [&::-webkit-scrollbar]:w-4  [&::-webkit-scrollbar-thumb]:bg-gray-100">
-          <div className="fixed w-full md:w-96">
+          <div className="fixed w-full md:w-96 pr-8">
             <Filter login={user ? true : false} />
             <RemoveFilter length={length} />
           </div>
