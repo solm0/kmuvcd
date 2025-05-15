@@ -16,7 +16,7 @@ export default function DetailWindow({ children }: { children: React.ReactNode }
 
   return (
     <div
-      className="absolute right-0 top-0 w-full h-full md:w-1/2 md:h-full pb-4 z-10 overflow-auto scrollbar-hide bg-white bg-opacity-80 block"
+      className="absolute right-0 md:left-[26rem] top-0 w-full h-full md:w-[36rem] md:h-full pb-4 z-10 overflow-auto scrollbar-hide bg-white bg-opacity-80 block"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           const href = generateHref(searchParams.toString());

@@ -23,7 +23,7 @@ export default function RootLayout({
             <HeaderSection />
           </Suspense>
 
-          <section className="relative px-4 flex-1 md:flex w-full h-auto overflow-x-auto">
+          <section className="relative px-4 flex-1 md:flex w-full h-auto overflow-hidden">
             <RightSection>
               {children}
             </RightSection>
